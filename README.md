@@ -1,7 +1,7 @@
-#README for 1. semester projektet
+# README for 1. semester projektet
 1semester-projekt
 
-##Personer i dette projekt
+## Personer i dette projekt
 - Joakim
 - Martin
 - Dennis
