@@ -1,7 +1,11 @@
 package main;
 
 public class NewClass {
-	private String test = "Test";
+	private static String test = "Test";
+	
+	public static void printTest() {
+		System.out.println(test);
+	}
 	
 
 }
