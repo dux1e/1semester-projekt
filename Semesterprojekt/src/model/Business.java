@@ -10,7 +10,10 @@ public abstract class Business {
 	private String contactEmail;
 	
 	public Business(int cvr, String contactName, int contactTlf, String contactEmail) {
-		
+		this.CVR = cvr;
+		this.contactName = contactName;
+		this.contactTelephoneNo = contactTlf;
+		this.contactEmail = contactEmail;
 	}
 
 }
