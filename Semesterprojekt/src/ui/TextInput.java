@@ -5,7 +5,7 @@ import java.util.Scanner;
 /**
  * This class is designed for text input in the main UI
  * 
- * @auther Joakim Christensen
+ * @author Joakim Christensen
  * @version 1.0
  */
 public class TextInput {
@@ -45,6 +45,10 @@ public class TextInput {
 	
 	public static void printQuestion(String question) {
 		System.out.println(" " + question + ": ");
+	}
+	
+	public static void printQuestion(int test) {
+		System.out.println(" " + test + ": ");
 	}
 	
 }
