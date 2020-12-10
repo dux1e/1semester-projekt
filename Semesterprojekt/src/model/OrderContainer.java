@@ -25,5 +25,24 @@ public class OrderContainer {
 	public void addOrder(Order order) {
 		orders.add(order);
 	}
+	
+	public Order findOrder(int orderNo) {
+		int index = 0;
+		boolean found = false;
+		Order order = null;
+		while(!found && index < orders.size()) {
+			order = orders.get(index);
+			if(order.getOrderNo() == orderNo) {
+				found = true;
+			} else {
+				index++;
+		    }
+		}
+		if(found) {
+			return order;
+		} else {
+			return null;
+		}
+	}
 
 }
