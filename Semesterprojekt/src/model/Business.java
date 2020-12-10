@@ -15,5 +15,7 @@ public abstract class Business {
 		this.contactTelephoneNo = contactTlf;
 		this.contactEmail = contactEmail;
 	}
-
+public int getID() {
+	return ID;
+}
 }
