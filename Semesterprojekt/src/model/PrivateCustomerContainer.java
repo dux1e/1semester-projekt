@@ -43,6 +43,7 @@ public class PrivateCustomerContainer {
 		} else {
 			return null;
 		}
+	}
 		
 	public PrivateCustomer findCustomerByTlf(int tlf) {
 		int index = 0;
