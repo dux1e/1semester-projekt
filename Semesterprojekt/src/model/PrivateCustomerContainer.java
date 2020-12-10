@@ -1,5 +1,5 @@
 package model;
-import java.util.*; //Kun til valg af forskællige lister
+import java.util.*; //Kun til valg af forskaelige lister
 
 /**
  * Singelton class whose purpose is to create a container to hold PrivateCustomer object
@@ -26,4 +26,40 @@ public class PrivateCustomerContainer {
 		privateCustomers.add(privateCustomer);
 	}
 
+	public PrivateCustomer findCustomerByCPR(int cpr) {
+		int index = 0;
+		boolean found = false;
+		PrivateCustomer customer = null;
+		while(!found && index < privateCustomers.size()) {
+			customer = privateCustomers.get(index);
+			if(customer.getCPR() == cpr) {
+				found = true;
+			} else {
+				index++;
+			}
+		}
+		if(found) {
+			return customer;
+		} else {
+			return null;
+		}
+		
+	public PrivateCustomer findCustomerByTlf(int tlf) {
+		int index = 0;
+		boolean found = false;
+		PrivateCustomer customer = null;
+		while(!found && index < privateCustomers.size()) {
+			customer = privateCustomers.get(index);
+			if(customer.getTelephoneNo() == tlf) {
+				found = true;
+			} else {
+				index++;
+		    }
+		}
+		if(found) {
+			return customer;
+		} else {
+			return null;
+		}
+	}
 }

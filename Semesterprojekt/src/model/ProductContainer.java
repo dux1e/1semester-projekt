@@ -1,5 +1,5 @@
 package model;
-import java.util.*; //Kun til valg af forskællige lister
+import java.util.*; //Kun til valg af forskaelige lister
 
 /**
  * Singelton class whose purpose is to create a container to hold Product object
@@ -25,6 +25,23 @@ public class ProductContainer {
 	public void addProduct(Product product) {
 		products.add(product);
 		
+	public Product findProduct(int barcode) {
+		int index = 0;
+		boolean found = false;
+		Product product = null;
+		while(!found && index < products.size()) {
+			product = products.get(index);
+			if(product.getBarcode() == barcode) {
+				found = true;
+			} else {
+				index++;
+			}
+		}
+		if(found) {
+			return product;
+		} else {
+			return null;
+		}
 	}
 	
 	

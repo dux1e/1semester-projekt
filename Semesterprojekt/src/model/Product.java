@@ -1,7 +1,7 @@
 package model;
 
 public class Product {
-	private int barcoce;
+	private int barcode;
 	private String description;
 	private double price;
 	private int stockMax;
@@ -9,17 +9,23 @@ public class Product {
 	private double discountFlat;
 	private double discountPercent;
 	
-	public Product() {
-		
+	public Product(int barcode, String description) {
+		this.barcode = barcode;
+		this.description = description;
 	}
 	
-
-	public int getBarcoce() {
-		return barcoce;
+	public Product(int barcode, String description, double price) {
+		this.barcode = barcode;
+		this.description = description;
+		this.price = price;
+	}
+	
+	public int getBarcode() {
+		return barcode;
 	}
 
-	public void setBarcoce(int barcoce) {
-		this.barcoce = barcoce;
+	public void setBarcode(int barcoce) {
+		this.barcode = barcoce;
 	}
 
 	public String getDescription() {
@@ -53,7 +59,21 @@ public class Product {
 	public void setStockMin(int stockMin) {
 		this.stockMin = stockMin;
 	}
+
+	public double getDiscountFlat() {
+		return discountFlat;
+	}
+
+	public void setDiscountFlat(int discountFlat) {
+		this.discountFlat = discountFlat;
+	}
 	
-	
+	public double getDiscountPercent() {
+		return discountPercent;
+	}
+
+	public void setDiscountPercent(int discountPercent) {
+		this.discountPercent = discountPercent;
+	}
 
 }
