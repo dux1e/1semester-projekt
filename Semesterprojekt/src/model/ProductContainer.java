@@ -25,7 +25,7 @@ public class ProductContainer {
 	public void addProduct(Product product) {
 		products.add(product);
 	}
-		
+
 	public Product findProduct(int barcode) {
 		int index = 0;
 		boolean found = false;
