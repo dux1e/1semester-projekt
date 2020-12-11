@@ -45,5 +45,24 @@ public class ProductContainer {
 		}
 	}
 	
+	//Anden version er søgeloopet ovenover
+	/*public Product findProduct(int barcode) {
+		int index = 0;
+		boolean found = false;
+		Product product = null;
+		while(!found && index < products.size()) {
+			product = products.get(index);
+			if(product.getBarcode() == barcode) {
+				found = true;
+			} else {
+				index++;
+			}
+		}
+		if(!found) {
+			product = null;
+		}
+		return product;
+	}*/
+	
 	
 }
