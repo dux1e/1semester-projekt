@@ -31,4 +31,8 @@ public class OrderController {
 		Customer c = this.customerController.findCustomerByID(id);
 		this.currentOrder.setCustomer(c);
 	}
+	
+	public void endOrder() {
+		this.orderContainer.addOrder(currentOrder);
+	}
 }

@@ -10,9 +10,11 @@ import java.util.*; //Kun til valg af forskællige lister
 public class OrderContainer {
 	private static OrderContainer instance;
 	private List<Order> orders;
+	private int nextOrderNo;
 	
 	private OrderContainer() {
-		orders = new ArrayList<>();
+		this.orders = new ArrayList<>();
+		this.nextOrderNo = 1; // orderNo 0 is reserved for cash customer
 	}
 	
 	public static OrderContainer getInstance() {
@@ -23,6 +25,8 @@ public class OrderContainer {
 	}
 	
 	public void addOrder(Order order) {
+		order.setOrderNo(this.nextOrderNo);
+		this.nextOrderNo++;
 		orders.add(order);
 	}
 	
