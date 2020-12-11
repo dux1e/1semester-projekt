@@ -30,7 +30,7 @@ public class OrderContainer {
 		orders.add(order);
 	}
 	
-	public Order findOrder(int orderNo) {
+	public Order findOrderByOrderNo(int orderNo) {
 		int index = 0;
 		boolean found = false;
 		Order order = null;

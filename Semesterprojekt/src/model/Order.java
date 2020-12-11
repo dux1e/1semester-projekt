@@ -56,6 +56,10 @@ public class Order {
 		this.orderNo = orderNo;
 	}
 
+	public LocalDateTime getDateTime() {
+		return dateTime;
+	}
+
 	public String getProject() {
 		return project;
 	}
