@@ -3,6 +3,7 @@ package model;
 public class Product {
 	private int barcode;
 	private String description;
+	private String brand;
 	private double price;
 	private int stockMax;
 	private int stockMin;
