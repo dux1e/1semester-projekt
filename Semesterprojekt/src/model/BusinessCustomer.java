@@ -10,6 +10,6 @@ public class BusinessCustomer extends Business{
 	}
 	
 	public int getID() {
-		return 0;
+		return super.getID();
 	}
 }
