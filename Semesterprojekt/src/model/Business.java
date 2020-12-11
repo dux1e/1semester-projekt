@@ -3,14 +3,16 @@ package model;
 public abstract class Business {
 	private int ID;
 	private int CVR;
+	private String address;
 	private int vatRegistrationNo;
 	private int contactTelephoneNo;
 	private String name;
 	private String contactName;
 	private String contactEmail;
 	
-	public Business(int cvr, String name, String contactName, int contactTlf, String contactEmail) {
+	public Business(int cvr, String address, String name, String contactName, int contactTlf, String contactEmail) {
 		this.CVR = cvr;
+		this.address = address;
 		this.name = name;
 		this.contactName = contactName;
 		this.contactTelephoneNo = contactTlf;

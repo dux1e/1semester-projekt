@@ -14,12 +14,18 @@ public class Product {
 		this.barcode = barcode;
 		this.description = description;
 		this.brand = brand;
+		this.price = 0.0;
+		this.stockMin = 0;
+		this.stockMax = 0;
 	}
 	
-	public Product(int barcode, String description, double price) {
+	public Product(int barcode, String description, String brand, double price, int stockMin, int stockMax) {
 		this.barcode = barcode;
 		this.description = description;
+		this.brand = brand;
 		this.price = price;
+		this.stockMin = stockMin;
+		this.stockMax = stockMax;
 	}
 	
 	public int getBarcode() {

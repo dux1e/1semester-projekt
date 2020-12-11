@@ -5,8 +5,8 @@ public class BusinessCustomer extends Business implements Customer {
 	private double discountMax;
 	private double credit;
 	
-	public BusinessCustomer(int cvr, String name, String contactName, int contactTlf, String contactEmail) {
-		super(cvr, name, contactName, contactTlf, contactEmail);
+	public BusinessCustomer(int cvr, String address, String name, String contactName, int contactTlf, String contactEmail) {
+		super(cvr, address, name, contactName, contactTlf, contactEmail);
 	}
 	
 	// getters and setters below
