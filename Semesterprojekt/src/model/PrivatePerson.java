@@ -8,14 +8,15 @@ public abstract class PrivatePerson {
 	
 	private final int CPR;
 	
-	public PrivatePerson(int CPR, int tlf, String email) {
+	public PrivatePerson(int CPR, String name, int tlf, String email) {
 		this.CPR = CPR;
-		telephoneNo = tlf;
+		this.name = name;
+		this.telephoneNo = tlf;
 		this.email = email;
 	}
 	
 	
-	// Herunder er der kun getter og setter
+	// getters and setters below
 	public int getID() {
 		return ID;
 	}
@@ -51,8 +52,4 @@ public abstract class PrivatePerson {
 	public int getCPR() {
 		return CPR;
 	}
-	
-	
-	
-
 }

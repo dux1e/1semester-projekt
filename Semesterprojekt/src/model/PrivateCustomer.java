@@ -1,14 +1,15 @@
 package model;
 
-public class PrivateCustomer extends PrivatePerson {
+public class PrivateCustomer extends PrivatePerson implements Customer {
 	private double discountMin;
 	private double discountMax;
 	private double credit;
 	
-	public PrivateCustomer(int CPR, int tlf, String email) {
-		super(CPR, tlf, email);
+	public PrivateCustomer(int CPR, String name, int tlf, String email) {
+		super(CPR, name, tlf, email);
 	}
-
+	
+	// getters and setters below
 	public double getDiscountMin() {
 		return discountMin;
 	}
