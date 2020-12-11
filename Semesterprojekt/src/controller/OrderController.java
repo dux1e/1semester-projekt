@@ -4,17 +4,26 @@ import model.*;
 
 public class OrderController {
 	private OrderContainer orderContainer;
+	private EmployeeController employeeController;
 	private ProductController productController;
-	private ArrayList<OrderLine> orderLines;
+	private List<OrderLine> orderLines;
 	private double netTotal;
 	private double vatTotal;
+	private Order currentOrder;
 
 	public OrderController() {
 		this.orderContainer = OrderContainer.getInstance();
+		this.employeeController = new EmployeeController();
 		this.productController = new ProductController();
 		this.orderLines = new ArrayList<>();
 		this.netTotal = 0;
 		this.vatTotal = 0;
+		this.currentOrder = null;
+	}
+	
+	public void createOrder() {
+		Employee e = this.employeeController.getCurrentEmployee();
+		currentOrder = new Order(e);
 	}
 	
 	public void addProduct(int barcode, int quantity) {

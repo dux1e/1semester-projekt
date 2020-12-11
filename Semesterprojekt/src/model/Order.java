@@ -1,16 +1,29 @@
 package model;
 import java.util.*;
+import java.time.LocalDateTime;
 
 public class Order {
 	private int orderNo;
-	//private noget med der kommer en dato
+	private LocalDateTime dateTime;
 	private String project;
-	private double vatTotal;
 	private double netTotal;
+	private double vatTotal;
 	private List<OrderLine> orderLines;
-	private PrivateCustomer privateCustomer;
-	//private noget med der kommer en employee
+	private Customer customer;
+	private Employee employee;
 	
+	public Order(Employee e) {
+		this.orderNo = 0;
+		this.dateTime = LocalDateTime.now();
+		this.project = null;
+		this.netTotal = 0;
+		this.vatTotal = 0;
+		this.orderLines = new ArrayList<>();
+		this.customer = null;
+		this.employee = e;
+	}
+	
+	// getters and setters below
 	public int getOrderNo() {
 		return orderNo;
 	}
@@ -50,12 +63,12 @@ public class Order {
 		this.orderLines = orderLines;
 	}
 	
-	public PrivateCustomer getPrivateCustomer() {
-		return privateCustomer;
+	public Customer getCustomer() {
+		return customer;
 	}
 	
-	public void setPrivateCustomer(PrivateCustomer privateCustomer) {
-		this.privateCustomer = privateCustomer;
+	public void setCustomer(Customer customer) {
+		this.customer = customer;
 	}
 	
 
