@@ -34,5 +34,20 @@ public class OrderController {
 	
 	public void endOrder() {
 		this.orderContainer.addOrder(currentOrder);
+		this.currentOrder = null;
+	}
+	
+	public Order findOrderByOrderNo(int no) {
+		Order theOrder = this.orderContainer.findOrderByOrderNo(no);
+		return theOrder;
+	}
+	
+	// getters and setter below
+	public Order getCurrentOrder() {
+		return currentOrder;
+	}
+	
+	public void setEmployeeController(EmployeeController ec) {
+		this.employeeController = ec;
 	}
 }
