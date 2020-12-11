@@ -5,11 +5,13 @@ import model.*;
 public class ProductController {
 	private ProductContainer productContainer;
 
-	public void ProductContainer() {
+	public ProductController() {
 		productContainer = ProductContainer.getInstance();
 	}
 	
-	public Customer findCustomerByID(int id) {
-		return null;
+	public Product findProductByBarcode(int barcode) {
+		
+		return productContainer.findProductByBarcode(barcode);
+		
 	}
 }
