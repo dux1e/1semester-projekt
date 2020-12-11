@@ -10,8 +10,6 @@ public class ProductController {
 	}
 	
 	public Product findProductByBarcode(int barcode) {
-		
 		return productContainer.findProductByBarcode(barcode);
-		
 	}
 }

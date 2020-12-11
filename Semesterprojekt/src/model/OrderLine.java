@@ -4,7 +4,7 @@ public class OrderLine {
 private int quantity;
 private double subTotal;
 private Product product;
-public OrderLine(int quantity, Product product) {
+public OrderLine(Product product, int quantity) {
 	this.quantity = quantity;
 	subTotal = calculateSubTotal();
 	this.product = product;
