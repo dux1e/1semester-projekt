@@ -24,6 +24,9 @@ public void setProduct(Product product) {
 	subTotal = calculateSubTotal();
 }
 
+public double getSubTotal() {
+	return subTotal;
+}
 public double calculateSubTotal() {
 	subTotal = quantity * product.getPrice();
 	return subTotal;
