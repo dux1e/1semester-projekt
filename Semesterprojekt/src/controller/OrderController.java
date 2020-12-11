@@ -5,12 +5,14 @@ public class OrderController {
 	private OrderContainer orderContainer;
 	private EmployeeController employeeController;
 	private ProductController productController;
+	private CustomerController customerController;
 	private Order currentOrder;
 
 	public OrderController() {
 		this.orderContainer = OrderContainer.getInstance();
 		this.employeeController = new EmployeeController();
 		this.productController = new ProductController();
+		this.customerController = new CustomerController();
 		this.currentOrder = null;
 	}
 	
@@ -23,5 +25,10 @@ public class OrderController {
 		Product product = productController.findProductByBarcode(barcode);
 		OrderLine ol = new OrderLine(product, quantity);
 		this.currentOrder.addOrderLine(ol);
+	}
+	
+	public void findCustomerByID(int id) {
+		Customer c = this.customerController.findCustomerByID(id);
+		this.currentOrder.setCustomer(c);
 	}
 }

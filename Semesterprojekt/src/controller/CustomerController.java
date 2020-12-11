@@ -9,6 +9,7 @@ public class CustomerController {
 	}
 	
 	public Customer findCustomerByID(int id) {
-		return null;
+		Customer c = this.customerContainer.findCustomerByID(id);
+		return c;
 	}
 }
