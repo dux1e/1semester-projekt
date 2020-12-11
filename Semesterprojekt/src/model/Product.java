@@ -10,9 +10,10 @@ public class Product {
 	private double discountFlat;
 	private double discountPercent;
 	
-	public Product(int barcode, String description) {
+	public Product(int barcode, String description, String brand) {
 		this.barcode = barcode;
 		this.description = description;
+		this.brand = brand;
 	}
 	
 	public Product(int barcode, String description, double price) {
