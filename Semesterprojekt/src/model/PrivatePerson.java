@@ -12,7 +12,7 @@ public abstract class PrivatePerson {
 	public PrivatePerson(String CPR, String name, String address, int tlf, String email) {
 		this.CPR = CPR;
 		this.name = name;
-		this.address = address;
+		this.setAddress(address);
 		this.telephoneNo = tlf;
 		this.email = email;
 	}
@@ -53,5 +53,15 @@ public abstract class PrivatePerson {
 
 	public String getCPR() {
 		return CPR;
+	}
+
+
+	public String getAddress() {
+		return address;
+	}
+
+
+	public void setAddress(String address) {
+		this.address = address;
 	}
 }

@@ -81,7 +81,7 @@ class OrderControllerTest {
 	void endOrderTest() {
 		oc.endOrder(); // end order before one is even created - should fail
 		assertEquals(0, oC.getOrders().size());
-		Order theOrder = oc.createOrder();
+		oc.createOrder();
 		oc.endOrder(); // end order before any OrderLines or Customer are associated - should fail
 		assertEquals(0, oC.getOrders().size());
 		oc.addProduct(4444, 10);
