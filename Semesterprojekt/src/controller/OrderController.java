@@ -40,12 +40,19 @@ public class OrderController {
 	}
 	
 	public void endOrder() {
-		if(this.currentOrder != null) {
+		if(this.currentOrder != null && validateOrder()) {
 			this.orderContainer.addOrder(currentOrder);
 			this.currentOrder = null;
 		} else {
-			System.out.println("Der er ingen ordrer at afslutte. Begynd en ordre før du kan afslutte den.");
+			System.out.println("Der er ingen ordrer at afslutte. Begynd og udfyld en ordre før du afslutter den.");
 		}
+	}
+	
+	private boolean validateOrder() {
+		boolean hasCustomer = this.currentOrder.getCustomer() != null;
+		boolean hasOrderLine = this.currentOrder.getOrderLines().size() != 0;
+		boolean orderOK = hasCustomer && hasOrderLine;
+		return orderOK;
 	}
 	
 	public Order findOrderByOrderNo(int no) {

@@ -49,4 +49,8 @@ public class OrderContainer {
 		}
 	}
 
+	// getters and setters below
+	public List<Order> getOrders() {
+		return orders;
+	}
 }

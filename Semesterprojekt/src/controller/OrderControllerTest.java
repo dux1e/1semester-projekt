@@ -12,6 +12,7 @@ class OrderControllerTest {
 	private ProductController pc;
 	private EmployeeController ec;
 	private OrderController oc;
+	private OrderContainer oC;
 	
 	@BeforeEach
 	void setUp() throws Exception {
@@ -20,6 +21,7 @@ class OrderControllerTest {
 		this.pc = new ProductController();
 		this.ec = new EmployeeController();
 		this.oc = new OrderController();
+		this.oC = OrderContainer.getInstance();
 		
 		this.ec.setCurrentEmployee(e);
 		this.oc.setEmployeeController(ec);
@@ -73,5 +75,21 @@ class OrderControllerTest {
 		assertEquals(null, theOrder.getCustomer());
 		Customer theCustomer = oc.findCustomerByID(1);
 		assertEquals(theCustomer, theOrder.getCustomer());
+	}
+	
+	@Test
+	void endOrderTest() {
+		oc.endOrder(); // end order before one is even created - should fail
+		assertEquals(0, oC.getOrders().size());
+		Order theOrder = oc.createOrder();
+		oc.endOrder(); // end order before any OrderLines or Customer are associated - should fail
+		assertEquals(0, oC.getOrders().size());
+		oc.addProduct(4444, 10);
+		oc.endOrder(); // end order before Customer is found - should fail
+		assertEquals(0, oC.getOrders().size());
+		oc.findCustomerByID(1);
+		oc.endOrder(); // end order after its filled out - should succeed
+		assertEquals(1, oC.getOrders().size());
+		
 	}
 }
