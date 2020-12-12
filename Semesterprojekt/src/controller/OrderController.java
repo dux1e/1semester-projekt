@@ -16,15 +16,21 @@ public class OrderController {
 		this.currentOrder = null;
 	}
 	
-	public void createOrder() {
-		Employee e = this.employeeController.getCurrentEmployee();
-		currentOrder = new Order(e);
+	public Order createOrder() {
+		if(this.currentOrder == null) {
+			Employee e = this.employeeController.getCurrentEmployee();
+			this.currentOrder = new Order(e);
+		} else {
+			System.out.println("En ordre er under behandling. Færdiggør nuværende ordre inden du laver en ny.");
+		}
+		return this.currentOrder;
 	}
 	
-	public void addProduct(int barcode, int quantity) {
+	public OrderLine addProduct(int barcode, int quantity) {
 		Product product = productController.findProductByBarcode(barcode);
 		OrderLine ol = new OrderLine(product, quantity);
 		this.currentOrder.addOrderLine(ol);
+		return ol;
 	}
 	
 	public void findCustomerByID(int id) {
@@ -33,8 +39,12 @@ public class OrderController {
 	}
 	
 	public void endOrder() {
-		this.orderContainer.addOrder(currentOrder);
-		this.currentOrder = null;
+		if(this.currentOrder != null) {
+			this.orderContainer.addOrder(currentOrder);
+			this.currentOrder = null;
+		} else {
+			System.out.println("Der er ingen ordrer at afslutte. Begynd en ordre før du kan afslutte den.");
+		}
 	}
 	
 	public Order findOrderByOrderNo(int no) {

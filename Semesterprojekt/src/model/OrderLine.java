@@ -7,8 +7,8 @@ public class OrderLine {
 	
 	public OrderLine(Product product, int quantity) {
 		this.quantity = quantity;
-		subTotal = calculateSubTotal();
 		this.product = product;
+		this.subTotal = calculateSubTotal();
 	}
 	
 	public int getQuantity() {
@@ -17,7 +17,7 @@ public class OrderLine {
 	
 	public void setQuantity(int quantity) {
 		this.quantity = quantity;
-		subTotal = calculateSubTotal();
+		this.subTotal = calculateSubTotal();
 	}
 	
 	public Product getProduct() {
@@ -33,7 +33,7 @@ public class OrderLine {
 		return subTotal;
 	}
 	
-	public double calculateSubTotal() {
+	private double calculateSubTotal() {
 		subTotal = quantity * product.getPrice();
 		return subTotal;
 	}

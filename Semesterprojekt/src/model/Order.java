@@ -42,7 +42,7 @@ public class Order {
 	}
 	
 	private double calculateVatTotal() {
-		vatTotal = netTotal * 1.25;
+		vatTotal = netTotal * 0.25;
 		return vatTotal;
 	}
 
