@@ -31,7 +31,7 @@ public class MainUI {
 	private static int writeMainMenu() {
 		Scanner keyboard = new Scanner(System.in);
 		System.out.println("****** Hovedmenu ******");
-		System.out.println(" (1) en menu");
+		System.out.println(" (1) Salgsmenu");
 		System.out.println(" (2) en anden menu");
 		System.out.println(" (0) Afslut programmet");
 		System.out.print("\n Vælg:");
