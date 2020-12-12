@@ -6,8 +6,8 @@ public class Employee extends PrivatePerson {
 	private String Position;
 	private String password;
 	
-	public Employee(int CPR, String name, int tlf, String email, String password) {
-		super(CPR, name, tlf, email);
+	public Employee(String CPR, String name, String address, int tlf, String email, String password) {
+		super(CPR, name, address, tlf, email);
 		this.password = password;
 	}
 

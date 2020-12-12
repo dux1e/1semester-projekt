@@ -4,13 +4,15 @@ public abstract class PrivatePerson {
 	private int ID;
 	private int telephoneNo;
 	private String name;
+	private String address;
 	private String email;
 	
-	private final int CPR;
+	private final String CPR; // is String because int can't hold such big number.
 	
-	public PrivatePerson(int CPR, String name, int tlf, String email) {
+	public PrivatePerson(String CPR, String name, String address, int tlf, String email) {
 		this.CPR = CPR;
 		this.name = name;
+		this.address = address;
 		this.telephoneNo = tlf;
 		this.email = email;
 	}
@@ -49,7 +51,7 @@ public abstract class PrivatePerson {
 		this.email = email;
 	}
 
-	public int getCPR() {
+	public String getCPR() {
 		return CPR;
 	}
 }

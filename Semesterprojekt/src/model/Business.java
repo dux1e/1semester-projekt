@@ -1,19 +1,22 @@
 package model;
 
 public abstract class Business {
-	private int ID;
+	private int id;
 	private int CVR;
 	private String address;
-	private int vatRegistrationNo;
-	private int contactTelephoneNo;
+	private String vatRegistrationNo;
 	private String name;
 	private String contactName;
+	private int contactTelephoneNo;
 	private String contactEmail;
 	
-	public Business(int cvr, String address, String name, String contactName, int contactTlf, String contactEmail) {
+	public Business(int cvr, String name, String address, String vatRe,
+			String contactName, int contactTlf, String contactEmail) {
+		this.id = 0;
 		this.CVR = cvr;
-		this.address = address;
 		this.name = name;
+		this.address = address;
+		this.vatRegistrationNo = vatRe;
 		this.contactName = contactName;
 		this.contactTelephoneNo = contactTlf;
 		this.contactEmail = contactEmail;
@@ -21,11 +24,11 @@ public abstract class Business {
 	
 	// getters and setters below
 	public int getID() {
-		return ID;
+		return id;
 	}
 
-	public void setID(int iD) {
-		ID = iD;
+	public void setID(int id) {
+		this.id = id;
 	}
 
 	public int getCVR() {
@@ -36,11 +39,11 @@ public abstract class Business {
 		CVR = cVR;
 	}
 
-	public int getVatRegistrationNo() {
+	public String getVatRegistrationNo() {
 		return vatRegistrationNo;
 	}
 
-	public void setVatRegistrationNo(int vatRegistrationNo) {
+	public void setVatRegistrationNo(String vatRegistrationNo) {
 		this.vatRegistrationNo = vatRegistrationNo;
 	}
 
@@ -74,5 +77,13 @@ public abstract class Business {
 
 	public void setContactEmail(String contactEmail) {
 		this.contactEmail = contactEmail;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
 	}
 }

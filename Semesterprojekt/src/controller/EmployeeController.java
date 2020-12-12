@@ -4,11 +4,10 @@ import model.*;
 
 
 public class EmployeeController {
-	private EmployeeContainer employeeContainer;
 	private Employee curentEmployee;
 	
 	public EmployeeController() {
-		employeeContainer = EmployeeContainer.getInstance();
+		EmployeeContainer.getInstance();
 	}
 	
 	public Employee getCurrentEmployee() {

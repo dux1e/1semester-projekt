@@ -33,9 +33,10 @@ public class OrderController {
 		return ol;
 	}
 	
-	public void findCustomerByID(int id) {
+	public Customer findCustomerByID(int id) {
 		Customer c = this.customerController.findCustomerByID(id);
 		this.currentOrder.setCustomer(c);
+		return c;
 	}
 	
 	public void endOrder() {

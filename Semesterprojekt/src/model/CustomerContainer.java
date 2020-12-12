@@ -10,9 +10,11 @@ import java.util.*; //Kun til valg af forskaelige lister
 public class CustomerContainer {
 	private static CustomerContainer instance;
 	private List<Customer> customers; 
+	private int nextID;
 	
 	private CustomerContainer() {
-		this.customers = new ArrayList<>(); 
+		this.customers = new ArrayList<>();
+		this.nextID = 1; // id starts at 1.
 	}
 	
 	public static CustomerContainer getInstance() {
@@ -23,6 +25,8 @@ public class CustomerContainer {
 	}
 	
 	public void addCustomer(Customer customer) {
+		customer.setID(this.nextID);
+		this.nextID++;
 		customers.add(customer);
 	}
 

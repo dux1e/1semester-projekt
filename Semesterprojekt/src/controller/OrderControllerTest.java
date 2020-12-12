@@ -7,7 +7,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 class OrderControllerTest {
-	private Customer c;
+	private CustomerController cc;
 	private Employee e;
 	private ProductController pc;
 	private EmployeeController ec;
@@ -15,9 +15,8 @@ class OrderControllerTest {
 	
 	@BeforeEach
 	void setUp() throws Exception {
-		this.c = new BusinessCustomer(12345678, "Hele Verdens gade 42, Danmark, 9440 Aabybro", 
-				"Pepsi Cola", "Pepsi Man", 87654321, "Pepsi@Cool.com");
-		this.e = new Employee(1204890000, "Bo Billy", 88888887, "Bo@Billigt.dk", "kodeord321");
+		this.cc = new CustomerController();
+		this.e = new Employee("1204890000", "Bo Billy", "", 88888887, "Bo@Billigt.dk", "kodeord321");
 		this.pc = new ProductController();
 		this.ec = new EmployeeController();
 		this.oc = new OrderController();
@@ -25,6 +24,10 @@ class OrderControllerTest {
 		this.ec.setCurrentEmployee(e);
 		this.oc.setEmployeeController(ec);
 		this.pc.addProduct(4444, "Hammer", "Bahco", 75, 10, 100);
+		this.cc.addBusinessCustomer(12345678, "Pepsi Cola", "Hele Verdens gade 42, Danmark, 9440 Aabybro",
+				"DK12345678", "Pepsi Man", 87654321, "Pepsi@Cool.com");
+		this.cc.addPrivateCustomer("5555554444", "Ip Skrå", "Skæve Kløftens Vej 1, Danmark, 9600 Aars",
+				77777771, "OpAd@Bakke.uk");
 		
 	}
 	
@@ -38,7 +41,9 @@ class OrderControllerTest {
 		assertEquals(null, oc.getCurrentOrder());
 		Order theOrder = oc.createOrder();
 		assertEquals(e, theOrder.getEmployee());
-		assertTrue(theOrder.getDateTime().getClass().getName() == "java.time.LocalDateTime");
+		assertEquals("java.time.LocalDateTime", theOrder.getDateTime().getClass().getName());
+		Order theOtherOrder = oc.createOrder();
+		assertEquals(theOrder, theOtherOrder); // tests that you can't create multiple orders at once.
 	}
 	
 	/**
@@ -49,7 +54,7 @@ class OrderControllerTest {
 	@Test
 	void addProductTest() {
 		Order theOrder = oc.createOrder();
-		assertTrue(theOrder.getOrderLines().size() == 0);
+		assertEquals(0, theOrder.getOrderLines().size());
 		OrderLine theOrderLine = oc.addProduct(4444, 10);
 		assertEquals(750, theOrderLine.getSubTotal());
 		assertEquals(1, theOrder.getOrderLines().size());
@@ -62,4 +67,11 @@ class OrderControllerTest {
 		assertEquals(262.5, theOrder.getVatTotal());
 	}
 
+	@Test
+	void findCustomerByIDTest() {
+		Order theOrder = oc.createOrder();
+		assertEquals(null, theOrder.getCustomer());
+		Customer theCustomer = oc.findCustomerByID(1);
+		assertEquals(theCustomer, theOrder.getCustomer());
+	}
 }

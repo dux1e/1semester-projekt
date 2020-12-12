@@ -5,8 +5,8 @@ public class PrivateCustomer extends PrivatePerson implements Customer {
 	private double discountMax;
 	private double credit;
 	
-	public PrivateCustomer(int CPR, String name, int tlf, String email) {
-		super(CPR, name, tlf, email);
+	public PrivateCustomer(String CPR, String name, String address, int tlf, String email) {
+		super(CPR, name, address, tlf, email);
 	}
 	
 	// getters and setters below

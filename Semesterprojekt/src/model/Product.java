@@ -13,7 +13,7 @@ public class Product {
 	public Product(int barcode, String description, String brand) {
 		this.barcode = barcode;
 		this.description = description;
-		this.brand = brand;
+		this.setBrand(brand);
 		this.price = 0.0;
 		this.stockMin = 0;
 		this.stockMax = 0;
@@ -22,7 +22,7 @@ public class Product {
 	public Product(int barcode, String description, String brand, double price, int stockMin, int stockMax) {
 		this.barcode = barcode;
 		this.description = description;
-		this.brand = brand;
+		this.setBrand(brand);
 		this.price = price;
 		this.stockMin = stockMin;
 		this.stockMax = stockMax;
@@ -82,6 +82,14 @@ public class Product {
 
 	public void setDiscountPercent(int discountPercent) {
 		this.discountPercent = discountPercent;
+	}
+
+	public String getBrand() {
+		return brand;
+	}
+
+	public void setBrand(String brand) {
+		this.brand = brand;
 	}
 
 }
