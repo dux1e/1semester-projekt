@@ -33,14 +33,19 @@ public class OrderController {
 			ol = new OrderLine(product, quantity);
 			this.currentOrder.addOrderLine(ol);
 		} else {
-			System.out.println("Der er endnu ikke oprettet en order. ");
+			System.out.println("Der er endnu ikke oprettet en ordrer.");
 		}
 		return ol;
 	}
 	
 	public Customer findCustomerByID(int id) {
-		Customer c = this.customerController.findCustomerByID(id);
-		this.currentOrder.setCustomer(c);
+		Customer c = null;
+		if(this.currentOrder != null) {
+			c = this.customerController.findCustomerByID(id);
+			this.currentOrder.setCustomer(c);
+		} else {
+			System.out.println("Der er endnu ikke oprettet en ordrer.");
+		}
 		return c;
 	}
 	
