@@ -3,9 +3,10 @@ import java.util.Scanner;
 import controller.*;
 
 public class MainUI {
+	private SaleUI saleUI = new SaleUI();
 	
 	public static void start() {
-		mainMenu();		
+		mainMenu();
 	}
 	
 	private static void mainMenu() {
@@ -14,6 +15,7 @@ public class MainUI {
 			int choice = writeMainMenu();
 			switch(choice) {
 			case 1:
+				SaleUI.start();
 				break;
 			case 2:
 				break;
