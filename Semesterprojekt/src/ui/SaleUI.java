@@ -57,22 +57,42 @@ public class SaleUI {
 	}
 	
 	private static void createOrder() {
-		orderController.createOrder();
+		try{
+			orderController.createOrder();
+		}
+		catch(IllegalStateException e) {
+			System.out.println(e.toString());
+		}
 	}
 	
 	private static void addProduct() {
-		int barcode = TextInput.inputNumber("Stregkode på produkt: ");
-		int quantity = TextInput.inputNumber("Intast mængde på produkt: ");
-		orderController.addProduct(barcode, quantity);
+		try{
+			int barcode = TextInput.inputNumber("Stregkode på produkt: ");
+			int quantity = TextInput.inputNumber("Intast mængde på produkt: ");
+			orderController.addProduct(barcode, quantity);
+		}
+		catch(IllegalStateException | NullPointerException e) {
+			System.out.println(e.toString());
+		}
 	}
 	
 	private static void findCustomer() {
-		int id = TextInput.inputNumber("ID på kunde: ");
-		orderController.findCustomerByID(id);
+		try{
+			int id = TextInput.inputNumber("ID på kunde: ");
+			orderController.findCustomerByID(id);
+		} 
+		catch(IllegalStateException | NullPointerException e) {
+			System.out.println(e.toString());
+		}
 	}
 	
 	private static void endOrder() {
-		orderController.endOrder();
+		try{
+			orderController.endOrder();
+		}
+		catch(IllegalStateException e) {
+			System.out.println(e.toString());
+		}
 	}
 
 }

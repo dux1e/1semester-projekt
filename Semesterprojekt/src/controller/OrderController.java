@@ -17,23 +17,28 @@ public class OrderController {
 	}
 	
 	public Order createOrder() {
+		Order o = null;
 		if(this.currentOrder == null) {
 			Employee e = this.employeeController.getCurrentEmployee();
 			this.currentOrder = new Order(e);
+			o = this.currentOrder;
 		} else {
-			System.out.println("En ordre er under behandling. Færdiggør nuværende ordre inden du laver en ny.");
+			throw new IllegalStateException("En ordre er under behandling. Færdiggør nuværende ordre inden du laver en ny.");
 		}
-		return this.currentOrder;
+		return o;
 	}
 	
 	public OrderLine addProduct(int barcode, int quantity) {
 		OrderLine ol = null;
 		if(this.currentOrder != null) {
 			Product product = productController.findProductByBarcode(barcode);
+			if(product == null) {
+				throw new NullPointerException("Der findes intet product med barkoden: " + barcode + ".");
+			}
 			ol = new OrderLine(product, quantity);
 			this.currentOrder.addOrderLine(ol);
 		} else {
-			System.out.println("Der er endnu ikke oprettet en ordrer.");
+			throw new IllegalStateException("Der er endnu ikke oprettet en ordrer.");
 		}
 		return ol;
 	}
@@ -42,9 +47,12 @@ public class OrderController {
 		Customer c = null;
 		if(this.currentOrder != null) {
 			c = this.customerController.findCustomerByID(id);
+			if(c == null) {
+				throw new NullPointerException("Der findes ingen kunde med ID: " + id + ".");
+			}
 			this.currentOrder.setCustomer(c);
 		} else {
-			System.out.println("Der er endnu ikke oprettet en ordrer.");
+			throw new IllegalStateException("Der er endnu ikke oprettet en ordrer.");
 		}
 		return c;
 	}
@@ -54,7 +62,7 @@ public class OrderController {
 			this.orderContainer.addOrder(currentOrder);
 			this.currentOrder = null;
 		} else {
-			System.out.println("Der er ingen ordrer at afslutte. Begynd og udfyld en ordre før du afslutter den.");
+			throw new IllegalStateException("Der er ingen ordrer at afslutte. Begynd og udfyld en ordre før du afslutter den.");
 		}
 	}
 	
