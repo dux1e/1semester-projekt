@@ -44,8 +44,6 @@ class OrderControllerTest {
 		Order theOrder = oc.createOrder();
 		assertEquals(e, theOrder.getEmployee());
 		assertEquals("java.time.LocalDateTime", theOrder.getDateTime().getClass().getName());
-		Order theOtherOrder = oc.createOrder();
-		assertEquals(theOrder, theOtherOrder); // tests that you can't create multiple orders at once.
 	}
 	
 	/**
@@ -79,14 +77,8 @@ class OrderControllerTest {
 	
 	@Test
 	void endOrderTest() {
-		oc.endOrder(); // end order before one is even created - should fail
-		assertEquals(0, oC.getOrders().size());
 		oc.createOrder();
-		oc.endOrder(); // end order before any OrderLines or Customer are associated - should fail
-		assertEquals(0, oC.getOrders().size());
 		oc.addProduct(4444, 10);
-		oc.endOrder(); // end order before Customer is found - should fail
-		assertEquals(0, oC.getOrders().size());
 		oc.findCustomerByID(1);
 		oc.endOrder(); // end order after its filled out - should succeed
 		assertEquals(1, oC.getOrders().size());
