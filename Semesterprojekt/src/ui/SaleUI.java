@@ -43,10 +43,17 @@ public class SaleUI {
 	private static int writeSaleUI() {
 		printOrder();
 		Scanner keyboard = new Scanner(System.in);
-		System.out.println(" (1) Opret odre");
-		System.out.println(" (2) Tilføj produkt til ordre");
-		System.out.println(" (3) Tilføj kunde til ordre");
-		System.out.println(" (4) Afslut ordre");
+		Order currentOrder = orderController.getCurrentOrder();
+		if(currentOrder == null) {
+			System.out.println(" (1) Opret odre");
+		}
+		if(currentOrder != null) {
+			System.out.println(" (2) Tilføj produkt til ordre");
+			System.out.println(" (3) Find kunde til ordre");
+			if(currentOrder.getCustomer() != null && currentOrder.getOrderLines().size() > 0) {
+				System.out.println(" (4) Afslut ordre");
+			}
+		}
 		System.out.println(" (0) Til Hovedmenu");
 		System.out.print("\n Vælg: ");
 		while(!keyboard.hasNextInt()) {
