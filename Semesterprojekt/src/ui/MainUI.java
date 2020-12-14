@@ -3,7 +3,6 @@ import java.util.Scanner;
 import controller.*;
 
 public class MainUI {
-	private SaleUI saleUI = new SaleUI();
 	
 	public static void start() {
 		mainMenu();
