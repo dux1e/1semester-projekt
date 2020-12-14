@@ -4,7 +4,7 @@ import controller.*;
 import model.*; //READ ONLY!!
 
 public class SaleUI {
-	private OrderController orderController;
+	private static OrderController orderController;
 	
 	public SaleUI(){
 		orderController = new OrderController();
@@ -23,7 +23,10 @@ public class SaleUI {
 	
 	private static int writeSaleUI() {
 		Scanner keyboard = new Scanner(System.in);
-		System.out.println(" (1) Opret salg");
+		System.out.println(" (1) Opret odre");
+		System.out.println(" (2) Tilføj produkt til ordre");
+		System.out.println(" (3) Tilføj kunde til ordre");
+		System.out.println(" (4) Afslut ordre");
 		System.out.println(" (0) Til Hovedmenu");
 		System.out.print("\n Vælg");
 		while(!keyboard.hasNextInt()) {
@@ -34,5 +37,18 @@ public class SaleUI {
 		
 		return choice;
 	}
+	
+	private static void createSale() {
+		orderController.createOrder();
+	}
+	
+	private static void addPoduct() {
+		int barcode = TextInput.inputNumber("Stregkode på produkt: ");
+		int quantity = TextInput.inputNumber("Intast mængde på produkt");
+		
+		orderController.addProduct(barcode, quantity);
+	}
+	
+	
 
 }

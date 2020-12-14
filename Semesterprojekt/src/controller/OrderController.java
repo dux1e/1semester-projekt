@@ -27,9 +27,14 @@ public class OrderController {
 	}
 	
 	public OrderLine addProduct(int barcode, int quantity) {
-		Product product = productController.findProductByBarcode(barcode);
-		OrderLine ol = new OrderLine(product, quantity);
-		this.currentOrder.addOrderLine(ol);
+		OrderLine ol = null;
+		if(this.currentOrder != null) {
+			Product product = productController.findProductByBarcode(barcode);
+			ol = new OrderLine(product, quantity);
+			this.currentOrder.addOrderLine(ol);
+		} else {
+			System.out.println("Der er endnu ikke oprettet en order. ");
+		}
 		return ol;
 	}
 	
