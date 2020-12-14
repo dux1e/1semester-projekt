@@ -16,8 +16,6 @@ public class MainUI {
 			case 1:
 				SaleUI.start();
 				break;
-			case 2:
-				break;
 			case 0:
 				System.out.println("Tak for denne gang.");
 				running = false;
@@ -33,9 +31,8 @@ public class MainUI {
 		Scanner keyboard = new Scanner(System.in);
 		System.out.println("****** Hovedmenu ******");
 		System.out.println(" (1) Salgsmenu");
-		System.out.println(" (2) en anden menu");
 		System.out.println(" (0) Afslut programmet");
-		System.out.print("\n Vælg:");
+		System.out.print("\n Vælg: ");
 		while(!keyboard.hasNextLine()) {
 			System.out.println("Input");
 			keyboard.nextLine();
