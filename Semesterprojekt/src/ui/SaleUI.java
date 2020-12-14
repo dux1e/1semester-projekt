@@ -45,7 +45,7 @@ public class SaleUI {
 		Scanner keyboard = new Scanner(System.in);
 		Order currentOrder = orderController.getCurrentOrder();
 		if(currentOrder == null) {
-			System.out.println(" (1) Opret odre");
+			System.out.println(" (1) Opret ordre");
 		}
 		if(currentOrder != null) {
 			System.out.println(" (2) Tilføj produkt til ordre");
