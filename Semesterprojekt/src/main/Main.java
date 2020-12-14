@@ -21,6 +21,7 @@ public class Main {
 		cc.addPrivateCustomer("5555554444", "Ip Skrå", "Skæve Kløftens Vej 1, Danmark, 9600 Aars",
 				77777771, "OpAd@Bakke.uk");
 		
+		//starter TUI
 		MainUI.start();
 	}
 
