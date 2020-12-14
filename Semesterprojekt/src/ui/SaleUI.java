@@ -2,6 +2,7 @@ package ui;
 import java.util.Scanner;
 import controller.*;
 import model.*; //READ ONLY!!
+import java.util.*;
 
 public class SaleUI {
 	private static OrderController orderController;
@@ -40,6 +41,7 @@ public class SaleUI {
 	}
 	
 	private static int writeSaleUI() {
+		printOrder();
 		Scanner keyboard = new Scanner(System.in);
 		System.out.println(" (1) Opret odre");
 		System.out.println(" (2) Tilføj produkt til ordre");
@@ -54,6 +56,32 @@ public class SaleUI {
 		int choice = keyboard.nextInt();
 		
 		return choice;
+	}
+	
+	private static void printOrder() {
+		Order currentOrder = orderController.getCurrentOrder();
+		if(currentOrder != null) {
+			List<OrderLine> orderLines = currentOrder.getOrderLines();
+			Customer c = currentOrder.getCustomer();
+			String cID = "";
+			if(c != null) {
+				cID += c.getID();
+			}
+			
+			System.out.println("##############################");
+			System.out.println("       Ordre oplysninger");
+			System.out.println("##############################");
+			System.out.println("Kunde ID: " + cID);
+			System.out.println("Ordre linjer: " );
+			for(OrderLine ol : orderLines) {
+				Product p = ol.getProduct();
+				System.out.println("   " + ol.getQuantity() + " x " + p.getDescription() + "(" + p.getPrice() + ")" + "\t" + ol.getSubTotal());
+			}
+			System.out.println("Subtotal (ekskl. Moms): " + currentOrder.getNetTotal());
+			System.out.println("                  Moms: " + currentOrder.getVatTotal());
+			System.out.println("                 I alt: " + (currentOrder.getNetTotal() + currentOrder.getVatTotal()));
+			System.out.println("##############################");
+		}
 	}
 	
 	private static void createOrder() {
