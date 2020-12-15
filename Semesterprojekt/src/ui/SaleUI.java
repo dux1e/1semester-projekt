@@ -94,8 +94,7 @@ public class SaleUI {
 	private static void createOrder() {
 		try{
 			orderController.createOrder();
-		}
-		catch(IllegalStateException e) {
+		} catch(IllegalStateException e) {
 			System.out.println(e.toString());
 		}
 	}
@@ -105,8 +104,7 @@ public class SaleUI {
 			int barcode = TextInput.inputNumber("Stregkode på produkt: ");
 			int quantity = TextInput.inputNumber("Intast mængde på produkt: ");
 			orderController.addProduct(barcode, quantity);
-		}
-		catch(IllegalStateException | NullPointerException e) {
+		} catch(IllegalStateException | NullPointerException e) {
 			System.out.println(e.toString());
 		}
 	}
@@ -115,8 +113,7 @@ public class SaleUI {
 		try{
 			int id = TextInput.inputNumber("ID på kunde: ");
 			orderController.findCustomerByID(id);
-		} 
-		catch(IllegalStateException | NullPointerException e) {
+		} catch(IllegalStateException | NullPointerException e) {
 			System.out.println(e.toString());
 		}
 	}
@@ -124,8 +121,7 @@ public class SaleUI {
 	private static void endOrder() {
 		try{
 			orderController.endOrder();
-		}
-		catch(IllegalStateException e) {
+		} catch(IllegalStateException e) {
 			System.out.println(e.toString());
 		}
 	}
