@@ -4,7 +4,7 @@ import java.util.*; //Kun til valg af forskællige lister
 /**
  * Singelton class whose purpose is to create a container to hold Order object
  * 
- * @author Joakim
+ * @author Gruppe 5
  *
  */
 public class OrderContainer {

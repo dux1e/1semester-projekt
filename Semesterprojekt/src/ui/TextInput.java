@@ -6,7 +6,6 @@ import java.util.Scanner;
  * This class is designed for text input in the main UI
  * 
  * @author Gruppe 5
- * @version 1.0
  */
 public class TextInput {
 	public TextInput() {

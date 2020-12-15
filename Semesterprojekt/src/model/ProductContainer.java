@@ -4,7 +4,7 @@ import java.util.*; //Kun til valg af forskaelige lister
 /**
  * Singelton class whose purpose is to create a container to hold Product object
  * 
- * @author Joakim
+ * @author Gruppe 5
  *
  */
 public class ProductContainer {
