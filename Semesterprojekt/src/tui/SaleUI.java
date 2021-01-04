@@ -42,6 +42,7 @@ public class SaleUI {
 	
 	private static int writeSaleUI() {
 		printOrder();
+		@SuppressWarnings("resource")
 		Scanner keyboard = new Scanner(System.in);
 		Order currentOrder = orderController.getCurrentOrder();
 		if(currentOrder == null) {

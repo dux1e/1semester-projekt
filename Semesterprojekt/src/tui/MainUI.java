@@ -1,6 +1,5 @@
 package tui;
 import java.util.Scanner;
-import controller.*;
 
 public class MainUI {
 	
@@ -28,6 +27,7 @@ public class MainUI {
 	}
 	
 	private static int writeMainMenu() {
+		@SuppressWarnings("resource")
 		Scanner keyboard = new Scanner(System.in);
 		System.out.println("****** Hovedmenu ******");
 		System.out.println(" (1) Salgsmenu");

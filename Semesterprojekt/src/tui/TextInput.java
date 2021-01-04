@@ -13,6 +13,7 @@ public class TextInput {
 	}
 	
 	public static int inputNumber(String question) {
+		@SuppressWarnings("resource")
 		Scanner keyboard = new Scanner(System.in);
 		int number = 0;
 		printQuestion(question);
@@ -25,6 +26,7 @@ public class TextInput {
 	}
 	
 	public static double inputDouble(String question) {
+		@SuppressWarnings("resource")
 		Scanner keyboard = new Scanner(System.in);
 		double number = 0;
 		printQuestion(question);
@@ -37,6 +39,7 @@ public class TextInput {
 	}
 	
 	public static String inoutString(String question) {
+		@SuppressWarnings("resource")
 		Scanner keyboard = new Scanner(System.in);
 		printQuestion(question);
 		return keyboard.nextLine();
