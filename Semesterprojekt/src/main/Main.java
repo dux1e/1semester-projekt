@@ -1,7 +1,7 @@
 package main;
-import ui.*;
 import controller.*;
 import model.*;
+import tui.*;
 
 public class Main {
 

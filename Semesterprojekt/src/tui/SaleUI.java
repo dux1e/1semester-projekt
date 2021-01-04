@@ -1,4 +1,4 @@
-package ui;
+package tui;
 import java.util.Scanner;
 import controller.*;
 import model.*; //READ ONLY!!
