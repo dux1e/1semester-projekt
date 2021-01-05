@@ -19,6 +19,8 @@ import java.awt.Font;
 import net.miginfocom.swing.MigLayout;
 import javax.swing.JTable;
 import java.awt.CardLayout;
+import javax.swing.border.LineBorder;
+import java.awt.Color;
 
 public class MainUI {
 
@@ -41,14 +43,23 @@ public class MainUI {
 	private JLabel lblNewLabel;
 	private JLabel lblNewLabel_1;
 	private JPanel Buttons;
-	private JPanel Content;
 	private JButton ButtonEndSale;
 	private JButton ButtonPrintInvoice;
+	private JPanel infoPanel;
+	private JPanel orderPanel;
+	private JPanel productInfo;
+	private JPanel customerInfo;
+	private JPanel employeeInfo;
+	private JPanel OrderlineInfo;
+	private JLabel lblNewLabel_2;
+	private JScrollPane scrollPane;
 	private JTable table;
-	private JPanel PanelInfo;
-	private JPanel ProductInfo;
-	private JPanel CustomerInfo;
-	private JPanel EmployeeInfo;
+	private JLabel labelTotalNoVat;
+	private JLabel labelVat;
+	private JLabel labelTotal;
+	private JLabel labelTotalNoVatAmount;
+	private JLabel labelVatAmount;
+	private JLabel labelTotalAmount;
 
 	/**
 	 * Launch the application.
@@ -78,7 +89,7 @@ public class MainUI {
 	 */
 	private void initialize() {
 		frame = new JFrame();
-		frame.setBounds(100, 100, 1000, 500);
+		frame.setBounds(100, 100, 1001, 500);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(new BorderLayout(0, 0));
 		
@@ -192,13 +203,63 @@ public class MainUI {
 		
 		tabSale = new JPanel();
 		panelTabs.addTab("Salg", null, tabSale, null);
-		tabSale.setLayout(new BorderLayout(0, 0));
+		tabSale.setLayout(new MigLayout("", "[grow][grow][]", "[grow]"));
+		
+		infoPanel = new JPanel();
+		infoPanel.setBorder(new LineBorder(Color.GRAY));
+		tabSale.add(infoPanel, "cell 0 0,grow");
+		infoPanel.setLayout(new CardLayout(0, 0));
+		
+		productInfo = new JPanel();
+		infoPanel.add(productInfo, "name_2471551070400");
+		
+		lblNewLabel_2 = new JLabel("New label");
+		productInfo.add(lblNewLabel_2);
+		
+		customerInfo = new JPanel();
+		infoPanel.add(customerInfo, "name_2475346268600");
+		
+		employeeInfo = new JPanel();
+		infoPanel.add(employeeInfo, "name_2478136735400");
+		
+		OrderlineInfo = new JPanel();
+		infoPanel.add(OrderlineInfo, "name_2480921203300");
+		
+		orderPanel = new JPanel();
+		orderPanel.setBorder(new LineBorder(Color.GRAY));
+		tabSale.add(orderPanel, "cell 1 0,grow");
+		orderPanel.setLayout(new MigLayout("", "[grow][]", "[grow][][][]"));
+		
+		scrollPane = new JScrollPane();
+		orderPanel.add(scrollPane, "cell 0 0 2 1,grow");
+		
+		table = new JTable();
+		scrollPane.setColumnHeaderView(table);
+		
+		labelTotalNoVat = new JLabel("Total (ekskl. moms):");
+		orderPanel.add(labelTotalNoVat, "cell 0 1,alignx right");
+		
+		labelTotalNoVatAmount = new JLabel("0,00 kr.");
+		orderPanel.add(labelTotalNoVatAmount, "cell 1 1,alignx right");
+		
+		labelVat = new JLabel("Moms:");
+		orderPanel.add(labelVat, "cell 0 2,alignx right");
+		
+		labelVatAmount = new JLabel("0,00 kr.");
+		orderPanel.add(labelVatAmount, "cell 1 2,alignx right");
+		
+		labelTotal = new JLabel("Total:");
+		orderPanel.add(labelTotal, "cell 0 3,alignx right");
+		
+		labelTotalAmount = new JLabel("0,00 kr.");
+		orderPanel.add(labelTotalAmount, "cell 1 3,alignx right");
 		
 		Buttons = new JPanel();
-		tabSale.add(Buttons, BorderLayout.EAST);
+		Buttons.setBorder(new LineBorder(Color.GRAY));
+		tabSale.add(Buttons, "cell 2 0,alignx left,growy");
 		GridBagLayout gbl_Buttons = new GridBagLayout();
-		gbl_Buttons.columnWidths = new int[]{10, 89, 10, 0};
-		gbl_Buttons.rowHeights = new int[]{1, 382, 23, 10, 0};
+		gbl_Buttons.columnWidths = new int[]{10, 0, 10, 0};
+		gbl_Buttons.rowHeights = new int[]{1, 0, 23, 10, 0};
 		gbl_Buttons.columnWeights = new double[]{0.0, 0.0, 0.0, Double.MIN_VALUE};
 		gbl_Buttons.rowWeights = new double[]{0.0, 1.0, 0.0, 0.0, Double.MIN_VALUE};
 		Buttons.setLayout(gbl_Buttons);
@@ -218,26 +279,6 @@ public class MainUI {
 		gbc_ButtonEndSale.gridx = 1;
 		gbc_ButtonEndSale.gridy = 2;
 		Buttons.add(ButtonEndSale, gbc_ButtonEndSale);
-		
-		Content = new JPanel();
-		tabSale.add(Content, BorderLayout.CENTER);
-		Content.setLayout(new MigLayout("", "[grow][grow]", "[433px,grow]"));
-		
-		PanelInfo = new JPanel();
-		Content.add(PanelInfo, "cell 0 0,grow");
-		PanelInfo.setLayout(new CardLayout(0, 0));
-		
-		ProductInfo = new JPanel();
-		PanelInfo.add(ProductInfo, "name_17047061543900");
-		
-		CustomerInfo = new JPanel();
-		PanelInfo.add(CustomerInfo, "name_17057744257600");
-		
-		EmployeeInfo = new JPanel();
-		PanelInfo.add(EmployeeInfo, "name_17066425634800");
-		
-		table = new JTable();
-		Content.add(table, "cell 1 0,grow");
 		
 		tabStorage = new JPanel();
 		panelTabs.addTab("Lager", null, tabStorage, null);
