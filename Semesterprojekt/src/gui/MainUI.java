@@ -47,11 +47,6 @@ public class MainUI {
 	private JButton ButtonPrintInvoice;
 	private JPanel infoPanel;
 	private JPanel orderPanel;
-	private JPanel productInfo;
-	private JPanel customerInfo;
-	private JPanel employeeInfo;
-	private JPanel OrderlineInfo;
-	private JLabel lblNewLabel_2;
 	private JScrollPane scrollPane;
 	private JTable table;
 	private JLabel labelTotalNoVat;
@@ -60,6 +55,19 @@ public class MainUI {
 	private JLabel labelTotalNoVatAmount;
 	private JLabel labelVatAmount;
 	private JLabel labelTotalAmount;
+	private JPanel customerInfo;
+	private JPanel privateCustomerInfo;
+	private JPanel OtherInfo;
+	private JPanel productInfo;
+	private JPanel employeeInfo;
+	private JPanel OrderlineInfo;
+	private JLabel labelDiscount;
+	private JLabel labelDiscountAmount;
+	private JButton buttonGiveTotalDiscount;
+	private JLabel labelDiscountInPercent;
+	private JTextField txtFieldDiscountInPercent;
+	private JLabel labelDiscountInDkk;
+	private JTextField txtFieldDiscountInDkk;
 
 	/**
 	 * Launch the application.
@@ -203,32 +211,39 @@ public class MainUI {
 		
 		tabSale = new JPanel();
 		panelTabs.addTab("Salg", null, tabSale, null);
-		tabSale.setLayout(new MigLayout("", "[grow][grow][]", "[grow]"));
+		tabSale.setLayout(new MigLayout("", "[grow][grow][]", "[grow][]"));
 		
 		infoPanel = new JPanel();
-		infoPanel.setBorder(new LineBorder(Color.GRAY));
 		tabSale.add(infoPanel, "cell 0 0,grow");
-		infoPanel.setLayout(new CardLayout(0, 0));
+		infoPanel.setLayout(new MigLayout("", "[grow,fill]", "[grow,fill][grow,fill]"));
+		
+		OtherInfo = new JPanel();
+		OtherInfo.setBorder(new LineBorder(Color.GRAY));
+		infoPanel.add(OtherInfo, "cell 0 0,grow");
+		OtherInfo.setLayout(new CardLayout(0, 0));
 		
 		productInfo = new JPanel();
-		infoPanel.add(productInfo, "name_2471551070400");
-		
-		lblNewLabel_2 = new JLabel("New label");
-		productInfo.add(lblNewLabel_2);
-		
-		customerInfo = new JPanel();
-		infoPanel.add(customerInfo, "name_2475346268600");
+		OtherInfo.add(productInfo, "name_8317650808799");
 		
 		employeeInfo = new JPanel();
-		infoPanel.add(employeeInfo, "name_2478136735400");
+		OtherInfo.add(employeeInfo, "name_8317666828699");
 		
 		OrderlineInfo = new JPanel();
-		infoPanel.add(OrderlineInfo, "name_2480921203300");
+		OtherInfo.add(OrderlineInfo, "name_8317681811799");
+		
+		customerInfo = new JPanel();
+		customerInfo.setBorder(new LineBorder(Color.GRAY));
+		infoPanel.add(customerInfo, "cell 0 1,alignx left,aligny top");
+		customerInfo.setLayout(new CardLayout(0, 0));
+		
+		privateCustomerInfo = new JPanel();
+		customerInfo.add(privateCustomerInfo, "name_8322905822600");
+		privateCustomerInfo.setLayout(new CardLayout(0, 0));
 		
 		orderPanel = new JPanel();
 		orderPanel.setBorder(new LineBorder(Color.GRAY));
 		tabSale.add(orderPanel, "cell 1 0,grow");
-		orderPanel.setLayout(new MigLayout("", "[grow][]", "[grow][][][]"));
+		orderPanel.setLayout(new MigLayout("", "[grow][]", "[grow][][][][]"));
 		
 		scrollPane = new JScrollPane();
 		orderPanel.add(scrollPane, "cell 0 0 2 1,grow");
@@ -242,42 +257,94 @@ public class MainUI {
 		labelTotalNoVatAmount = new JLabel("0,00 kr.");
 		orderPanel.add(labelTotalNoVatAmount, "cell 1 1,alignx right");
 		
+		labelDiscount = new JLabel("Rabat:");
+		orderPanel.add(labelDiscount, "cell 0 2,alignx right");
+		
+		labelDiscountAmount = new JLabel("-0,00 kr.");
+		orderPanel.add(labelDiscountAmount, "cell 1 2,alignx right");
+		
 		labelVat = new JLabel("Moms:");
-		orderPanel.add(labelVat, "cell 0 2,alignx right");
+		orderPanel.add(labelVat, "cell 0 3,alignx right");
 		
 		labelVatAmount = new JLabel("0,00 kr.");
-		orderPanel.add(labelVatAmount, "cell 1 2,alignx right");
+		orderPanel.add(labelVatAmount, "cell 1 3,alignx right");
 		
 		labelTotal = new JLabel("Total:");
-		orderPanel.add(labelTotal, "cell 0 3,alignx right");
+		orderPanel.add(labelTotal, "cell 0 4,alignx right");
 		
 		labelTotalAmount = new JLabel("0,00 kr.");
-		orderPanel.add(labelTotalAmount, "cell 1 3,alignx right");
+		orderPanel.add(labelTotalAmount, "cell 1 4,alignx right");
 		
 		Buttons = new JPanel();
 		Buttons.setBorder(new LineBorder(Color.GRAY));
 		tabSale.add(Buttons, "cell 2 0,alignx left,growy");
 		GridBagLayout gbl_Buttons = new GridBagLayout();
-		gbl_Buttons.columnWidths = new int[]{10, 0, 10, 0};
-		gbl_Buttons.rowHeights = new int[]{1, 0, 23, 10, 0};
-		gbl_Buttons.columnWeights = new double[]{0.0, 0.0, 0.0, Double.MIN_VALUE};
-		gbl_Buttons.rowWeights = new double[]{0.0, 1.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_Buttons.columnWidths = new int[]{10, 0, 0, 10, 0};
+		gbl_Buttons.rowHeights = new int[]{1, 0, 0, 0, 10, 0, 23, 10, 0};
+		gbl_Buttons.columnWeights = new double[]{0.0, 0.0, 1.0, 0.0, Double.MIN_VALUE};
+		gbl_Buttons.rowWeights = new double[]{1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		Buttons.setLayout(gbl_Buttons);
+		
+		labelDiscountInDkk = new JLabel("Rabat i kr.");
+		GridBagConstraints gbc_labelDiscountInDkk = new GridBagConstraints();
+		gbc_labelDiscountInDkk.anchor = GridBagConstraints.EAST;
+		gbc_labelDiscountInDkk.insets = new Insets(0, 0, 5, 5);
+		gbc_labelDiscountInDkk.gridx = 1;
+		gbc_labelDiscountInDkk.gridy = 1;
+		Buttons.add(labelDiscountInDkk, gbc_labelDiscountInDkk);
+		
+		txtFieldDiscountInDkk = new JTextField();
+		GridBagConstraints gbc_txtFieldDiscountInDkk = new GridBagConstraints();
+		gbc_txtFieldDiscountInDkk.insets = new Insets(0, 0, 5, 5);
+		gbc_txtFieldDiscountInDkk.fill = GridBagConstraints.HORIZONTAL;
+		gbc_txtFieldDiscountInDkk.gridx = 2;
+		gbc_txtFieldDiscountInDkk.gridy = 1;
+		Buttons.add(txtFieldDiscountInDkk, gbc_txtFieldDiscountInDkk);
+		txtFieldDiscountInDkk.setColumns(10);
+		
+		labelDiscountInPercent = new JLabel("Rabat i %");
+		GridBagConstraints gbc_labelDiscountInPercent = new GridBagConstraints();
+		gbc_labelDiscountInPercent.anchor = GridBagConstraints.EAST;
+		gbc_labelDiscountInPercent.insets = new Insets(0, 0, 5, 5);
+		gbc_labelDiscountInPercent.gridx = 1;
+		gbc_labelDiscountInPercent.gridy = 2;
+		Buttons.add(labelDiscountInPercent, gbc_labelDiscountInPercent);
+		
+		txtFieldDiscountInPercent = new JTextField();
+		GridBagConstraints gbc_txtFieldDiscountInPercent = new GridBagConstraints();
+		gbc_txtFieldDiscountInPercent.insets = new Insets(0, 0, 5, 5);
+		gbc_txtFieldDiscountInPercent.fill = GridBagConstraints.HORIZONTAL;
+		gbc_txtFieldDiscountInPercent.gridx = 2;
+		gbc_txtFieldDiscountInPercent.gridy = 2;
+		Buttons.add(txtFieldDiscountInPercent, gbc_txtFieldDiscountInPercent);
+		txtFieldDiscountInPercent.setColumns(10);
+		
+		buttonGiveTotalDiscount = new JButton("Giv samlet rabat");
+		GridBagConstraints gbc_buttonGiveTotalDiscount = new GridBagConstraints();
+		gbc_buttonGiveTotalDiscount.gridwidth = 2;
+		gbc_buttonGiveTotalDiscount.fill = GridBagConstraints.HORIZONTAL;
+		gbc_buttonGiveTotalDiscount.insets = new Insets(0, 0, 5, 5);
+		gbc_buttonGiveTotalDiscount.gridx = 1;
+		gbc_buttonGiveTotalDiscount.gridy = 3;
+		Buttons.add(buttonGiveTotalDiscount, gbc_buttonGiveTotalDiscount);
 		
 		ButtonPrintInvoice = new JButton("Print faktura");
 		GridBagConstraints gbc_ButtonPrintInvoice = new GridBagConstraints();
+		gbc_ButtonPrintInvoice.gridwidth = 2;
+		gbc_ButtonPrintInvoice.fill = GridBagConstraints.HORIZONTAL;
 		gbc_ButtonPrintInvoice.insets = new Insets(0, 0, 5, 5);
-		gbc_ButtonPrintInvoice.anchor = GridBagConstraints.SOUTHWEST;
+		gbc_ButtonPrintInvoice.anchor = GridBagConstraints.SOUTH;
 		gbc_ButtonPrintInvoice.gridx = 1;
-		gbc_ButtonPrintInvoice.gridy = 1;
+		gbc_ButtonPrintInvoice.gridy = 5;
 		Buttons.add(ButtonPrintInvoice, gbc_ButtonPrintInvoice);
 		
 		ButtonEndSale = new JButton("Afslut køb");
 		GridBagConstraints gbc_ButtonEndSale = new GridBagConstraints();
+		gbc_ButtonEndSale.gridwidth = 2;
 		gbc_ButtonEndSale.insets = new Insets(0, 0, 5, 5);
 		gbc_ButtonEndSale.fill = GridBagConstraints.BOTH;
 		gbc_ButtonEndSale.gridx = 1;
-		gbc_ButtonEndSale.gridy = 2;
+		gbc_ButtonEndSale.gridy = 6;
 		Buttons.add(ButtonEndSale, gbc_ButtonEndSale);
 		
 		tabStorage = new JPanel();
