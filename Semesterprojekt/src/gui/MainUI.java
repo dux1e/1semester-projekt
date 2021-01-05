@@ -22,6 +22,7 @@ import java.awt.CardLayout;
 import javax.swing.border.LineBorder;
 import java.awt.Color;
 import javax.swing.JSeparator;
+import java.awt.Dimension;
 
 public class MainUI {
 
@@ -61,7 +62,6 @@ public class MainUI {
 	private JPanel OtherInfo;
 	private JPanel productInfo;
 	private JPanel employeeInfo;
-	private JPanel OrderlineInfo;
 	private JLabel labelDiscount;
 	private JLabel labelDiscountAmount;
 	private JButton buttonGiveTotalDiscount;
@@ -89,6 +89,48 @@ public class MainUI {
 	private JLabel labelPrivateCustomerMaximumDiscountValue;
 	private JLabel labelPrivateCustomerMaximumCreditValue;
 	private JLabel labelPrivateCustomerUnusedCreditValue;
+	private JLabel labelBusinessCustomerID;
+	private JLabel labelBusinessCustomerIDValue;
+	private JLabel labelBusinessCustomerFirmName;
+	private JLabel labelBusinessCustomerFirmNameValue;
+	private JLabel labelBusinessCustomerCvr;
+	private JLabel labelBusinessCustomerCprValue;
+	private JLabel labelBusinessCustomerTelephone;
+	private JLabel labelBusinessCustomerTelephoneValue;
+	private JLabel labelBusinessCustomerEmail;
+	private JLabel labelBusinessCustomerEmailValue;
+	private JSeparator separator_1;
+	private JLabel labelPrivateCustomerMinimumDiscount_1;
+	private JLabel labelPrivateCustomerMinimumDiscountValue_1;
+	private JLabel labelPrivateCustomerMaximumDiscount_1;
+	private JLabel labelPrivateCustomerMaximumDiscountValue_1;
+	private JLabel labelPrivateCustomerMaximumCredit_1;
+	private JLabel labelPrivateCustomerMaximumCreditValue_1;
+	private JLabel labelPrivateCustomerUnusedCredit_1;
+	private JLabel labelPrivateCustomerUnusedCreditValue_1;
+	private JSeparator separator_2;
+	private JLabel labelBusinessCustomerName;
+	private JLabel labelBusinessCustomerNameValue;
+	private JSeparator separator_3;
+	private JLabel labelProductDescription;
+	private JLabel labelProductDescriptionValue;
+	private JLabel labelProductID;
+	private JLabel labelProductIDValue;
+	private JLabel labelProductCatalogPrice;
+	private JLabel labelProductCostPrice;
+	private JLabel labelProductStorageStatus;
+	private JLabel labelProductLocation;
+	private JLabel labelProductCatalogPriceValue;
+	private JLabel labelProductCostPriceValue;
+	private JLabel labelProductStorageStatusValue;
+	private JLabel labelProductLocationValue;
+	private JLabel labelProductDiscountInPercent;
+	private JLabel labelProductDiscountInDkk;
+	private JTextField txtFieldProductDiscountInDkk;
+	private JTextField txtFieldProductDiscountInPercent;
+	private JButton buttonProductGiveDiscount;
+	private JButton buttonAddToOrder;
+	private JSeparator separator_4;
 
 	/**
 	 * Launch the application.
@@ -118,7 +160,7 @@ public class MainUI {
 	 */
 	private void initialize() {
 		frame = new JFrame();
-		frame.setBounds(100, 100, 1001, 500);
+		frame.setBounds(100, 100, 1000, 600);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(new BorderLayout(0, 0));
 		
@@ -232,7 +274,7 @@ public class MainUI {
 		
 		tabSale = new JPanel();
 		panelTabs.addTab("Salg", null, tabSale, null);
-		tabSale.setLayout(new MigLayout("", "[grow][grow][]", "[grow][]"));
+		tabSale.setLayout(new MigLayout("", "[grow][grow][]", "[grow]"));
 		
 		infoPanel = new JPanel();
 		tabSale.add(infoPanel, "cell 0 0,grow");
@@ -245,12 +287,70 @@ public class MainUI {
 		
 		productInfo = new JPanel();
 		OtherInfo.add(productInfo, "name_8317650808799");
+		productInfo.setLayout(new MigLayout("", "[right][10px:n][right][][grow]", "[][][][][][][][][][][][]"));
+		
+		labelProductDescription = new JLabel("Beskrivelse:");
+		productInfo.add(labelProductDescription, "cell 0 0");
+		
+		labelProductDescriptionValue = new JLabel("ukendt");
+		productInfo.add(labelProductDescriptionValue, "cell 2 0");
+		
+		labelProductID = new JLabel("Produkt ID:");
+		productInfo.add(labelProductID, "cell 0 1");
+		
+		labelProductIDValue = new JLabel("ukendt");
+		productInfo.add(labelProductIDValue, "cell 2 1");
+		
+		labelProductCatalogPrice = new JLabel("Listepris:");
+		productInfo.add(labelProductCatalogPrice, "cell 0 2");
+		
+		labelProductCatalogPriceValue = new JLabel("ukendt");
+		productInfo.add(labelProductCatalogPriceValue, "cell 2 2");
+		
+		labelProductCostPrice = new JLabel("Indkøbspris:");
+		productInfo.add(labelProductCostPrice, "cell 0 3");
+		
+		labelProductCostPriceValue = new JLabel("ukendt");
+		productInfo.add(labelProductCostPriceValue, "cell 2 3");
+		
+		labelProductStorageStatus = new JLabel("Lagerstatus:");
+		productInfo.add(labelProductStorageStatus, "cell 0 4");
+		
+		labelProductStorageStatusValue = new JLabel("ukendt");
+		productInfo.add(labelProductStorageStatusValue, "cell 2 4");
+		
+		labelProductLocation = new JLabel("Lokation:");
+		productInfo.add(labelProductLocation, "cell 0 5");
+		
+		labelProductLocationValue = new JLabel("ukendt");
+		productInfo.add(labelProductLocationValue, "cell 2 5");
+		
+		separator_4 = new JSeparator();
+		separator_4.setForeground(Color.GRAY);
+		productInfo.add(separator_4, "cell 0 6 5 1,growx");
+		
+		labelProductDiscountInDkk = new JLabel("Rabat i kr.:");
+		productInfo.add(labelProductDiscountInDkk, "cell 0 8,alignx trailing");
+		
+		txtFieldProductDiscountInDkk = new JTextField();
+		productInfo.add(txtFieldProductDiscountInDkk, "cell 2 8 2 1,growx");
+		txtFieldProductDiscountInDkk.setColumns(10);
+		
+		labelProductDiscountInPercent = new JLabel("Rabat i %:");
+		productInfo.add(labelProductDiscountInPercent, "cell 0 9,alignx trailing");
+		
+		txtFieldProductDiscountInPercent = new JTextField();
+		productInfo.add(txtFieldProductDiscountInPercent, "cell 2 9 2 1,growx");
+		txtFieldProductDiscountInPercent.setColumns(10);
+		
+		buttonProductGiveDiscount = new JButton("Giv Rabat");
+		productInfo.add(buttonProductGiveDiscount, "cell 0 10 4 1,growx");
+		
+		buttonAddToOrder = new JButton("Tilføj til ordre");
+		productInfo.add(buttonAddToOrder, "cell 0 11 4 1,growx");
 		
 		employeeInfo = new JPanel();
 		OtherInfo.add(employeeInfo, "name_8317666828699");
-		
-		OrderlineInfo = new JPanel();
-		OtherInfo.add(OrderlineInfo, "name_8317681811799");
 		
 		customerInfo = new JPanel();
 		customerInfo.setBorder(new LineBorder(Color.GRAY));
@@ -322,6 +422,76 @@ public class MainUI {
 		
 		businessCustomerInfo = new JPanel();
 		customerInfo.add(businessCustomerInfo, "name_12834471710700");
+		businessCustomerInfo.setLayout(new MigLayout("", "[48px,right][10px:n][33px,right][29px,grow][1px]", "[14px][][][][][][][][][][][]"));
+		
+		labelBusinessCustomerID = new JLabel("Kunde ID:");
+		businessCustomerInfo.add(labelBusinessCustomerID, "cell 0 0,aligny top");
+		
+		labelBusinessCustomerIDValue = new JLabel("ukendt");
+		businessCustomerInfo.add(labelBusinessCustomerIDValue, "cell 2 0,aligny top");
+		
+		labelBusinessCustomerFirmName = new JLabel("Firma navn:");
+		businessCustomerInfo.add(labelBusinessCustomerFirmName, "cell 0 1,aligny top");
+		
+		labelBusinessCustomerFirmNameValue = new JLabel("ukendt");
+		businessCustomerInfo.add(labelBusinessCustomerFirmNameValue, "cell 2 1,aligny top");
+		
+		labelBusinessCustomerCvr = new JLabel("CVR:");
+		businessCustomerInfo.add(labelBusinessCustomerCvr, "cell 0 2,aligny top");
+		
+		labelBusinessCustomerCprValue = new JLabel("ukendt");
+		businessCustomerInfo.add(labelBusinessCustomerCprValue, "cell 2 2,aligny top");
+		
+		separator_2 = new JSeparator();
+		separator_2.setForeground(Color.GRAY);
+		businessCustomerInfo.add(separator_2, "cell 0 3 4 1,growx");
+		
+		labelBusinessCustomerName = new JLabel("Navn:");
+		businessCustomerInfo.add(labelBusinessCustomerName, "cell 0 4");
+		
+		labelBusinessCustomerNameValue = new JLabel("ukendt");
+		businessCustomerInfo.add(labelBusinessCustomerNameValue, "cell 2 4");
+		
+		labelBusinessCustomerTelephone = new JLabel("Telefon:");
+		businessCustomerInfo.add(labelBusinessCustomerTelephone, "cell 0 5,aligny top");
+		
+		labelBusinessCustomerTelephoneValue = new JLabel("ukendt");
+		businessCustomerInfo.add(labelBusinessCustomerTelephoneValue, "cell 2 5,aligny top");
+		
+		labelBusinessCustomerEmail = new JLabel("E-mail:");
+		businessCustomerInfo.add(labelBusinessCustomerEmail, "cell 0 6,aligny top");
+		
+		labelBusinessCustomerEmailValue = new JLabel("ukendt");
+		businessCustomerInfo.add(labelBusinessCustomerEmailValue, "cell 2 6,aligny top");
+		
+		separator_1 = new JSeparator();
+		separator_1.setForeground(Color.GRAY);
+		separator_1.setBackground(Color.WHITE);
+		businessCustomerInfo.add(separator_1, "cell 0 7 4 1,growx,aligny center");
+		
+		labelPrivateCustomerMinimumDiscount_1 = new JLabel("Minimum rabat:");
+		businessCustomerInfo.add(labelPrivateCustomerMinimumDiscount_1, "cell 0 8,aligny top");
+		
+		labelPrivateCustomerMinimumDiscountValue_1 = new JLabel("ukendt");
+		businessCustomerInfo.add(labelPrivateCustomerMinimumDiscountValue_1, "cell 2 8,aligny top");
+		
+		labelPrivateCustomerMaximumDiscount_1 = new JLabel("Maksimal rabat:");
+		businessCustomerInfo.add(labelPrivateCustomerMaximumDiscount_1, "cell 0 9,aligny top");
+		
+		labelPrivateCustomerMaximumDiscountValue_1 = new JLabel("ukendt");
+		businessCustomerInfo.add(labelPrivateCustomerMaximumDiscountValue_1, "cell 2 9,aligny top");
+		
+		labelPrivateCustomerMaximumCredit_1 = new JLabel("Maksimal kredit:");
+		businessCustomerInfo.add(labelPrivateCustomerMaximumCredit_1, "cell 0 10,aligny top");
+		
+		labelPrivateCustomerMaximumCreditValue_1 = new JLabel("ukendt");
+		businessCustomerInfo.add(labelPrivateCustomerMaximumCreditValue_1, "cell 2 10,aligny top");
+		
+		labelPrivateCustomerUnusedCredit_1 = new JLabel("Tilbagestående kredit:");
+		businessCustomerInfo.add(labelPrivateCustomerUnusedCredit_1, "cell 0 11,aligny top");
+		
+		labelPrivateCustomerUnusedCreditValue_1 = new JLabel("ukendt");
+		businessCustomerInfo.add(labelPrivateCustomerUnusedCreditValue_1, "cell 2 11,aligny top");
 		
 		orderPanel = new JPanel();
 		orderPanel.setBorder(new LineBorder(Color.GRAY));
@@ -361,74 +531,34 @@ public class MainUI {
 		Buttons = new JPanel();
 		Buttons.setBorder(new LineBorder(Color.GRAY));
 		tabSale.add(Buttons, "cell 2 0,alignx left,growy");
-		GridBagLayout gbl_Buttons = new GridBagLayout();
-		gbl_Buttons.columnWidths = new int[]{10, 0, 0, 10, 0};
-		gbl_Buttons.rowHeights = new int[]{1, 0, 0, 0, 10, 0, 23, 10, 0};
-		gbl_Buttons.columnWeights = new double[]{0.0, 0.0, 1.0, 0.0, Double.MIN_VALUE};
-		gbl_Buttons.rowWeights = new double[]{1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
-		Buttons.setLayout(gbl_Buttons);
+		Buttons.setLayout(new MigLayout("", "[50px][5px][86px]", "[grow][20px][20px][23px][2px][23px][23px]"));
 		
 		labelDiscountInDkk = new JLabel("Rabat i kr.");
-		GridBagConstraints gbc_labelDiscountInDkk = new GridBagConstraints();
-		gbc_labelDiscountInDkk.anchor = GridBagConstraints.EAST;
-		gbc_labelDiscountInDkk.insets = new Insets(0, 0, 5, 5);
-		gbc_labelDiscountInDkk.gridx = 1;
-		gbc_labelDiscountInDkk.gridy = 1;
-		Buttons.add(labelDiscountInDkk, gbc_labelDiscountInDkk);
+		Buttons.add(labelDiscountInDkk, "cell 0 1,alignx right,aligny center");
 		
 		txtFieldDiscountInDkk = new JTextField();
-		GridBagConstraints gbc_txtFieldDiscountInDkk = new GridBagConstraints();
-		gbc_txtFieldDiscountInDkk.insets = new Insets(0, 0, 5, 5);
-		gbc_txtFieldDiscountInDkk.fill = GridBagConstraints.HORIZONTAL;
-		gbc_txtFieldDiscountInDkk.gridx = 2;
-		gbc_txtFieldDiscountInDkk.gridy = 1;
-		Buttons.add(txtFieldDiscountInDkk, gbc_txtFieldDiscountInDkk);
+		Buttons.add(txtFieldDiscountInDkk, "cell 2 1,growx,aligny center");
 		txtFieldDiscountInDkk.setColumns(10);
 		
 		labelDiscountInPercent = new JLabel("Rabat i %");
-		GridBagConstraints gbc_labelDiscountInPercent = new GridBagConstraints();
-		gbc_labelDiscountInPercent.anchor = GridBagConstraints.EAST;
-		gbc_labelDiscountInPercent.insets = new Insets(0, 0, 5, 5);
-		gbc_labelDiscountInPercent.gridx = 1;
-		gbc_labelDiscountInPercent.gridy = 2;
-		Buttons.add(labelDiscountInPercent, gbc_labelDiscountInPercent);
+		Buttons.add(labelDiscountInPercent, "cell 0 2,alignx right,aligny center");
 		
 		txtFieldDiscountInPercent = new JTextField();
-		GridBagConstraints gbc_txtFieldDiscountInPercent = new GridBagConstraints();
-		gbc_txtFieldDiscountInPercent.insets = new Insets(0, 0, 5, 5);
-		gbc_txtFieldDiscountInPercent.fill = GridBagConstraints.HORIZONTAL;
-		gbc_txtFieldDiscountInPercent.gridx = 2;
-		gbc_txtFieldDiscountInPercent.gridy = 2;
-		Buttons.add(txtFieldDiscountInPercent, gbc_txtFieldDiscountInPercent);
+		Buttons.add(txtFieldDiscountInPercent, "cell 2 2,growx,aligny center");
 		txtFieldDiscountInPercent.setColumns(10);
 		
 		buttonGiveTotalDiscount = new JButton("Giv samlet rabat");
-		GridBagConstraints gbc_buttonGiveTotalDiscount = new GridBagConstraints();
-		gbc_buttonGiveTotalDiscount.gridwidth = 2;
-		gbc_buttonGiveTotalDiscount.fill = GridBagConstraints.HORIZONTAL;
-		gbc_buttonGiveTotalDiscount.insets = new Insets(0, 0, 5, 5);
-		gbc_buttonGiveTotalDiscount.gridx = 1;
-		gbc_buttonGiveTotalDiscount.gridy = 3;
-		Buttons.add(buttonGiveTotalDiscount, gbc_buttonGiveTotalDiscount);
+		Buttons.add(buttonGiveTotalDiscount, "cell 0 3 3 1,growx,aligny center");
+		
+		separator_3 = new JSeparator();
+		separator_3.setForeground(Color.GRAY);
+		Buttons.add(separator_3, "cell 0 4 3 1,growx,aligny center");
 		
 		ButtonPrintInvoice = new JButton("Print faktura");
-		GridBagConstraints gbc_ButtonPrintInvoice = new GridBagConstraints();
-		gbc_ButtonPrintInvoice.gridwidth = 2;
-		gbc_ButtonPrintInvoice.fill = GridBagConstraints.HORIZONTAL;
-		gbc_ButtonPrintInvoice.insets = new Insets(0, 0, 5, 5);
-		gbc_ButtonPrintInvoice.anchor = GridBagConstraints.SOUTH;
-		gbc_ButtonPrintInvoice.gridx = 1;
-		gbc_ButtonPrintInvoice.gridy = 5;
-		Buttons.add(ButtonPrintInvoice, gbc_ButtonPrintInvoice);
+		Buttons.add(ButtonPrintInvoice, "cell 0 5 3 1,growx,aligny bottom");
 		
 		ButtonEndSale = new JButton("Afslut køb");
-		GridBagConstraints gbc_ButtonEndSale = new GridBagConstraints();
-		gbc_ButtonEndSale.gridwidth = 2;
-		gbc_ButtonEndSale.insets = new Insets(0, 0, 5, 5);
-		gbc_ButtonEndSale.fill = GridBagConstraints.BOTH;
-		gbc_ButtonEndSale.gridx = 1;
-		gbc_ButtonEndSale.gridy = 6;
-		Buttons.add(ButtonEndSale, gbc_ButtonEndSale);
+		Buttons.add(ButtonEndSale, "cell 0 6 3 1,grow");
 		
 		tabStorage = new JPanel();
 		panelTabs.addTab("Lager", null, tabStorage, null);
