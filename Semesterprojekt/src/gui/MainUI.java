@@ -21,6 +21,7 @@ import javax.swing.JTable;
 import java.awt.CardLayout;
 import javax.swing.border.LineBorder;
 import java.awt.Color;
+import javax.swing.JSeparator;
 
 public class MainUI {
 
@@ -68,6 +69,26 @@ public class MainUI {
 	private JTextField txtFieldDiscountInPercent;
 	private JLabel labelDiscountInDkk;
 	private JTextField txtFieldDiscountInDkk;
+	private JPanel businessCustomerInfo;
+	private JLabel labelPrivateCustomerID;
+	private JLabel labelPrivateCustomerIDValue;
+	private JLabel labelPrivateCustomerName;
+	private JLabel labelPrivateCustomerNameValue;
+	private JLabel labelPrivateCustomerCpr;
+	private JLabel labelPrivateCustomerCprValue;
+	private JLabel labelPrivateCustomerTelephone;
+	private JLabel labelPrivateCustomerTelephoneValue;
+	private JLabel labelPrivateCustomerEmail;
+	private JLabel labelPrivateCustomerEmailValue;
+	private JSeparator separator;
+	private JLabel labelPrivateCustomerMinimumDiscount;
+	private JLabel labelPrivateCustomerMinimumDiscountValue;
+	private JLabel labelPrivateCustomerMaximumDiscount;
+	private JLabel labelPrivateCustomerMaximumCredit;
+	private JLabel labelPrivateCustomerUnusedCredit;
+	private JLabel labelPrivateCustomerMaximumDiscountValue;
+	private JLabel labelPrivateCustomerMaximumCreditValue;
+	private JLabel labelPrivateCustomerUnusedCreditValue;
 
 	/**
 	 * Launch the application.
@@ -215,7 +236,7 @@ public class MainUI {
 		
 		infoPanel = new JPanel();
 		tabSale.add(infoPanel, "cell 0 0,grow");
-		infoPanel.setLayout(new MigLayout("", "[grow,fill]", "[grow,fill][grow,fill]"));
+		infoPanel.setLayout(new MigLayout("", "[grow,fill]", "[grow,fill][fill]"));
 		
 		OtherInfo = new JPanel();
 		OtherInfo.setBorder(new LineBorder(Color.GRAY));
@@ -238,7 +259,69 @@ public class MainUI {
 		
 		privateCustomerInfo = new JPanel();
 		customerInfo.add(privateCustomerInfo, "name_8322905822600");
-		privateCustomerInfo.setLayout(new CardLayout(0, 0));
+		privateCustomerInfo.setLayout(new MigLayout("", "[48px,right][10px:n][33px,right][grow,fill]", "[14px][][][][][][][][][]"));
+		
+		labelPrivateCustomerID = new JLabel("Kunde ID:");
+		privateCustomerInfo.add(labelPrivateCustomerID, "cell 0 0,alignx right,aligny top");
+		
+		labelPrivateCustomerIDValue = new JLabel("ukendt");
+		privateCustomerInfo.add(labelPrivateCustomerIDValue, "cell 2 0,alignx right,aligny top");
+		
+		labelPrivateCustomerName = new JLabel("Navn:");
+		privateCustomerInfo.add(labelPrivateCustomerName, "cell 0 1,alignx right,aligny top");
+		
+		labelPrivateCustomerNameValue = new JLabel("ukendt");
+		privateCustomerInfo.add(labelPrivateCustomerNameValue, "cell 2 1,alignx right,aligny top");
+		
+		labelPrivateCustomerCpr = new JLabel("CPR:");
+		privateCustomerInfo.add(labelPrivateCustomerCpr, "cell 0 2,alignx right,aligny top");
+		
+		labelPrivateCustomerCprValue = new JLabel("ukendt");
+		privateCustomerInfo.add(labelPrivateCustomerCprValue, "cell 2 2,alignx right,aligny top");
+		
+		labelPrivateCustomerTelephone = new JLabel("Telefon:");
+		privateCustomerInfo.add(labelPrivateCustomerTelephone, "cell 0 3,alignx right,aligny top");
+		
+		labelPrivateCustomerTelephoneValue = new JLabel("ukendt");
+		privateCustomerInfo.add(labelPrivateCustomerTelephoneValue, "cell 2 3,alignx right,aligny top");
+		
+		labelPrivateCustomerEmail = new JLabel("E-mail:");
+		privateCustomerInfo.add(labelPrivateCustomerEmail, "cell 0 4,alignx right,aligny top");
+		
+		labelPrivateCustomerEmailValue = new JLabel("ukendt");
+		privateCustomerInfo.add(labelPrivateCustomerEmailValue, "cell 2 4,alignx right,aligny top");
+		
+		separator = new JSeparator();
+		separator.setBackground(Color.WHITE);
+		separator.setForeground(Color.GRAY);
+		privateCustomerInfo.add(separator, "cell 0 5 4 1,growx");
+		
+		labelPrivateCustomerMinimumDiscount = new JLabel("Minimum rabat:");
+		privateCustomerInfo.add(labelPrivateCustomerMinimumDiscount, "cell 0 6");
+		
+		labelPrivateCustomerMinimumDiscountValue = new JLabel("ukendt");
+		privateCustomerInfo.add(labelPrivateCustomerMinimumDiscountValue, "cell 2 6");
+		
+		labelPrivateCustomerMaximumDiscount = new JLabel("Maksimal rabat:");
+		privateCustomerInfo.add(labelPrivateCustomerMaximumDiscount, "cell 0 7");
+		
+		labelPrivateCustomerMaximumDiscountValue = new JLabel("ukendt");
+		privateCustomerInfo.add(labelPrivateCustomerMaximumDiscountValue, "cell 2 7");
+		
+		labelPrivateCustomerMaximumCredit = new JLabel("Maksimal kredit:");
+		privateCustomerInfo.add(labelPrivateCustomerMaximumCredit, "cell 0 8");
+		
+		labelPrivateCustomerMaximumCreditValue = new JLabel("ukendt");
+		privateCustomerInfo.add(labelPrivateCustomerMaximumCreditValue, "cell 2 8");
+		
+		labelPrivateCustomerUnusedCredit = new JLabel("Tilbagestående kredit:");
+		privateCustomerInfo.add(labelPrivateCustomerUnusedCredit, "cell 0 9");
+		
+		labelPrivateCustomerUnusedCreditValue = new JLabel("ukendt");
+		privateCustomerInfo.add(labelPrivateCustomerUnusedCreditValue, "cell 2 9,alignx right");
+		
+		businessCustomerInfo = new JPanel();
+		customerInfo.add(businessCustomerInfo, "name_12834471710700");
 		
 		orderPanel = new JPanel();
 		orderPanel.setBorder(new LineBorder(Color.GRAY));
