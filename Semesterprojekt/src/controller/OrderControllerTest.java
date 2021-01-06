@@ -25,7 +25,7 @@ class OrderControllerTest {
 		
 		this.ec.setCurrentEmployee(e);
 		this.oc.setEmployeeController(ec);
-		this.pc.addProduct(4444, "Hammer", "Bahco", 75, 10, 100);
+		this.pc.addProduct(4444, "Hammer", "Bahco", 75, 25, 10, 100);
 		this.cc.addBusinessCustomer(12345678, "Pepsi Cola", "Hele Verdens gade 42, Danmark, 9440 Aabybro",
 				"DK12345678", "Pepsi Man", 87654321, "Pepsi@Cool.com");
 		this.cc.addPrivateCustomer("5555554444", "Ip Skrå", "Skæve Kløftens Vej 1, Danmark, 9600 Aars",

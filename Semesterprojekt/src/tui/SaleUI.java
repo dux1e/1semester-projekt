@@ -83,7 +83,7 @@ public class SaleUI {
 			System.out.println("Ordre linjer: " );
 			for(OrderLine ol : orderLines) {
 				Product p = ol.getProduct();
-				System.out.println("   " + ol.getQuantity() + " x " + p.getDescription() + "(" + p.getPrice() + ")" + "\t" + ol.getSubTotal());
+				System.out.println("   " + ol.getQuantity() + " x " + p.getDescription() + "(" + p.getCatalogPrice() + ")" + "\t" + ol.getSubTotal());
 			}
 			System.out.println("Subtotal (ekskl. Moms): " + currentOrder.getNetTotal());
 			System.out.println("                  Moms: " + currentOrder.getVatTotal());

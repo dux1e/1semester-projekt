@@ -34,7 +34,7 @@ public class OrderLine {
 	}
 	
 	private double calculateSubTotal() {
-		subTotal = quantity * product.getPrice();
+		subTotal = quantity * product.getCatalogPrice();
 		return subTotal;
 	}
 

@@ -52,10 +52,12 @@ public class CustomerContainer {
 			String name = customer.getName();
 			String telephoneNo = String.valueOf(customer.getTelephoneNo());
 			String uniqueNo = customer.getUniqueNo();
+			String id = String.valueOf(customer.getID());
 			boolean aNameMatch = doesStringContainString(name, input);
 			boolean aTelephoneNoMatch = doesStringContainString(telephoneNo, input);
 			boolean aUniqueNoMatch = doesStringContainString(uniqueNo, input);
-			boolean aMatch = aNameMatch || aTelephoneNoMatch || aUniqueNoMatch;
+			boolean aIdMatch = doesStringContainString(id, input);
+			boolean aMatch = aNameMatch || aTelephoneNoMatch || aUniqueNoMatch || aIdMatch;
 			if(aMatch) {
 				matches.add(customer);
 			}

@@ -11,9 +11,8 @@ public class ProductController {
 		productContainer = ProductContainer.getInstance();
 	}
 	
-	public void addProduct(int barcode, String description, String brand, double price,
-			int stockMin, int stockMax) {
-		Product p = new Product(barcode, description, brand, price, stockMin, stockMax);
+	public void addProduct(int barcode, String description, String brand, double catalogPrice, double costPrice, int stockMin, int stockMax) {
+		Product p = new Product(barcode, description, brand, catalogPrice, costPrice, stockMin, stockMax);
 		this.productContainer.addProduct(p);
 	}
 	

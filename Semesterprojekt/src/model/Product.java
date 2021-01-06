@@ -4,7 +4,16 @@ public class Product implements Listable {
 	private int barcode;
 	private String description;
 	private String brand;
-	private double price;
+	private double catalogPrice;
+	private double costPrice;
+	public double getCostPrice() {
+		return costPrice;
+	}
+
+	public void setCostPrice(double costPrice) {
+		this.costPrice = costPrice;
+	}
+
 	private int stockMax;
 	private int stockMin;
 	private double discountFlat;
@@ -14,16 +23,17 @@ public class Product implements Listable {
 		this.barcode = barcode;
 		this.description = description;
 		this.setBrand(brand);
-		this.price = 0.0;
+		this.catalogPrice = 0.0;
 		this.stockMin = 0;
 		this.stockMax = 0;
 	}
 	
-	public Product(int barcode, String description, String brand, double price, int stockMin, int stockMax) {
+	public Product(int barcode, String description, String brand, double catalogPrice, double costPrice, int stockMin, int stockMax) {
 		this.barcode = barcode;
 		this.description = description;
 		this.setBrand(brand);
-		this.price = price;
+		this.catalogPrice = catalogPrice;
+		this.costPrice = costPrice;
 		this.stockMin = stockMin;
 		this.stockMax = stockMax;
 	}
@@ -52,12 +62,12 @@ public class Product implements Listable {
 		this.description = description;
 	}
 
-	public double getPrice() {
-		return price;
+	public double getCatalogPrice() {
+		return catalogPrice;
 	}
 
-	public void setPrice(double price) {
-		this.price = price;
+	public void setCatalogPrice(double price) {
+		this.catalogPrice = price;
 	}
 
 	public int getStockMax() {

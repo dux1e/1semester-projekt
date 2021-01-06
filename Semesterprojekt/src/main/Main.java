@@ -17,7 +17,7 @@ public class Main {
 		
 		ec.setCurrentEmployee(e);
 		oc.setEmployeeController(ec);
-		pc.addProduct(4444, "Hammer", "Bahco", 75, 10, 100);
+		pc.addProduct(4444, "Hammer", "Bahco", 75, 25, 10, 100);
 		cc.addBusinessCustomer(12345678, "Pepsi Cola", "Hele Verdens gade 42, Danmark, 9440 Aabybro",
 				"DK12345678", "Pepsi Man", 87654321, "Pepsi@Cool.com");
 		cc.addPrivateCustomer("5555554444", "Ip Skrå", "Skæve Kløftens Vej 1, Danmark, 9600 Aars",

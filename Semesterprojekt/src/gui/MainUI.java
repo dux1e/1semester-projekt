@@ -32,6 +32,8 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import javax.swing.event.ListSelectionListener;
+import javax.swing.event.ListSelectionEvent;
 
 public class MainUI {
 
@@ -220,7 +222,8 @@ public class MainUI {
 		
 		ec.setCurrentEmployee(e);
 		oc.setEmployeeController(ec);
-		pc.addProduct(4444, "Hammer", "Bahco", 75, 10, 100);
+		pc.addProduct(4444, "Hammer", "Bahco", 75, 25, 10, 100);
+		pc.addProduct(8500, "Lysstofrør", "Philips", 10, 8.5, 100, 1000);
 		cc.addBusinessCustomer(12345678, "Pepsi Cola", "Hele Verdens gade 42, Danmark, 9440 Aabybro",
 				"DK12345678", "Pepsi Man", 87654321, "Pepsi@Cool.com");
 		cc.addPrivateCustomer("5555554444", "Ip Skrå", "Skæve Kløftens Vej 1, Danmark, 9600 Aars",
@@ -329,6 +332,7 @@ public class MainUI {
 		panelSeach.add(buttonSeachCustomer, gbc_buttonSeachCustomer);
 		
 		labelEmployeeField = new JLabel("Medarbejder:");
+		labelEmployeeField.setEnabled(false);
 		GridBagConstraints gbc_labelEmployeeField = new GridBagConstraints();
 		gbc_labelEmployeeField.insets = new Insets(0, 0, 5, 5);
 		gbc_labelEmployeeField.anchor = GridBagConstraints.EAST;
@@ -337,6 +341,7 @@ public class MainUI {
 		panelSeach.add(labelEmployeeField, gbc_labelEmployeeField);
 		
 		txtFieldFindEmployees = new JTextField();
+		txtFieldFindEmployees.setEnabled(false);
 		labelEmployeeField.setLabelFor(txtFieldFindEmployees);
 		GridBagConstraints gbc_txtFieldFindEmployees = new GridBagConstraints();
 		gbc_txtFieldFindEmployees.insets = new Insets(0, 0, 5, 5);
@@ -347,6 +352,7 @@ public class MainUI {
 		txtFieldFindEmployees.setColumns(10);
 		
 		buttonSeachEmployee = new JButton("Søg");
+		buttonSeachEmployee.setEnabled(false);
 		GridBagConstraints gbc_buttonSeachEmployee = new GridBagConstraints();
 		gbc_buttonSeachEmployee.insets = new Insets(0, 0, 5, 5);
 		gbc_buttonSeachEmployee.gridx = 3;
@@ -363,6 +369,12 @@ public class MainUI {
 		panelSeach.add(panelSearchResults, gbc_panelSearchResults);
 		
 		list = new JList<>();
+		list.addListSelectionListener(new ListSelectionListener() {
+			public void valueChanged(ListSelectionEvent e) {
+				Object o = list.getSelectedValue();
+				showInfoFromObject(o);
+			}
+		});
 		initializeList();
 		panelSearchResults.setViewportView(list);
 		
@@ -392,7 +404,7 @@ public class MainUI {
 		OtherInfo.setLayout(new CardLayout(0, 0));
 		
 		productInfo = new JPanel();
-		OtherInfo.add(productInfo, "name_8317650808799");
+		OtherInfo.add(productInfo, "model.Product");
 		productInfo.setLayout(new MigLayout("", "[right][10px:n][right][][grow]", "[][][][][][][][][][][][]"));
 		
 		labelProductDescription = new JLabel("Beskrivelse:");
@@ -420,15 +432,19 @@ public class MainUI {
 		productInfo.add(labelProductCostPriceValue, "cell 2 3");
 		
 		labelProductStorageStatus = new JLabel("Lagerstatus:");
+		labelProductStorageStatus.setEnabled(false);
 		productInfo.add(labelProductStorageStatus, "cell 0 4");
 		
 		labelProductStorageStatusValue = new JLabel("ukendt");
+		labelProductStorageStatusValue.setEnabled(false);
 		productInfo.add(labelProductStorageStatusValue, "cell 2 4");
 		
 		labelProductLocation = new JLabel("Lokation:");
+		labelProductLocation.setEnabled(false);
 		productInfo.add(labelProductLocation, "cell 0 5");
 		
 		labelProductLocationValue = new JLabel("ukendt");
+		labelProductLocationValue.setEnabled(false);
 		productInfo.add(labelProductLocationValue, "cell 2 5");
 		
 		separator_4 = new JSeparator();
@@ -456,7 +472,7 @@ public class MainUI {
 		productInfo.add(buttonProductAddToOrder, "cell 0 11 4 1,growx");
 		
 		privateCustomerInfo_1 = new JPanel();
-		OtherInfo.add(privateCustomerInfo_1, "name_600343852600");
+		OtherInfo.add(privateCustomerInfo_1, "model.PrivateCustomer");
 		privateCustomerInfo_1.setLayout(new MigLayout("", "[48px,right][10px:n][33px,right][grow][1px]", "[14px][][][][][][][][][][][]"));
 		
 		labelPrivateCustomerID_1 = new JLabel("Kunde ID:");
@@ -525,7 +541,7 @@ public class MainUI {
 		privateCustomerInfo_1.add(buttonPrivateCustomerAddToOrder, "cell 0 11 3 1,growx");
 		
 		businessCustomerInfo_1 = new JPanel();
-		OtherInfo.add(businessCustomerInfo_1, "name_963075195100");
+		OtherInfo.add(businessCustomerInfo_1, "model.BusinessCustomer");
 		businessCustomerInfo_1.setLayout(new MigLayout("", "[48px,right][10px:n][33px,right][57px,grow]", "[14px][][][][][][][][][][][][][]"));
 		
 		labelBusinessCustomerID_1 = new JLabel("Kunde ID:");
@@ -850,5 +866,24 @@ public class MainUI {
 			listRepresentation.addElement(element);
 		}
 		list.setModel(listRepresentation);
+	}
+	
+	private void showInfoFromObject(Object o) {
+		if(o != null) {
+			String objectType = o.getClass().getName();
+			CardLayout cl = (CardLayout)(OtherInfo.getLayout());
+			cl.show(OtherInfo, objectType);
+			
+			switch(objectType) {
+			case "model.Product":
+				Product p = (Product) o;
+				labelProductDescriptionValue.setText(p.getDescription());
+				labelProductIDValue.setText(String.valueOf(p.getBarcode()));
+				labelProductCatalogPriceValue.setText(String.valueOf(p.getCatalogPrice()));
+				labelProductCostPriceValue.setText(String.valueOf(p.getCostPrice()));
+				break;
+			
+			}
+		}
 	}
 }
