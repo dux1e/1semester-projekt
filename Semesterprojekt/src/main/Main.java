@@ -1,7 +1,9 @@
 package main;
+
 import controller.*;
 import model.*;
-import tui.*;
+import tui.MainUI;
+
 
 public class Main {
 
@@ -20,6 +22,7 @@ public class Main {
 				"DK12345678", "Pepsi Man", 87654321, "Pepsi@Cool.com");
 		cc.addPrivateCustomer("5555554444", "Ip Skrå", "Skæve Kløftens Vej 1, Danmark, 9600 Aars",
 				77777771, "OpAd@Bakke.uk");
+		
 		
 		//starter TUI
 		MainUI.start();

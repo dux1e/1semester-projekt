@@ -1,6 +1,6 @@
 package model;
 
-public class BusinessCustomer extends Business implements Customer {
+public class BusinessCustomer extends Business implements Customer, Listable {
 	private double discountMin;
 	private double discountMax;
 	private double credit;
@@ -8,6 +8,12 @@ public class BusinessCustomer extends Business implements Customer {
 	public BusinessCustomer(int cvr, String name, String address, String vatRe,
 			String contactName, int contactTlf, String contactEmail) {
 		super(cvr, name, address, vatRe, contactName, contactTlf, contactEmail);
+	}
+	
+	public String getStringToList() {
+		String name = this.getName();
+		String theString = name;
+		return theString;
 	}
 	
 	// getters and setters below

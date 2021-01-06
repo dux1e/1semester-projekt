@@ -1,5 +1,7 @@
 package controller;
 
+import java.util.ArrayList;
+
 import model.*;
 
 public class ProductController {
@@ -17,5 +19,9 @@ public class ProductController {
 	
 	public Product findProductByBarcode(int barcode) {
 		return productContainer.findProductByBarcode(barcode);
+	}
+	
+	public ArrayList<Listable> searchViaInput(String input) {
+		return productContainer.searchViaInput(input);
 	}
 }

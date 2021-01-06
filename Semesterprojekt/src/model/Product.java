@@ -1,6 +1,6 @@
 package model;
 
-public class Product {
+public class Product implements Listable {
 	private int barcode;
 	private String description;
 	private String brand;
@@ -28,6 +28,14 @@ public class Product {
 		this.stockMax = stockMax;
 	}
 	
+	public String getStringToList() {
+		String description = this.getDescription();
+		String barcode = String.valueOf(this.getBarcode());
+		String theString = description + " - " + barcode;
+		return theString;
+	}
+	
+	// getters and setters below
 	public int getBarcode() {
 		return barcode;
 	}

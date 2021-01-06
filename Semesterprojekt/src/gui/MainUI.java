@@ -9,6 +9,8 @@ import java.awt.GridBagLayout;
 import javax.swing.JTextField;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
+import java.util.ArrayList;
+
 import javax.swing.JButton;
 import javax.swing.JScrollPane;
 import javax.swing.JList;
@@ -22,18 +24,23 @@ import java.awt.CardLayout;
 import javax.swing.border.LineBorder;
 import java.awt.Color;
 import javax.swing.JSeparator;
-import java.awt.Dimension;
+import javax.swing.DefaultListModel;
+
+import controller.*;
+import model.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class MainUI {
 
 	private JFrame frame;
-	private JTextField txtFindProducts;
-	private JTextField txtFindCustomers;
-	private JTextField txtFindEmployees;
+	private JTextField txtFieldFindProducts;
+	private JTextField txtFieldFindCustomers;
+	private JTextField txtFieldFindEmployees;
 	private JButton buttonSeachCustomer;
 	private JButton buttonSeachEmployee;
 	private JScrollPane panelSearchResults;
-	private JList list;
+	private JList<Listable> list;
 	private JTabbedPane panelTabs;
 	private JPanel tabSale;
 	private JPanel tabStorage;
@@ -99,14 +106,14 @@ public class MainUI {
 	private JLabel labelBusinessCustomerEmail;
 	private JLabel labelBusinessCustomerEmailValue;
 	private JSeparator separator_1;
-	private JLabel labelPrivateCustomerMinimumDiscount_1;
-	private JLabel labelPrivateCustomerMinimumDiscountValue_1;
-	private JLabel labelPrivateCustomerMaximumDiscount_1;
-	private JLabel labelPrivateCustomerMaximumDiscountValue_1;
-	private JLabel labelPrivateCustomerMaximumCredit_1;
-	private JLabel labelPrivateCustomerMaximumCreditValue_1;
-	private JLabel labelPrivateCustomerUnusedCredit_1;
-	private JLabel labelPrivateCustomerUnusedCreditValue_1;
+	private JLabel labelBusinessCustomerMinimumDiscount;
+	private JLabel labelBusinessCustomerMinimumDiscountValue;
+	private JLabel labelBusinessCustomerMaximumDiscount;
+	private JLabel labelBusinessCustomerMaximumDiscountValue;
+	private JLabel labelBusinessCustomerMaximumCredit;
+	private JLabel labelBusinessCustomerMaximumCreditValue;
+	private JLabel labelBusinessCustomerUnusedCredit;
+	private JLabel labelBusinessCustomerUnusedCreditValue;
 	private JSeparator separator_2;
 	private JLabel labelBusinessCustomerName;
 	private JLabel labelBusinessCustomerNameValue;
@@ -142,14 +149,14 @@ public class MainUI {
 	private JLabel labelPrivateCustomerEmail_1;
 	private JLabel labelPrivateCustomerEmailValue_1;
 	private JSeparator separator_5;
-	private JLabel labelPrivateCustomerMinimumDiscount_2;
-	private JLabel labelPrivateCustomerMinimumDiscountValue_2;
-	private JLabel labelPrivateCustomerMaximumDiscount_2;
-	private JLabel labelPrivateCustomerMaximumDiscountValue_2;
-	private JLabel labelPrivateCustomerMaximumCredit_2;
-	private JLabel labelPrivateCustomerMaximumCreditValue_2;
-	private JLabel labelPrivateCustomerUnusedCredit_2;
-	private JLabel labelPrivateCustomerUnusedCreditValue_2;
+	private JLabel labelPrivateCustomerMinimumDiscount_1;
+	private JLabel labelPrivateCustomerMinimumDiscountValue_1;
+	private JLabel labelPrivateCustomerMaximumDiscount_1;
+	private JLabel labelPrivateCustomerMaximumDiscountValue_1;
+	private JLabel labelPrivateCustomerMaximumCredit_1;
+	private JLabel labelPrivateCustomerMaximumCreditValue_1;
+	private JLabel labelPrivateCustomerUnusedCredit_1;
+	private JLabel labelPrivateCustomerUnusedCreditValue_1;
 	private JPanel businessCustomerInfo_1;
 	private JLabel labelBusinessCustomerID_1;
 	private JLabel labelBusinessCustomerIDValue_1;
@@ -165,18 +172,21 @@ public class MainUI {
 	private JLabel labelBusinessCustomerEmail_1;
 	private JLabel labelBusinessCustomerEmailValue_1;
 	private JSeparator separator_7;
-	private JLabel labelPrivateCustomerMinimumDiscount_3;
-	private JLabel labelPrivateCustomerMinimumDiscountValue_3;
-	private JLabel labelPrivateCustomerMaximumDiscount_3;
-	private JLabel labelPrivateCustomerMaximumDiscountValue_3;
-	private JLabel labelPrivateCustomerMaximumCredit_3;
-	private JLabel labelPrivateCustomerMaximumCreditValue_3;
-	private JLabel labelPrivateCustomerUnusedCredit_3;
-	private JLabel labelPrivateCustomerUnusedCreditValue_3;
+	private JLabel labelBusinessCustomerMinimumDiscount_1;
+	private JLabel labelBusinessCustomerMinimumDiscountValue_1;
+	private JLabel labelBusinessCustomerMaximumDiscount_1;
+	private JLabel labelBusinessCustomerMaximumDiscountValue_1;
+	private JLabel labelBusinessCustomerMaximumCredit_1;
+	private JLabel labelBusinessCustomerMaximumCreditValue_1;
+	private JLabel labelBusinessCustomerUnusedCredit_1;
+	private JLabel labelBusinessCustomerUnusedCreditValue_1;
 	private JSeparator separator_8;
 	private JButton buttonBusinessCustomerAddToOrder;
 	private JSeparator separator_9;
 	private JButton buttonPrivateCustomerAddToOrder;
+	
+	private ProductController productController;
+	private DefaultListModel<Listable> listRepresentation;
 
 	/**
 	 * Launch the application.
@@ -198,6 +208,21 @@ public class MainUI {
 	 * Create the application.
 	 */
 	public MainUI() {
+		// adds information
+		CustomerController cc = new CustomerController();
+		Employee e = new Employee("1204890000", "Bo Billy", "", 88888887, "Bo@Billigt.dk", "kodeord321");
+		ProductController pc = new ProductController();
+		EmployeeController ec = new EmployeeController();
+		OrderController oc = new OrderController();
+		
+		ec.setCurrentEmployee(e);
+		oc.setEmployeeController(ec);
+		pc.addProduct(4444, "Hammer", "Bahco", 75, 10, 100);
+		cc.addBusinessCustomer(12345678, "Pepsi Cola", "Hele Verdens gade 42, Danmark, 9440 Aabybro",
+				"DK12345678", "Pepsi Man", 87654321, "Pepsi@Cool.com");
+		cc.addPrivateCustomer("5555554444", "Ip Skrå", "Skæve Kløftens Vej 1, Danmark, 9600 Aars",
+				77777771, "OpAd@Bakke.uk");
+		
 		initialize();
 	}
 
@@ -205,6 +230,8 @@ public class MainUI {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
+		this.productController = new ProductController();
+		
 		frame = new JFrame();
 		frame.setBounds(100, 100, 1000, 600);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -227,17 +254,24 @@ public class MainUI {
 		gbc_labelProductField.gridy = 1;
 		panelSeach.add(labelProductField, gbc_labelProductField);
 		
-		txtFindProducts = new JTextField();
-		labelProductField.setLabelFor(txtFindProducts);
-		GridBagConstraints gbc_txtFindProducts = new GridBagConstraints();
-		gbc_txtFindProducts.insets = new Insets(0, 0, 5, 5);
-		gbc_txtFindProducts.fill = GridBagConstraints.HORIZONTAL;
-		gbc_txtFindProducts.gridx = 2;
-		gbc_txtFindProducts.gridy = 1;
-		panelSeach.add(txtFindProducts, gbc_txtFindProducts);
-		txtFindProducts.setColumns(10);
+		txtFieldFindProducts = new JTextField();
+		labelProductField.setLabelFor(txtFieldFindProducts);
+		GridBagConstraints gbc_txtFieldFindProducts = new GridBagConstraints();
+		gbc_txtFieldFindProducts.insets = new Insets(0, 0, 5, 5);
+		gbc_txtFieldFindProducts.fill = GridBagConstraints.HORIZONTAL;
+		gbc_txtFieldFindProducts.gridx = 2;
+		gbc_txtFieldFindProducts.gridy = 1;
+		panelSeach.add(txtFieldFindProducts, gbc_txtFieldFindProducts);
+		txtFieldFindProducts.setColumns(10);
 		
 		JButton buttonSeachProduct = new JButton("Søg");
+		buttonSeachProduct.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				String input = txtFieldFindProducts.getText();
+				updateList(input);
+			}
+		});
 		GridBagConstraints gbc_buttonSeachProduct = new GridBagConstraints();
 		gbc_buttonSeachProduct.insets = new Insets(0, 0, 5, 5);
 		gbc_buttonSeachProduct.gridx = 3;
@@ -252,15 +286,15 @@ public class MainUI {
 		gbc_labelCustomerField.gridy = 2;
 		panelSeach.add(labelCustomerField, gbc_labelCustomerField);
 		
-		txtFindCustomers = new JTextField();
-		labelCustomerField.setLabelFor(txtFindCustomers);
-		GridBagConstraints gbc_txtFindCustomers = new GridBagConstraints();
-		gbc_txtFindCustomers.insets = new Insets(0, 0, 5, 5);
-		gbc_txtFindCustomers.fill = GridBagConstraints.HORIZONTAL;
-		gbc_txtFindCustomers.gridx = 2;
-		gbc_txtFindCustomers.gridy = 2;
-		panelSeach.add(txtFindCustomers, gbc_txtFindCustomers);
-		txtFindCustomers.setColumns(10);
+		txtFieldFindCustomers = new JTextField();
+		labelCustomerField.setLabelFor(txtFieldFindCustomers);
+		GridBagConstraints gbc_txtFieldFindCustomers = new GridBagConstraints();
+		gbc_txtFieldFindCustomers.insets = new Insets(0, 0, 5, 5);
+		gbc_txtFieldFindCustomers.fill = GridBagConstraints.HORIZONTAL;
+		gbc_txtFieldFindCustomers.gridx = 2;
+		gbc_txtFieldFindCustomers.gridy = 2;
+		panelSeach.add(txtFieldFindCustomers, gbc_txtFieldFindCustomers);
+		txtFieldFindCustomers.setColumns(10);
 		
 		buttonSeachCustomer = new JButton("Søg");
 		GridBagConstraints gbc_buttonSeachCustomer = new GridBagConstraints();
@@ -277,15 +311,15 @@ public class MainUI {
 		gbc_labelEmployeeField.gridy = 3;
 		panelSeach.add(labelEmployeeField, gbc_labelEmployeeField);
 		
-		txtFindEmployees = new JTextField();
-		labelEmployeeField.setLabelFor(txtFindEmployees);
-		GridBagConstraints gbc_txtFindEmployees = new GridBagConstraints();
-		gbc_txtFindEmployees.insets = new Insets(0, 0, 5, 5);
-		gbc_txtFindEmployees.fill = GridBagConstraints.HORIZONTAL;
-		gbc_txtFindEmployees.gridx = 2;
-		gbc_txtFindEmployees.gridy = 3;
-		panelSeach.add(txtFindEmployees, gbc_txtFindEmployees);
-		txtFindEmployees.setColumns(10);
+		txtFieldFindEmployees = new JTextField();
+		labelEmployeeField.setLabelFor(txtFieldFindEmployees);
+		GridBagConstraints gbc_txtFieldFindEmployees = new GridBagConstraints();
+		gbc_txtFieldFindEmployees.insets = new Insets(0, 0, 5, 5);
+		gbc_txtFieldFindEmployees.fill = GridBagConstraints.HORIZONTAL;
+		gbc_txtFieldFindEmployees.gridx = 2;
+		gbc_txtFieldFindEmployees.gridy = 3;
+		panelSeach.add(txtFieldFindEmployees, gbc_txtFieldFindEmployees);
+		txtFieldFindEmployees.setColumns(10);
 		
 		buttonSeachEmployee = new JButton("Søg");
 		GridBagConstraints gbc_buttonSeachEmployee = new GridBagConstraints();
@@ -303,7 +337,8 @@ public class MainUI {
 		gbc_panelSearchResults.gridy = 4;
 		panelSeach.add(panelSearchResults, gbc_panelSearchResults);
 		
-		list = new JList();
+		list = new JList<>();
+		initializeList();
 		panelSearchResults.setViewportView(list);
 		
 		labelLogin = new JLabel("Loginoplysninger her");
@@ -434,29 +469,29 @@ public class MainUI {
 		separator_5.setBackground(Color.WHITE);
 		privateCustomerInfo_1.add(separator_5, "cell 0 5 4 1,growx,aligny center");
 		
-		labelPrivateCustomerMinimumDiscount_2 = new JLabel("Minimum rabat:");
-		privateCustomerInfo_1.add(labelPrivateCustomerMinimumDiscount_2, "cell 0 6,aligny top");
+		labelPrivateCustomerMinimumDiscount_1 = new JLabel("Minimum rabat:");
+		privateCustomerInfo_1.add(labelPrivateCustomerMinimumDiscount_1, "cell 0 6,aligny top");
 		
-		labelPrivateCustomerMinimumDiscountValue_2 = new JLabel("ukendt");
-		privateCustomerInfo_1.add(labelPrivateCustomerMinimumDiscountValue_2, "cell 2 6,aligny top");
+		labelPrivateCustomerMinimumDiscountValue_1 = new JLabel("ukendt");
+		privateCustomerInfo_1.add(labelPrivateCustomerMinimumDiscountValue_1, "cell 2 6,aligny top");
 		
-		labelPrivateCustomerMaximumDiscount_2 = new JLabel("Maksimal rabat:");
-		privateCustomerInfo_1.add(labelPrivateCustomerMaximumDiscount_2, "cell 0 7,aligny top");
+		labelPrivateCustomerMaximumDiscount_1 = new JLabel("Maksimal rabat:");
+		privateCustomerInfo_1.add(labelPrivateCustomerMaximumDiscount_1, "cell 0 7,aligny top");
 		
-		labelPrivateCustomerMaximumDiscountValue_2 = new JLabel("ukendt");
-		privateCustomerInfo_1.add(labelPrivateCustomerMaximumDiscountValue_2, "cell 2 7,aligny top");
+		labelPrivateCustomerMaximumDiscountValue_1 = new JLabel("ukendt");
+		privateCustomerInfo_1.add(labelPrivateCustomerMaximumDiscountValue_1, "cell 2 7,aligny top");
 		
-		labelPrivateCustomerMaximumCredit_2 = new JLabel("Maksimal kredit:");
-		privateCustomerInfo_1.add(labelPrivateCustomerMaximumCredit_2, "cell 0 8,aligny top");
+		labelPrivateCustomerMaximumCredit_1 = new JLabel("Maksimal kredit:");
+		privateCustomerInfo_1.add(labelPrivateCustomerMaximumCredit_1, "cell 0 8,aligny top");
 		
-		labelPrivateCustomerMaximumCreditValue_2 = new JLabel("ukendt");
-		privateCustomerInfo_1.add(labelPrivateCustomerMaximumCreditValue_2, "cell 2 8,aligny top");
+		labelPrivateCustomerMaximumCreditValue_1 = new JLabel("ukendt");
+		privateCustomerInfo_1.add(labelPrivateCustomerMaximumCreditValue_1, "cell 2 8,aligny top");
 		
-		labelPrivateCustomerUnusedCredit_2 = new JLabel("Tilbagestående kredit:");
-		privateCustomerInfo_1.add(labelPrivateCustomerUnusedCredit_2, "cell 0 9,aligny top");
+		labelPrivateCustomerUnusedCredit_1 = new JLabel("Tilbagestående kredit:");
+		privateCustomerInfo_1.add(labelPrivateCustomerUnusedCredit_1, "cell 0 9,aligny top");
 		
-		labelPrivateCustomerUnusedCreditValue_2 = new JLabel("ukendt");
-		privateCustomerInfo_1.add(labelPrivateCustomerUnusedCreditValue_2, "cell 2 9,aligny top");
+		labelPrivateCustomerUnusedCreditValue_1 = new JLabel("ukendt");
+		privateCustomerInfo_1.add(labelPrivateCustomerUnusedCreditValue_1, "cell 2 9,aligny top");
 		
 		separator_9 = new JSeparator();
 		privateCustomerInfo_1.add(separator_9, "cell 0 10 4 1,growx");
@@ -513,29 +548,29 @@ public class MainUI {
 		separator_7.setBackground(Color.WHITE);
 		businessCustomerInfo_1.add(separator_7, "cell 0 7 4 1,growx,aligny center");
 		
-		labelPrivateCustomerMinimumDiscount_3 = new JLabel("Minimum rabat:");
-		businessCustomerInfo_1.add(labelPrivateCustomerMinimumDiscount_3, "cell 0 8,aligny top");
+		labelBusinessCustomerMinimumDiscount_1 = new JLabel("Minimum rabat:");
+		businessCustomerInfo_1.add(labelBusinessCustomerMinimumDiscount_1, "cell 0 8,aligny top");
 		
-		labelPrivateCustomerMinimumDiscountValue_3 = new JLabel("ukendt");
-		businessCustomerInfo_1.add(labelPrivateCustomerMinimumDiscountValue_3, "cell 2 8,aligny top");
+		labelBusinessCustomerMinimumDiscountValue_1 = new JLabel("ukendt");
+		businessCustomerInfo_1.add(labelBusinessCustomerMinimumDiscountValue_1, "cell 2 8,aligny top");
 		
-		labelPrivateCustomerMaximumDiscount_3 = new JLabel("Maksimal rabat:");
-		businessCustomerInfo_1.add(labelPrivateCustomerMaximumDiscount_3, "cell 0 9,aligny top");
+		labelBusinessCustomerMaximumDiscount_1 = new JLabel("Maksimal rabat:");
+		businessCustomerInfo_1.add(labelBusinessCustomerMaximumDiscount_1, "cell 0 9,aligny top");
 		
-		labelPrivateCustomerMaximumDiscountValue_3 = new JLabel("ukendt");
-		businessCustomerInfo_1.add(labelPrivateCustomerMaximumDiscountValue_3, "cell 2 9,aligny top");
+		labelBusinessCustomerMaximumDiscountValue_1 = new JLabel("ukendt");
+		businessCustomerInfo_1.add(labelBusinessCustomerMaximumDiscountValue_1, "cell 2 9,aligny top");
 		
-		labelPrivateCustomerMaximumCredit_3 = new JLabel("Maksimal kredit:");
-		businessCustomerInfo_1.add(labelPrivateCustomerMaximumCredit_3, "cell 0 10,aligny top");
+		labelBusinessCustomerMaximumCredit_1 = new JLabel("Maksimal kredit:");
+		businessCustomerInfo_1.add(labelBusinessCustomerMaximumCredit_1, "cell 0 10,aligny top");
 		
-		labelPrivateCustomerMaximumCreditValue_3 = new JLabel("ukendt");
-		businessCustomerInfo_1.add(labelPrivateCustomerMaximumCreditValue_3, "cell 2 10,aligny top");
+		labelBusinessCustomerMaximumCreditValue_1 = new JLabel("ukendt");
+		businessCustomerInfo_1.add(labelBusinessCustomerMaximumCreditValue_1, "cell 2 10,aligny top");
 		
-		labelPrivateCustomerUnusedCredit_3 = new JLabel("Tilbagestående kredit:");
-		businessCustomerInfo_1.add(labelPrivateCustomerUnusedCredit_3, "cell 0 11,aligny top");
+		labelBusinessCustomerUnusedCredit_1 = new JLabel("Tilbagestående kredit:");
+		businessCustomerInfo_1.add(labelBusinessCustomerUnusedCredit_1, "cell 0 11,aligny top");
 		
-		labelPrivateCustomerUnusedCreditValue_3 = new JLabel("ukendt");
-		businessCustomerInfo_1.add(labelPrivateCustomerUnusedCreditValue_3, "cell 2 11,aligny top");
+		labelBusinessCustomerUnusedCreditValue_1 = new JLabel("ukendt");
+		businessCustomerInfo_1.add(labelBusinessCustomerUnusedCreditValue_1, "cell 2 11,aligny top");
 		
 		separator_8 = new JSeparator();
 		businessCustomerInfo_1.add(separator_8, "cell 0 12 4 1,growx");
@@ -660,29 +695,29 @@ public class MainUI {
 		separator_1.setBackground(Color.WHITE);
 		businessCustomerInfo.add(separator_1, "cell 0 7 4 1,growx,aligny center");
 		
-		labelPrivateCustomerMinimumDiscount_1 = new JLabel("Minimum rabat:");
-		businessCustomerInfo.add(labelPrivateCustomerMinimumDiscount_1, "cell 0 8,aligny top");
+		labelBusinessCustomerMinimumDiscount = new JLabel("Minimum rabat:");
+		businessCustomerInfo.add(labelBusinessCustomerMinimumDiscount, "cell 0 8,aligny top");
 		
-		labelPrivateCustomerMinimumDiscountValue_1 = new JLabel("ukendt");
-		businessCustomerInfo.add(labelPrivateCustomerMinimumDiscountValue_1, "cell 2 8,aligny top");
+		labelBusinessCustomerMinimumDiscountValue = new JLabel("ukendt");
+		businessCustomerInfo.add(labelBusinessCustomerMinimumDiscountValue, "cell 2 8,aligny top");
 		
-		labelPrivateCustomerMaximumDiscount_1 = new JLabel("Maksimal rabat:");
-		businessCustomerInfo.add(labelPrivateCustomerMaximumDiscount_1, "cell 0 9,aligny top");
+		labelBusinessCustomerMaximumDiscount = new JLabel("Maksimal rabat:");
+		businessCustomerInfo.add(labelBusinessCustomerMaximumDiscount, "cell 0 9,aligny top");
 		
-		labelPrivateCustomerMaximumDiscountValue_1 = new JLabel("ukendt");
-		businessCustomerInfo.add(labelPrivateCustomerMaximumDiscountValue_1, "cell 2 9,aligny top");
+		labelBusinessCustomerMaximumDiscountValue = new JLabel("ukendt");
+		businessCustomerInfo.add(labelBusinessCustomerMaximumDiscountValue, "cell 2 9,aligny top");
 		
-		labelPrivateCustomerMaximumCredit_1 = new JLabel("Maksimal kredit:");
-		businessCustomerInfo.add(labelPrivateCustomerMaximumCredit_1, "cell 0 10,aligny top");
+		labelBusinessCustomerMaximumCredit = new JLabel("Maksimal kredit:");
+		businessCustomerInfo.add(labelBusinessCustomerMaximumCredit, "cell 0 10,aligny top");
 		
-		labelPrivateCustomerMaximumCreditValue_1 = new JLabel("ukendt");
-		businessCustomerInfo.add(labelPrivateCustomerMaximumCreditValue_1, "cell 2 10,aligny top");
+		labelBusinessCustomerMaximumCreditValue = new JLabel("ukendt");
+		businessCustomerInfo.add(labelBusinessCustomerMaximumCreditValue, "cell 2 10,aligny top");
 		
-		labelPrivateCustomerUnusedCredit_1 = new JLabel("Tilbagestående kredit:");
-		businessCustomerInfo.add(labelPrivateCustomerUnusedCredit_1, "cell 0 11,aligny top");
+		labelBusinessCustomerUnusedCredit = new JLabel("Tilbagestående kredit:");
+		businessCustomerInfo.add(labelBusinessCustomerUnusedCredit, "cell 0 11,aligny top");
 		
-		labelPrivateCustomerUnusedCreditValue_1 = new JLabel("ukendt");
-		businessCustomerInfo.add(labelPrivateCustomerUnusedCreditValue_1, "cell 2 11,aligny top");
+		labelBusinessCustomerUnusedCreditValue = new JLabel("ukendt");
+		businessCustomerInfo.add(labelBusinessCustomerUnusedCreditValue, "cell 2 11,aligny top");
 		
 		orderPanel = new JPanel();
 		orderPanel.setBorder(new LineBorder(Color.GRAY));
@@ -768,4 +803,17 @@ public class MainUI {
 		tabPurchasing.add(lblNewLabel_1);
 	}
 
+	private void initializeList() {
+		ListableCellRenderer cellRenderer = new ListableCellRenderer();
+		list.setCellRenderer(cellRenderer);	
+	}
+	
+	private void updateList(String input) {
+		listRepresentation = new DefaultListModel<Listable>();
+		ArrayList<Listable> modelList = productController.searchViaInput(input);
+		for(Listable element : modelList) {
+			listRepresentation.addElement(element);
+		}
+		list.setModel(listRepresentation);
+	}
 }
