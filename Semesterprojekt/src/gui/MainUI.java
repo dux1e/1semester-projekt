@@ -61,7 +61,6 @@ public class MainUI {
 	private JPanel privateCustomerInfo;
 	private JPanel OtherInfo;
 	private JPanel productInfo;
-	private JPanel employeeInfo;
 	private JLabel labelDiscount;
 	private JLabel labelDiscountAmount;
 	private JButton buttonGiveTotalDiscount;
@@ -129,8 +128,55 @@ public class MainUI {
 	private JTextField txtFieldProductDiscountInDkk;
 	private JTextField txtFieldProductDiscountInPercent;
 	private JButton buttonProductGiveDiscount;
-	private JButton buttonAddToOrder;
+	private JButton buttonProductAddToOrder;
 	private JSeparator separator_4;
+	private JPanel privateCustomerInfo_1;
+	private JLabel labelPrivateCustomerID_1;
+	private JLabel labelPrivateCustomerIDValue_1;
+	private JLabel labelPrivateCustomerName_1;
+	private JLabel labelPrivateCustomerNameValue_1;
+	private JLabel labelPrivateCustomerCpr_1;
+	private JLabel labelPrivateCustomerCprValue_1;
+	private JLabel labelPrivateCustomerTelephone_1;
+	private JLabel labelPrivateCustomerTelephoneValue_1;
+	private JLabel labelPrivateCustomerEmail_1;
+	private JLabel labelPrivateCustomerEmailValue_1;
+	private JSeparator separator_5;
+	private JLabel labelPrivateCustomerMinimumDiscount_2;
+	private JLabel labelPrivateCustomerMinimumDiscountValue_2;
+	private JLabel labelPrivateCustomerMaximumDiscount_2;
+	private JLabel labelPrivateCustomerMaximumDiscountValue_2;
+	private JLabel labelPrivateCustomerMaximumCredit_2;
+	private JLabel labelPrivateCustomerMaximumCreditValue_2;
+	private JLabel labelPrivateCustomerUnusedCredit_2;
+	private JLabel labelPrivateCustomerUnusedCreditValue_2;
+	private JPanel businessCustomerInfo_1;
+	private JLabel labelBusinessCustomerID_1;
+	private JLabel labelBusinessCustomerIDValue_1;
+	private JLabel labelBusinessCustomerFirmName_1;
+	private JLabel labelBusinessCustomerFirmNameValue_1;
+	private JLabel labelBusinessCustomerCvr_1;
+	private JLabel labelBusinessCustomerCprValue_1;
+	private JSeparator separator_6;
+	private JLabel labelBusinessCustomerName_1;
+	private JLabel labelBusinessCustomerNameValue_1;
+	private JLabel labelBusinessCustomerTelephone_1;
+	private JLabel labelBusinessCustomerTelephoneValue_1;
+	private JLabel labelBusinessCustomerEmail_1;
+	private JLabel labelBusinessCustomerEmailValue_1;
+	private JSeparator separator_7;
+	private JLabel labelPrivateCustomerMinimumDiscount_3;
+	private JLabel labelPrivateCustomerMinimumDiscountValue_3;
+	private JLabel labelPrivateCustomerMaximumDiscount_3;
+	private JLabel labelPrivateCustomerMaximumDiscountValue_3;
+	private JLabel labelPrivateCustomerMaximumCredit_3;
+	private JLabel labelPrivateCustomerMaximumCreditValue_3;
+	private JLabel labelPrivateCustomerUnusedCredit_3;
+	private JLabel labelPrivateCustomerUnusedCreditValue_3;
+	private JSeparator separator_8;
+	private JButton buttonBusinessCustomerAddToOrder;
+	private JSeparator separator_9;
+	private JButton buttonPrivateCustomerAddToOrder;
 
 	/**
 	 * Launch the application.
@@ -346,11 +392,156 @@ public class MainUI {
 		buttonProductGiveDiscount = new JButton("Giv Rabat");
 		productInfo.add(buttonProductGiveDiscount, "cell 0 10 4 1,growx");
 		
-		buttonAddToOrder = new JButton("Tilføj til ordre");
-		productInfo.add(buttonAddToOrder, "cell 0 11 4 1,growx");
+		buttonProductAddToOrder = new JButton("Tilføj til ordre");
+		productInfo.add(buttonProductAddToOrder, "cell 0 11 4 1,growx");
 		
-		employeeInfo = new JPanel();
-		OtherInfo.add(employeeInfo, "name_8317666828699");
+		privateCustomerInfo_1 = new JPanel();
+		OtherInfo.add(privateCustomerInfo_1, "name_600343852600");
+		privateCustomerInfo_1.setLayout(new MigLayout("", "[48px,right][10px:n][33px,right][grow][1px]", "[14px][][][][][][][][][][][]"));
+		
+		labelPrivateCustomerID_1 = new JLabel("Kunde ID:");
+		privateCustomerInfo_1.add(labelPrivateCustomerID_1, "cell 0 0,aligny top");
+		
+		labelPrivateCustomerIDValue_1 = new JLabel("ukendt");
+		privateCustomerInfo_1.add(labelPrivateCustomerIDValue_1, "cell 2 0,aligny top");
+		
+		labelPrivateCustomerName_1 = new JLabel("Navn:");
+		privateCustomerInfo_1.add(labelPrivateCustomerName_1, "cell 0 1,aligny top");
+		
+		labelPrivateCustomerNameValue_1 = new JLabel("ukendt");
+		privateCustomerInfo_1.add(labelPrivateCustomerNameValue_1, "cell 2 1,aligny top");
+		
+		labelPrivateCustomerCpr_1 = new JLabel("CPR:");
+		privateCustomerInfo_1.add(labelPrivateCustomerCpr_1, "cell 0 2,aligny top");
+		
+		labelPrivateCustomerCprValue_1 = new JLabel("ukendt");
+		privateCustomerInfo_1.add(labelPrivateCustomerCprValue_1, "cell 2 2,aligny top");
+		
+		labelPrivateCustomerTelephone_1 = new JLabel("Telefon:");
+		privateCustomerInfo_1.add(labelPrivateCustomerTelephone_1, "cell 0 3,aligny top");
+		
+		labelPrivateCustomerTelephoneValue_1 = new JLabel("ukendt");
+		privateCustomerInfo_1.add(labelPrivateCustomerTelephoneValue_1, "cell 2 3,aligny top");
+		
+		labelPrivateCustomerEmail_1 = new JLabel("E-mail:");
+		privateCustomerInfo_1.add(labelPrivateCustomerEmail_1, "cell 0 4,aligny top");
+		
+		labelPrivateCustomerEmailValue_1 = new JLabel("ukendt");
+		privateCustomerInfo_1.add(labelPrivateCustomerEmailValue_1, "cell 2 4,aligny top");
+		
+		separator_5 = new JSeparator();
+		separator_5.setForeground(Color.GRAY);
+		separator_5.setBackground(Color.WHITE);
+		privateCustomerInfo_1.add(separator_5, "cell 0 5 4 1,growx,aligny center");
+		
+		labelPrivateCustomerMinimumDiscount_2 = new JLabel("Minimum rabat:");
+		privateCustomerInfo_1.add(labelPrivateCustomerMinimumDiscount_2, "cell 0 6,aligny top");
+		
+		labelPrivateCustomerMinimumDiscountValue_2 = new JLabel("ukendt");
+		privateCustomerInfo_1.add(labelPrivateCustomerMinimumDiscountValue_2, "cell 2 6,aligny top");
+		
+		labelPrivateCustomerMaximumDiscount_2 = new JLabel("Maksimal rabat:");
+		privateCustomerInfo_1.add(labelPrivateCustomerMaximumDiscount_2, "cell 0 7,aligny top");
+		
+		labelPrivateCustomerMaximumDiscountValue_2 = new JLabel("ukendt");
+		privateCustomerInfo_1.add(labelPrivateCustomerMaximumDiscountValue_2, "cell 2 7,aligny top");
+		
+		labelPrivateCustomerMaximumCredit_2 = new JLabel("Maksimal kredit:");
+		privateCustomerInfo_1.add(labelPrivateCustomerMaximumCredit_2, "cell 0 8,aligny top");
+		
+		labelPrivateCustomerMaximumCreditValue_2 = new JLabel("ukendt");
+		privateCustomerInfo_1.add(labelPrivateCustomerMaximumCreditValue_2, "cell 2 8,aligny top");
+		
+		labelPrivateCustomerUnusedCredit_2 = new JLabel("Tilbagestående kredit:");
+		privateCustomerInfo_1.add(labelPrivateCustomerUnusedCredit_2, "cell 0 9,aligny top");
+		
+		labelPrivateCustomerUnusedCreditValue_2 = new JLabel("ukendt");
+		privateCustomerInfo_1.add(labelPrivateCustomerUnusedCreditValue_2, "cell 2 9,aligny top");
+		
+		separator_9 = new JSeparator();
+		privateCustomerInfo_1.add(separator_9, "cell 0 10 4 1,growx");
+		
+		buttonPrivateCustomerAddToOrder = new JButton("Tilføj til ordre");
+		privateCustomerInfo_1.add(buttonPrivateCustomerAddToOrder, "cell 0 11 3 1,growx");
+		
+		businessCustomerInfo_1 = new JPanel();
+		OtherInfo.add(businessCustomerInfo_1, "name_963075195100");
+		businessCustomerInfo_1.setLayout(new MigLayout("", "[48px,right][10px:n][33px,right][57px,grow]", "[14px][][][][][][][][][][][][][]"));
+		
+		labelBusinessCustomerID_1 = new JLabel("Kunde ID:");
+		businessCustomerInfo_1.add(labelBusinessCustomerID_1, "cell 0 0,aligny top");
+		
+		labelBusinessCustomerIDValue_1 = new JLabel("ukendt");
+		businessCustomerInfo_1.add(labelBusinessCustomerIDValue_1, "cell 2 0,aligny top");
+		
+		labelBusinessCustomerFirmName_1 = new JLabel("Firma navn:");
+		businessCustomerInfo_1.add(labelBusinessCustomerFirmName_1, "cell 0 1,aligny top");
+		
+		labelBusinessCustomerFirmNameValue_1 = new JLabel("ukendt");
+		businessCustomerInfo_1.add(labelBusinessCustomerFirmNameValue_1, "cell 2 1,aligny top");
+		
+		labelBusinessCustomerCvr_1 = new JLabel("CVR:");
+		businessCustomerInfo_1.add(labelBusinessCustomerCvr_1, "cell 0 2,aligny top");
+		
+		labelBusinessCustomerCprValue_1 = new JLabel("ukendt");
+		businessCustomerInfo_1.add(labelBusinessCustomerCprValue_1, "cell 2 2,aligny top");
+		
+		separator_6 = new JSeparator();
+		separator_6.setForeground(Color.GRAY);
+		businessCustomerInfo_1.add(separator_6, "cell 0 3 4 1,growx,aligny center");
+		
+		labelBusinessCustomerName_1 = new JLabel("Navn:");
+		businessCustomerInfo_1.add(labelBusinessCustomerName_1, "cell 0 4,aligny top");
+		
+		labelBusinessCustomerNameValue_1 = new JLabel("ukendt");
+		businessCustomerInfo_1.add(labelBusinessCustomerNameValue_1, "cell 2 4,aligny top");
+		
+		labelBusinessCustomerTelephone_1 = new JLabel("Telefon:");
+		businessCustomerInfo_1.add(labelBusinessCustomerTelephone_1, "cell 0 5,aligny top");
+		
+		labelBusinessCustomerTelephoneValue_1 = new JLabel("ukendt");
+		businessCustomerInfo_1.add(labelBusinessCustomerTelephoneValue_1, "cell 2 5,aligny top");
+		
+		labelBusinessCustomerEmail_1 = new JLabel("E-mail:");
+		businessCustomerInfo_1.add(labelBusinessCustomerEmail_1, "cell 0 6,aligny top");
+		
+		labelBusinessCustomerEmailValue_1 = new JLabel("ukendt");
+		businessCustomerInfo_1.add(labelBusinessCustomerEmailValue_1, "cell 2 6,aligny top");
+		
+		separator_7 = new JSeparator();
+		separator_7.setForeground(Color.GRAY);
+		separator_7.setBackground(Color.WHITE);
+		businessCustomerInfo_1.add(separator_7, "cell 0 7 4 1,growx,aligny center");
+		
+		labelPrivateCustomerMinimumDiscount_3 = new JLabel("Minimum rabat:");
+		businessCustomerInfo_1.add(labelPrivateCustomerMinimumDiscount_3, "cell 0 8,aligny top");
+		
+		labelPrivateCustomerMinimumDiscountValue_3 = new JLabel("ukendt");
+		businessCustomerInfo_1.add(labelPrivateCustomerMinimumDiscountValue_3, "cell 2 8,aligny top");
+		
+		labelPrivateCustomerMaximumDiscount_3 = new JLabel("Maksimal rabat:");
+		businessCustomerInfo_1.add(labelPrivateCustomerMaximumDiscount_3, "cell 0 9,aligny top");
+		
+		labelPrivateCustomerMaximumDiscountValue_3 = new JLabel("ukendt");
+		businessCustomerInfo_1.add(labelPrivateCustomerMaximumDiscountValue_3, "cell 2 9,aligny top");
+		
+		labelPrivateCustomerMaximumCredit_3 = new JLabel("Maksimal kredit:");
+		businessCustomerInfo_1.add(labelPrivateCustomerMaximumCredit_3, "cell 0 10,aligny top");
+		
+		labelPrivateCustomerMaximumCreditValue_3 = new JLabel("ukendt");
+		businessCustomerInfo_1.add(labelPrivateCustomerMaximumCreditValue_3, "cell 2 10,aligny top");
+		
+		labelPrivateCustomerUnusedCredit_3 = new JLabel("Tilbagestående kredit:");
+		businessCustomerInfo_1.add(labelPrivateCustomerUnusedCredit_3, "cell 0 11,aligny top");
+		
+		labelPrivateCustomerUnusedCreditValue_3 = new JLabel("ukendt");
+		businessCustomerInfo_1.add(labelPrivateCustomerUnusedCreditValue_3, "cell 2 11,aligny top");
+		
+		separator_8 = new JSeparator();
+		businessCustomerInfo_1.add(separator_8, "cell 0 12 4 1,growx");
+		
+		buttonBusinessCustomerAddToOrder = new JButton("Tilføj til ordre");
+		businessCustomerInfo_1.add(buttonBusinessCustomerAddToOrder, "cell 0 13 3 1,growx");
 		
 		customerInfo = new JPanel();
 		customerInfo.setBorder(new LineBorder(Color.GRAY));
@@ -359,7 +550,7 @@ public class MainUI {
 		
 		privateCustomerInfo = new JPanel();
 		customerInfo.add(privateCustomerInfo, "name_8322905822600");
-		privateCustomerInfo.setLayout(new MigLayout("", "[48px,right][10px:n][33px,right][grow,fill]", "[14px][][][][][][][][][]"));
+		privateCustomerInfo.setLayout(new MigLayout("", "[48px,right][10px:n][33px,right][grow,fill]", "[14px][][][][][][][][][][grow]"));
 		
 		labelPrivateCustomerID = new JLabel("Kunde ID:");
 		privateCustomerInfo.add(labelPrivateCustomerID, "cell 0 0,alignx right,aligny top");
