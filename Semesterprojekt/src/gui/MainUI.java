@@ -167,7 +167,7 @@ public class MainUI {
 	private JLabel labelBusinessCustomerFirmName_1;
 	private JLabel labelBusinessCustomerFirmNameValue_1;
 	private JLabel labelBusinessCustomerCvr_1;
-	private JLabel labelBusinessCustomerCprValue_1;
+	private JLabel labelBusinessCustomerCvrValue_1;
 	private JSeparator separator_6;
 	private JLabel labelBusinessCustomerName_1;
 	private JLabel labelBusinessCustomerNameValue_1;
@@ -561,8 +561,8 @@ public class MainUI {
 		labelBusinessCustomerCvr_1 = new JLabel("CVR:");
 		businessCustomerInfo_1.add(labelBusinessCustomerCvr_1, "cell 0 2,aligny top");
 		
-		labelBusinessCustomerCprValue_1 = new JLabel("ukendt");
-		businessCustomerInfo_1.add(labelBusinessCustomerCprValue_1, "cell 2 2,aligny top");
+		labelBusinessCustomerCvrValue_1 = new JLabel("ukendt");
+		businessCustomerInfo_1.add(labelBusinessCustomerCvrValue_1, "cell 2 2,aligny top");
 		
 		separator_6 = new JSeparator();
 		separator_6.setForeground(Color.GRAY);
@@ -610,9 +610,11 @@ public class MainUI {
 		businessCustomerInfo_1.add(labelBusinessCustomerMaximumCreditValue_1, "cell 2 10,aligny top");
 		
 		labelBusinessCustomerUnusedCredit_1 = new JLabel("Tilbagestående kredit:");
+		labelBusinessCustomerUnusedCredit_1.setEnabled(false);
 		businessCustomerInfo_1.add(labelBusinessCustomerUnusedCredit_1, "cell 0 11,aligny top");
 		
 		labelBusinessCustomerUnusedCreditValue_1 = new JLabel("ukendt");
+		labelBusinessCustomerUnusedCreditValue_1.setEnabled(false);
 		businessCustomerInfo_1.add(labelBusinessCustomerUnusedCreditValue_1, "cell 2 11,aligny top");
 		
 		separator_8 = new JSeparator();
@@ -886,15 +888,28 @@ public class MainUI {
 				break;
 			
 			case "model.PrivateCustomer":
-				PrivateCustomer c = (PrivateCustomer) o;
-				labelPrivateCustomerNameValue_1.setText(c.getName());
-				labelPrivateCustomerIDValue_1.setText(String.valueOf(c.getID()));
-				labelPrivateCustomerCprValue_1.setText(c.getCPR());
-				labelPrivateCustomerTelephoneValue_1.setText(String.valueOf(c.getTelephoneNo()));
-				labelPrivateCustomerEmailValue_1.setText(c.getEmail());
-				labelPrivateCustomerMinimumDiscountValue_1.setText(String.valueOf(c.getDiscountMin()));
-				labelPrivateCustomerMaximumDiscountValue_1.setText(String.valueOf(c.getDiscountMax()));
-				labelPrivateCustomerMaximumCreditValue_1.setText(String.valueOf(c.getCredit()));
+				PrivateCustomer pc = (PrivateCustomer) o;
+				labelPrivateCustomerNameValue_1.setText(pc.getName());
+				labelPrivateCustomerIDValue_1.setText(String.valueOf(pc.getID()));
+				labelPrivateCustomerCprValue_1.setText(pc.getCPR());
+				labelPrivateCustomerTelephoneValue_1.setText(String.valueOf(pc.getTelephoneNo()));
+				labelPrivateCustomerEmailValue_1.setText(pc.getEmail());
+				labelPrivateCustomerMinimumDiscountValue_1.setText(String.valueOf(pc.getDiscountMin()));
+				labelPrivateCustomerMaximumDiscountValue_1.setText(String.valueOf(pc.getDiscountMax()));
+				labelPrivateCustomerMaximumCreditValue_1.setText(String.valueOf(pc.getCredit()));
+				break;
+				
+			case "model.BusinessCustomer":
+				BusinessCustomer bc = (BusinessCustomer) o;
+				labelBusinessCustomerFirmNameValue_1.setText(bc.getName());
+				labelBusinessCustomerIDValue_1.setText(String.valueOf(bc.getID()));
+				labelBusinessCustomerCvrValue_1.setText(String.valueOf(bc.getCVR()));
+				labelBusinessCustomerNameValue_1.setText(bc.getContactName());
+				labelBusinessCustomerTelephoneValue_1.setText(String.valueOf(bc.getContactTelephoneNo()));
+				labelBusinessCustomerEmailValue_1.setText(bc.getContactEmail());
+				labelBusinessCustomerMinimumDiscountValue_1.setText(String.valueOf(bc.getDiscountMin()));
+				labelBusinessCustomerMaximumDiscountValue_1.setText(String.valueOf(bc.getDiscountMax()));
+				labelBusinessCustomerMaximumCreditValue_1.setText(String.valueOf(bc.getCredit()));
 				break;
 			}
 		}
