@@ -8,6 +8,9 @@ public class BusinessCustomer extends Business implements Customer, Listable {
 	public BusinessCustomer(int cvr, String name, String address, String vatRe,
 			String contactName, int contactTlf, String contactEmail) {
 		super(cvr, name, address, vatRe, contactName, contactTlf, contactEmail);
+		discountMin = 10.0;
+		discountMax = 30.0;
+		credit = 50000.0;
 	}
 	
 	public String getStringToList() {

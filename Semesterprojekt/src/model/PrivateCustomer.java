@@ -7,6 +7,9 @@ public class PrivateCustomer extends PrivatePerson implements Customer, Listable
 	
 	public PrivateCustomer(String CPR, String name, String address, int tlf, String email) {
 		super(CPR, name, address, tlf, email);
+		discountMin = 10.0;
+		discountMax = 30.0;
+		credit = 20000.0;
 	}
 	
 	public String getStringToList() {

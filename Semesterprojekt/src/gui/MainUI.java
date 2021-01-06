@@ -529,9 +529,11 @@ public class MainUI {
 		privateCustomerInfo_1.add(labelPrivateCustomerMaximumCreditValue_1, "cell 2 8,aligny top");
 		
 		labelPrivateCustomerUnusedCredit_1 = new JLabel("Tilbagestående kredit:");
+		labelPrivateCustomerUnusedCredit_1.setEnabled(false);
 		privateCustomerInfo_1.add(labelPrivateCustomerUnusedCredit_1, "cell 0 9,aligny top");
 		
 		labelPrivateCustomerUnusedCreditValue_1 = new JLabel("ukendt");
+		labelPrivateCustomerUnusedCreditValue_1.setEnabled(false);
 		privateCustomerInfo_1.add(labelPrivateCustomerUnusedCreditValue_1, "cell 2 9,aligny top");
 		
 		separator_9 = new JSeparator();
@@ -883,6 +885,17 @@ public class MainUI {
 				labelProductCostPriceValue.setText(String.valueOf(p.getCostPrice()));
 				break;
 			
+			case "model.PrivateCustomer":
+				PrivateCustomer c = (PrivateCustomer) o;
+				labelPrivateCustomerNameValue_1.setText(c.getName());
+				labelPrivateCustomerIDValue_1.setText(String.valueOf(c.getID()));
+				labelPrivateCustomerCprValue_1.setText(c.getCPR());
+				labelPrivateCustomerTelephoneValue_1.setText(String.valueOf(c.getTelephoneNo()));
+				labelPrivateCustomerEmailValue_1.setText(c.getEmail());
+				labelPrivateCustomerMinimumDiscountValue_1.setText(String.valueOf(c.getDiscountMin()));
+				labelPrivateCustomerMaximumDiscountValue_1.setText(String.valueOf(c.getDiscountMax()));
+				labelPrivateCustomerMaximumCreditValue_1.setText(String.valueOf(c.getCredit()));
+				break;
 			}
 		}
 	}
