@@ -1,4 +1,6 @@
 package controller;
+import java.util.ArrayList;
+
 import model.*;
 
 public class CustomerController {
@@ -24,5 +26,9 @@ public class CustomerController {
 	public Customer findCustomerByID(int id) {
 		Customer c = this.customerContainer.findCustomerByID(id);
 		return c;
+	}
+	
+	public ArrayList<Listable> searchViaInput(String input) {
+		return customerContainer.searchViaInput(input);
 	}
 }

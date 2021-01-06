@@ -30,6 +30,8 @@ import controller.*;
 import model.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 public class MainUI {
 
@@ -186,6 +188,7 @@ public class MainUI {
 	private JButton buttonPrivateCustomerAddToOrder;
 	
 	private ProductController productController;
+	private CustomerController customerController;
 	private DefaultListModel<Listable> listRepresentation;
 
 	/**
@@ -231,6 +234,7 @@ public class MainUI {
 	 */
 	private void initialize() {
 		this.productController = new ProductController();
+		this.customerController = new CustomerController();
 		
 		frame = new JFrame();
 		frame.setBounds(100, 100, 1000, 600);
@@ -255,6 +259,13 @@ public class MainUI {
 		panelSeach.add(labelProductField, gbc_labelProductField);
 		
 		txtFieldFindProducts = new JTextField();
+		txtFieldFindProducts.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyReleased(KeyEvent e) {
+				String input = txtFieldFindProducts.getText();
+				updateList("product", input);
+			}
+		});
 		labelProductField.setLabelFor(txtFieldFindProducts);
 		GridBagConstraints gbc_txtFieldFindProducts = new GridBagConstraints();
 		gbc_txtFieldFindProducts.insets = new Insets(0, 0, 5, 5);
@@ -269,7 +280,7 @@ public class MainUI {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				String input = txtFieldFindProducts.getText();
-				updateList(input);
+				updateList("product", input);
 			}
 		});
 		GridBagConstraints gbc_buttonSeachProduct = new GridBagConstraints();
@@ -287,6 +298,13 @@ public class MainUI {
 		panelSeach.add(labelCustomerField, gbc_labelCustomerField);
 		
 		txtFieldFindCustomers = new JTextField();
+		txtFieldFindCustomers.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyReleased(KeyEvent e) {
+				String input = txtFieldFindCustomers.getText();
+				updateList("customer", input);
+			}
+		});
 		labelCustomerField.setLabelFor(txtFieldFindCustomers);
 		GridBagConstraints gbc_txtFieldFindCustomers = new GridBagConstraints();
 		gbc_txtFieldFindCustomers.insets = new Insets(0, 0, 5, 5);
@@ -297,6 +315,13 @@ public class MainUI {
 		txtFieldFindCustomers.setColumns(10);
 		
 		buttonSeachCustomer = new JButton("Søg");
+		buttonSeachCustomer.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				String input = txtFieldFindCustomers.getText();
+				updateList("customer", input);
+			}
+		});
 		GridBagConstraints gbc_buttonSeachCustomer = new GridBagConstraints();
 		gbc_buttonSeachCustomer.insets = new Insets(0, 0, 5, 5);
 		gbc_buttonSeachCustomer.gridx = 3;
@@ -808,9 +833,19 @@ public class MainUI {
 		list.setCellRenderer(cellRenderer);	
 	}
 	
-	private void updateList(String input) {
+	private void updateList(String controllerChoice , String input) {
 		listRepresentation = new DefaultListModel<Listable>();
-		ArrayList<Listable> modelList = productController.searchViaInput(input);
+		ArrayList<Listable> modelList = null;
+		switch(controllerChoice) {
+		case "product":
+			modelList = productController.searchViaInput(input);
+			break;
+			
+		case "customer":
+			modelList = customerController.searchViaInput(input);
+			break;
+		}
+		
 		for(Listable element : modelList) {
 			listRepresentation.addElement(element);
 		}

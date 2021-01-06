@@ -17,6 +17,10 @@ public abstract class PrivatePerson {
 		this.email = email;
 	}
 	
+	public String getUniqueNo() {
+		String no = this.getCPR();
+		return no;
+	}
 	
 	// getters and setters below
 	public int getID() {

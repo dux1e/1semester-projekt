@@ -22,6 +22,15 @@ public abstract class Business {
 		this.contactEmail = contactEmail;
 	}
 	
+	public String getUniqueNo() {
+		String no = String.valueOf(this.getCVR());
+		return no;
+	}
+	
+	public int getTelephoneNo() {
+		return this.getContactTelephoneNo();
+	} 
+	
 	// getters and setters below
 	public int getID() {
 		return id;

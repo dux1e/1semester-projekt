@@ -12,7 +12,9 @@ public class BusinessCustomer extends Business implements Customer, Listable {
 	
 	public String getStringToList() {
 		String name = this.getName();
-		String theString = name;
+		String telephone = String.valueOf(this.getTelephoneNo());
+		String id = String.valueOf(this.getID());
+		String theString = "B:   " + name + " - " + telephone + " - " + id;
 		return theString;
 	}
 	

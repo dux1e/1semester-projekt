@@ -12,7 +12,8 @@ public class PrivateCustomer extends PrivatePerson implements Customer, Listable
 	public String getStringToList() {
 		String name = this.getName();
 		String telephone = String.valueOf(this.getTelephoneNo());
-		String theString = name + " - " + telephone;
+		String id = String.valueOf(this.getID());
+		String theString = "P:   " + name + " - " + telephone + " - " + id;
 		return theString;
 	}
 	
