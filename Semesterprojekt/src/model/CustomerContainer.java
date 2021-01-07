@@ -14,7 +14,7 @@ public class CustomerContainer {
 	
 	private CustomerContainer() {
 		this.customers = new ArrayList<>();
-		this.nextID = 1; // id starts at 1.
+		this.nextID = 0;
 	}
 	
 	public static CustomerContainer getInstance() {

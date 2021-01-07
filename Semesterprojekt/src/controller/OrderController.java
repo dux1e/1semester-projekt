@@ -25,6 +25,7 @@ public class OrderController {
 		} else {
 			throw new IllegalStateException("En ordre er under behandling. Færdiggør nuværende ordre inden du laver en ny.");
 		}
+		addCashCustomer();
 		return o;
 	}
 	
@@ -68,8 +69,16 @@ public class OrderController {
 		return c;
 	}
 	
+	public void addCustomer(Customer c) {
+		if(this.currentOrder != null) {
+			this.currentOrder.setCustomer(c);
+		} else {
+			throw new IllegalStateException("Der er endnu ikke oprettet en ordrer.");
+		}
+	}
+	
 	public void endOrder() {
-		if(this.currentOrder != null && validateOrder()) {
+		if(validateOrder()) {
 			this.orderContainer.addOrder(currentOrder);
 			this.currentOrder = null;
 		} else {
@@ -78,15 +87,25 @@ public class OrderController {
 	}
 	
 	private boolean validateOrder() {
+		boolean haveAnOrder = this.currentOrder != null;
 		boolean hasCustomer = this.currentOrder.getCustomer() != null;
 		boolean hasOrderLine = this.currentOrder.getOrderLines().size() != 0;
-		boolean orderOK = hasCustomer && hasOrderLine;
+		boolean orderOK = haveAnOrder && hasCustomer && hasOrderLine;
+		System.out.println(haveAnOrder + " " + hasCustomer + " " + hasOrderLine);
 		return orderOK;
 	}
 	
 	public Order findOrderByOrderNo(int no) {
 		Order theOrder = this.orderContainer.findOrderByOrderNo(no);
 		return theOrder;
+	}
+	
+	private void addCashCustomer() {
+		Customer cashCustomer = new PrivateCustomer("", "Kontant Kunde", "", 0, "");
+		cashCustomer.setDiscountMin(0);
+		cashCustomer.setDiscountMax(0);
+		cashCustomer.setCredit(0);
+		addCustomer(cashCustomer);
 	}
 	
 	// getters and setter below

@@ -106,7 +106,7 @@ public class MainUI {
 	private JLabel labelBusinessCustomerFirmName;
 	private JLabel labelBusinessCustomerFirmNameValue;
 	private JLabel labelBusinessCustomerCvr;
-	private JLabel labelBusinessCustomerCprValue;
+	private JLabel labelBusinessCustomerCvrValue;
 	private JLabel labelBusinessCustomerTelephone;
 	private JLabel labelBusinessCustomerTelephoneValue;
 	private JLabel labelBusinessCustomerEmail;
@@ -223,6 +223,8 @@ public class MainUI {
 	private JSeparator separator_11;
 	private JSeparator separator_12;
 	private JButton buttonOrderLineDelete;
+	private JPanel emptyOtherInfo;
+	private JPanel emptyCustomerInfo;
 
 	/**
 	 * Launch the application.
@@ -437,6 +439,9 @@ public class MainUI {
 		infoPanel.add(OtherInfo, "cell 0 0,grow");
 		OtherInfo.setLayout(new CardLayout(0, 0));
 		
+		emptyOtherInfo = new JPanel();
+		OtherInfo.add(emptyOtherInfo, "name_75823945783900");
+		
 		productInfo = new JPanel();
 		OtherInfo.add(productInfo, "model.Product");
 		productInfo.setLayout(new MigLayout("", "[grow,right][10px:n][right][][grow]", "[][][][][][][][][][][][]"));
@@ -590,6 +595,13 @@ public class MainUI {
 		privateCustomerInfo_1.add(separator_9, "cell 0 10 4 1,growx");
 		
 		buttonPrivateCustomerAddToOrder = new JButton("Tilføj til ordre");
+		buttonPrivateCustomerAddToOrder.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				Customer c = (Customer) currentOtherInfo;
+				addCustomerToOrder(c);
+			}
+		});
 		privateCustomerInfo_1.add(buttonPrivateCustomerAddToOrder, "cell 0 11 3 1,growx");
 		
 		businessCustomerInfo_1 = new JPanel();
@@ -671,6 +683,13 @@ public class MainUI {
 		businessCustomerInfo_1.add(separator_8, "cell 0 12 4 1,growx");
 		
 		buttonBusinessCustomerAddToOrder = new JButton("Tilføj til ordre");
+		buttonBusinessCustomerAddToOrder.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				Customer c = (Customer) currentOtherInfo;
+				addCustomerToOrder(c);
+			}
+		});
 		businessCustomerInfo_1.add(buttonBusinessCustomerAddToOrder, "cell 0 13 3 1,growx");
 		
 		orderLineInfo = new JPanel();
@@ -771,8 +790,11 @@ public class MainUI {
 		infoPanel.add(customerInfo, "cell 0 1,alignx left,aligny top");
 		customerInfo.setLayout(new CardLayout(0, 0));
 		
+		emptyCustomerInfo = new JPanel();
+		customerInfo.add(emptyCustomerInfo, "name_76022774072700");
+		
 		privateCustomerInfo = new JPanel();
-		customerInfo.add(privateCustomerInfo, "name_8322905822600");
+		customerInfo.add(privateCustomerInfo, "model.PrivateCustomer");
 		privateCustomerInfo.setLayout(new MigLayout("", "[48px,right][10px:n][33px,right][grow,fill]", "[14px][][][][][][][][][][grow]"));
 		
 		labelPrivateCustomerID = new JLabel("Kunde ID:");
@@ -835,7 +857,7 @@ public class MainUI {
 		privateCustomerInfo.add(labelPrivateCustomerUnusedCreditValue, "cell 2 9,alignx right");
 		
 		businessCustomerInfo = new JPanel();
-		customerInfo.add(businessCustomerInfo, "name_12834471710700");
+		customerInfo.add(businessCustomerInfo, "model.BusinessCustomer");
 		businessCustomerInfo.setLayout(new MigLayout("", "[48px,right][10px:n][33px,right][29px,grow][1px]", "[14px][][][][][][][][][][][]"));
 		
 		labelBusinessCustomerID = new JLabel("Kunde ID:");
@@ -853,8 +875,8 @@ public class MainUI {
 		labelBusinessCustomerCvr = new JLabel("CVR:");
 		businessCustomerInfo.add(labelBusinessCustomerCvr, "cell 0 2,aligny top");
 		
-		labelBusinessCustomerCprValue = new JLabel("ukendt");
-		businessCustomerInfo.add(labelBusinessCustomerCprValue, "cell 2 2,aligny top");
+		labelBusinessCustomerCvrValue = new JLabel("ukendt");
+		businessCustomerInfo.add(labelBusinessCustomerCvrValue, "cell 2 2,aligny top");
 		
 		separator_2 = new JSeparator();
 		separator_2.setForeground(Color.GRAY);
@@ -985,6 +1007,12 @@ public class MainUI {
 		Buttons.add(ButtonPrintInvoice, "cell 0 5 3 1,growx,aligny bottom");
 		
 		ButtonEndSale = new JButton("Afslut køb");
+		ButtonEndSale.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				endOrder();
+			}
+		});
 		Buttons.add(ButtonEndSale, "cell 0 6 3 1,grow");
 		
 		tabStorage = new JPanel();
@@ -1004,6 +1032,7 @@ public class MainUI {
 		tabPurchasing.add(lblNewLabel_1);
 	
 		init();
+		fillCurrentCustomer();
 	}
 
 	private void initializeList() {
@@ -1093,6 +1122,9 @@ public class MainUI {
 	
 	private void init() {
 		orderController.createOrder();
+		Order o = orderController.getCurrentOrder();
+		String nextOrderNo = String.valueOf(OrderContainer.getInstance().getOrders().size());
+		labelOrderNo.setText("Ordrenummer:   " + nextOrderNo);
 		fillTable();
 	}
 	
@@ -1133,7 +1165,51 @@ public class MainUI {
 	}
 	
 	private void deleteOrderLine(OrderLine ol) {
-		
 		fillTable();
+	}
+	
+	private void endOrder() {
+		orderController.endOrder();
+		init();
+	}
+	
+	private void fillCurrentCustomer() {
+		Customer c = orderController.getCurrentOrder().getCustomer();
+		String customerType = c.getClass().getName();
+		
+		CardLayout cl = (CardLayout)(customerInfo.getLayout());
+		cl.show(customerInfo, customerType);
+		
+		switch(customerType) {
+		case "model.PrivateCustomer":
+			PrivateCustomer pc = (PrivateCustomer) c;
+			labelPrivateCustomerNameValue.setText(pc.getName());
+			labelPrivateCustomerIDValue.setText(String.valueOf(pc.getID()));
+			labelPrivateCustomerCprValue.setText(pc.getCPR());
+			labelPrivateCustomerTelephoneValue.setText(String.valueOf(pc.getTelephoneNo()));
+			labelPrivateCustomerEmailValue.setText(pc.getEmail());
+			labelPrivateCustomerMinimumDiscountValue.setText(String.valueOf(pc.getDiscountMin()));
+			labelPrivateCustomerMaximumDiscountValue.setText(String.valueOf(pc.getDiscountMax()));
+			labelPrivateCustomerMaximumCreditValue.setText(String.valueOf(pc.getCredit()));
+			break;
+		
+		case "model.BusinessCustomer":
+			BusinessCustomer bc = (BusinessCustomer) c;
+			labelBusinessCustomerFirmNameValue.setText(bc.getName());
+			labelBusinessCustomerIDValue.setText(String.valueOf(bc.getID()));
+			labelBusinessCustomerCvrValue.setText(String.valueOf(bc.getCVR()));
+			labelBusinessCustomerNameValue.setText(bc.getContactName());
+			labelBusinessCustomerTelephoneValue.setText(String.valueOf(bc.getContactTelephoneNo()));
+			labelBusinessCustomerEmailValue.setText(bc.getContactEmail());
+			labelBusinessCustomerMinimumDiscountValue.setText(String.valueOf(bc.getDiscountMin()));
+			labelBusinessCustomerMaximumDiscountValue.setText(String.valueOf(bc.getDiscountMax()));
+			labelBusinessCustomerMaximumCreditValue.setText(String.valueOf(bc.getCredit()));
+			break;
+		}
+	}
+	
+	private void addCustomerToOrder(Customer c) {
+		orderController.addCustomer(c);
+		fillCurrentCustomer();
 	}
 }
