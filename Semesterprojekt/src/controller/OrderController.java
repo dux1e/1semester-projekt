@@ -22,10 +22,10 @@ public class OrderController {
 			Employee e = this.employeeController.getCurrentEmployee();
 			this.currentOrder = new Order(e);
 			o = this.currentOrder;
+			findCustomerByID(0);
 		} else {
 			throw new IllegalStateException("En ordre er under behandling. Færdiggør nuværende ordre inden du laver en ny.");
 		}
-		addCashCustomer();
 		return o;
 	}
 	
@@ -97,14 +97,6 @@ public class OrderController {
 	public Order findOrderByOrderNo(int no) {
 		Order theOrder = this.orderContainer.findOrderByOrderNo(no);
 		return theOrder;
-	}
-	
-	private void addCashCustomer() {
-		Customer cashCustomer = new PrivateCustomer("", "Kontant Kunde", "", 0, "");
-		cashCustomer.setDiscountMin(0);
-		cashCustomer.setDiscountMax(0);
-		cashCustomer.setCredit(0);
-		addCustomer(cashCustomer);
 	}
 	
 	// getters and setter below

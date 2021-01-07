@@ -852,9 +852,11 @@ public class MainUI {
 		privateCustomerInfo.add(labelPrivateCustomerMaximumCreditValue, "cell 2 8");
 		
 		labelPrivateCustomerUnusedCredit = new JLabel("Tilbagestående kredit:");
+		labelPrivateCustomerUnusedCredit.setEnabled(false);
 		privateCustomerInfo.add(labelPrivateCustomerUnusedCredit, "cell 0 9");
 		
 		labelPrivateCustomerUnusedCreditValue = new JLabel("ukendt");
+		labelPrivateCustomerUnusedCreditValue.setEnabled(false);
 		privateCustomerInfo.add(labelPrivateCustomerUnusedCreditValue, "cell 2 9,alignx right");
 		
 		businessCustomerInfo = new JPanel();
@@ -925,9 +927,11 @@ public class MainUI {
 		businessCustomerInfo.add(labelBusinessCustomerMaximumCreditValue, "cell 2 10,aligny top");
 		
 		labelBusinessCustomerUnusedCredit = new JLabel("Tilbagestående kredit:");
+		labelBusinessCustomerUnusedCredit.setEnabled(false);
 		businessCustomerInfo.add(labelBusinessCustomerUnusedCredit, "cell 0 11,aligny top");
 		
 		labelBusinessCustomerUnusedCreditValue = new JLabel("ukendt");
+		labelBusinessCustomerUnusedCreditValue.setEnabled(false);
 		businessCustomerInfo.add(labelBusinessCustomerUnusedCreditValue, "cell 2 11,aligny top");
 		
 		orderPanel = new JPanel();

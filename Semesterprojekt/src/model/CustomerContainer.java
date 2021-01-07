@@ -15,6 +15,7 @@ public class CustomerContainer {
 	private CustomerContainer() {
 		this.customers = new ArrayList<>();
 		this.nextID = 0;
+		addCashCustomer();
 	}
 	
 	public static CustomerContainer getInstance() {
@@ -69,5 +70,13 @@ public class CustomerContainer {
 		haystack = haystack.trim().toLowerCase();
 		needle = needle.trim().toLowerCase();
 		return haystack.contains(needle);
+	}
+	
+	private void addCashCustomer() {
+		Customer cashCustomer = new PrivateCustomer("", "Kontant Kunde", "", 0, "");
+		cashCustomer.setDiscountMin(0);
+		cashCustomer.setDiscountMax(0);
+		cashCustomer.setCredit(0);
+		addCustomer(cashCustomer);
 	}
 }
