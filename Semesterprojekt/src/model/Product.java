@@ -6,14 +6,6 @@ public class Product implements Listable {
 	private String brand;
 	private double catalogPrice;
 	private double costPrice;
-	public double getCostPrice() {
-		return costPrice;
-	}
-
-	public void setCostPrice(double costPrice) {
-		this.costPrice = costPrice;
-	}
-
 	private int stockMax;
 	private int stockMin;
 	private double discountFlat;
@@ -26,6 +18,8 @@ public class Product implements Listable {
 		this.catalogPrice = 0.0;
 		this.stockMin = 0;
 		this.stockMax = 0;
+		this.discountFlat = 0.0;
+		this.discountPercent = 0.0;
 	}
 	
 	public Product(int barcode, String description, String brand, double catalogPrice, double costPrice, int stockMin, int stockMax) {
@@ -44,6 +38,29 @@ public class Product implements Listable {
 		String theString = description + " - " + barcode;
 		return theString;
 	}
+	
+	public double getActualDiscount() {
+		double theDiscount = 0;
+		if(discountFlat > 0.0) {
+			theDiscount = -discountFlat;
+		} else if(discountPercent > 0.0) {
+			double discountCalculatingPercent = (discountPercent / 100);
+			theDiscount = theDiscount * -discountCalculatingPercent;
+		}
+		return theDiscount;
+	}
+	
+	public double getActualPrice() {
+		double thePrice = this.catalogPrice;
+		if(this.discountFlat > 0.0) {
+			thePrice =+ this.discountFlat;
+		} else if(this.discountPercent > 0.0) {
+			double discountCalculatingPercent = 1 - (this.discountPercent / 100);
+			thePrice = thePrice * discountCalculatingPercent;
+		}
+		return thePrice;
+	}
+	
 	
 	// getters and setters below
 	public int getBarcode() {
@@ -69,6 +86,14 @@ public class Product implements Listable {
 	public void setCatalogPrice(double price) {
 		this.catalogPrice = price;
 	}
+	
+	public double getCostPrice() {
+		return costPrice;
+	}
+
+	public void setCostPrice(double costPrice) {
+		this.costPrice = costPrice;
+	}
 
 	public int getStockMax() {
 		return stockMax;
@@ -90,16 +115,26 @@ public class Product implements Listable {
 		return discountFlat;
 	}
 
-	public void setDiscountFlat(int discountFlat) {
-		this.discountFlat = discountFlat;
+	public void setDiscountFlat(int discount) {
+		this.discountPercent = 0.0;
+		if(discount > this.catalogPrice) {
+			this.discountFlat = this.catalogPrice;
+		} else {
+			this.discountFlat = discount;
+		}
 	}
 	
 	public double getDiscountPercent() {
 		return discountPercent;
 	}
 
-	public void setDiscountPercent(int discountPercent) {
-		this.discountPercent = discountPercent;
+	public void setDiscountPercent(int discount) {
+		this.discountFlat = 0.0;
+		if(discount > 100.0) {
+			this.discountPercent = 100.0;
+		} else {
+			this.discountPercent = discount;
+		}
 	}
 
 	public String getBrand() {

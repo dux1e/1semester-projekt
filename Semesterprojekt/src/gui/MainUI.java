@@ -10,6 +10,7 @@ import javax.swing.JTextField;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JScrollPane;
@@ -34,6 +35,7 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.event.ListSelectionEvent;
+import javax.swing.table.DefaultTableModel;
 
 public class MainUI {
 
@@ -188,10 +190,16 @@ public class MainUI {
 	private JButton buttonBusinessCustomerAddToOrder;
 	private JSeparator separator_9;
 	private JButton buttonPrivateCustomerAddToOrder;
+	private JLabel labelOrderNo;
 	
 	private ProductController productController;
 	private CustomerController customerController;
+	private OrderController orderController;
 	private DefaultListModel<Listable> listRepresentation;
+	private OrderLineTableModel oltm;
+	private JTextField txtFieldProductQuantity;
+	private JLabel labelProductQuantity;
+	private Object currentOtherInfo;
 
 	/**
 	 * Launch the application.
@@ -238,6 +246,8 @@ public class MainUI {
 	private void initialize() {
 		this.productController = new ProductController();
 		this.customerController = new CustomerController();
+		this.orderController = new OrderController();
+		this.currentOtherInfo = null;
 		
 		frame = new JFrame();
 		frame.setBounds(100, 100, 1000, 600);
@@ -372,6 +382,7 @@ public class MainUI {
 		list.addListSelectionListener(new ListSelectionListener() {
 			public void valueChanged(ListSelectionEvent e) {
 				Object o = list.getSelectedValue();
+				currentOtherInfo = o;
 				showInfoFromObject(o);
 			}
 		});
@@ -405,7 +416,7 @@ public class MainUI {
 		
 		productInfo = new JPanel();
 		OtherInfo.add(productInfo, "model.Product");
-		productInfo.setLayout(new MigLayout("", "[right][10px:n][right][][grow]", "[][][][][][][][][][][][]"));
+		productInfo.setLayout(new MigLayout("", "[grow,right][10px:n][right][][grow]", "[][][][][][][][][][][][][]"));
 		
 		labelProductDescription = new JLabel("Beskrivelse:");
 		productInfo.add(labelProductDescription, "cell 0 0");
@@ -469,7 +480,33 @@ public class MainUI {
 		productInfo.add(buttonProductGiveDiscount, "cell 0 10 4 1,growx");
 		
 		buttonProductAddToOrder = new JButton("Tilføj til ordre");
-		productInfo.add(buttonProductAddToOrder, "cell 0 11 4 1,growx");
+		buttonProductAddToOrder.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				Product p = (Product) currentOtherInfo;
+				String quantityString = txtFieldProductQuantity.getText();
+				int quantity = 0;
+				try {
+					quantity = Integer.parseInt(quantityString);
+				} catch(NumberFormatException ee) {
+					quantity = 1;
+				}
+					
+				if(quantity < 1) {
+					quantity = 1;
+				}
+				addProductToOrder(p, quantity);
+			}
+		});
+		
+		labelProductQuantity = new JLabel("Antal:");
+		productInfo.add(labelProductQuantity, "cell 0 11");
+		
+		txtFieldProductQuantity = new JTextField();
+		txtFieldProductQuantity.setText("1");
+		productInfo.add(txtFieldProductQuantity, "cell 2 11 2 1,growx");
+		txtFieldProductQuantity.setColumns(10);
+		productInfo.add(buttonProductAddToOrder, "cell 0 12 4 1,growx");
 		
 		privateCustomerInfo_1 = new JPanel();
 		OtherInfo.add(privateCustomerInfo_1, "model.PrivateCustomer");
@@ -767,37 +804,41 @@ public class MainUI {
 		orderPanel = new JPanel();
 		orderPanel.setBorder(new LineBorder(Color.GRAY));
 		tabSale.add(orderPanel, "cell 1 0,grow");
-		orderPanel.setLayout(new MigLayout("", "[grow][]", "[grow][][][][]"));
+		orderPanel.setLayout(new MigLayout("", "[grow][]", "[][grow][][][][]"));
+		
+		labelOrderNo = new JLabel("Ordrenummer: ");
+		orderPanel.add(labelOrderNo, "cell 0 0 2 1");
 		
 		scrollPane = new JScrollPane();
-		orderPanel.add(scrollPane, "cell 0 0 2 1,grow");
+		orderPanel.add(scrollPane, "cell 0 1 2 1,grow");
 		
 		table = new JTable();
-		scrollPane.setColumnHeaderView(table);
+		table.setFillsViewportHeight(true);
+		scrollPane.setViewportView(table);
 		
 		labelTotalNoVat = new JLabel("Total (ekskl. moms):");
-		orderPanel.add(labelTotalNoVat, "cell 0 1,alignx right");
+		orderPanel.add(labelTotalNoVat, "cell 0 2,alignx right");
 		
 		labelTotalNoVatAmount = new JLabel("0,00 kr.");
-		orderPanel.add(labelTotalNoVatAmount, "cell 1 1,alignx right");
+		orderPanel.add(labelTotalNoVatAmount, "cell 1 2,alignx right");
 		
 		labelDiscount = new JLabel("Rabat:");
-		orderPanel.add(labelDiscount, "cell 0 2,alignx right");
+		orderPanel.add(labelDiscount, "cell 0 3,alignx right");
 		
 		labelDiscountAmount = new JLabel("-0,00 kr.");
-		orderPanel.add(labelDiscountAmount, "cell 1 2,alignx right");
+		orderPanel.add(labelDiscountAmount, "cell 1 3,alignx right");
 		
 		labelVat = new JLabel("Moms:");
-		orderPanel.add(labelVat, "cell 0 3,alignx right");
+		orderPanel.add(labelVat, "cell 0 4,alignx right");
 		
 		labelVatAmount = new JLabel("0,00 kr.");
-		orderPanel.add(labelVatAmount, "cell 1 3,alignx right");
+		orderPanel.add(labelVatAmount, "cell 1 4,alignx right");
 		
 		labelTotal = new JLabel("Total:");
-		orderPanel.add(labelTotal, "cell 0 4,alignx right");
+		orderPanel.add(labelTotal, "cell 0 5,alignx right");
 		
 		labelTotalAmount = new JLabel("0,00 kr.");
-		orderPanel.add(labelTotalAmount, "cell 1 4,alignx right");
+		orderPanel.add(labelTotalAmount, "cell 1 5,alignx right");
 		
 		Buttons = new JPanel();
 		Buttons.setBorder(new LineBorder(Color.GRAY));
@@ -846,6 +887,8 @@ public class MainUI {
 		lblNewLabel_1 = new JLabel("Ikke implementeret endnu...");
 		lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 30));
 		tabPurchasing.add(lblNewLabel_1);
+	
+		init();
 	}
 
 	private void initializeList() {
@@ -913,5 +956,32 @@ public class MainUI {
 				break;
 			}
 		}
+	}
+	
+	private OrderLine getSelectedOrderLine() {
+		int row = table.getSelectedRow();
+		OrderLine currentOl = null;
+		if (row >= 0) {
+			currentOl = oltm.getOrderLine(row); 
+		}
+		return currentOl;
+	}
+	
+	private void init() {
+		orderController.createOrder();
+		fillTable();
+	}
+	
+	private void fillTable() {
+		oltm = new OrderLineTableModel();
+		this.table.setModel(oltm);
+		List<OrderLine> data = orderController.getCurrentOrder().getOrderLines();
+		oltm.setData(data);
+	}
+	
+	private void addProductToOrder(Product p, int quantity) {
+		this.orderController.addProduct(p, quantity);
+		txtFieldProductQuantity.setText("1");
+		fillTable();
 	}
 }

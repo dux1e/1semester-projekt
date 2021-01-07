@@ -43,6 +43,17 @@ public class OrderController {
 		return ol;
 	}
 	
+	public OrderLine addProduct(Product product, int quantity) {
+		OrderLine ol = null;
+		if(this.currentOrder != null) {
+			ol = new OrderLine(product, quantity);
+			this.currentOrder.addOrderLine(ol);
+		} else {
+			throw new IllegalStateException("Der er endnu ikke oprettet en ordrer.");
+		}
+		return ol;
+	}
+	
 	public Customer findCustomerByID(int id) {
 		Customer c = null;
 		if(this.currentOrder != null) {

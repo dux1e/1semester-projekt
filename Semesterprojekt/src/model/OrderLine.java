@@ -5,6 +5,12 @@ public class OrderLine {
 	private double subTotal;
 	private Product product;
 	
+	public OrderLine(Product product) {
+		this.quantity = 1;
+		this.product = product;
+		this.subTotal = calculateSubTotal();
+	}
+	
 	public OrderLine(Product product, int quantity) {
 		this.quantity = quantity;
 		this.product = product;
@@ -26,6 +32,9 @@ public class OrderLine {
 	
 	public void setProduct(Product product) {
 		this.product = product;
+		if(this.quantity < 1) {
+			this.quantity = 1;
+		}
 		subTotal = calculateSubTotal();
 	}
 
@@ -34,7 +43,7 @@ public class OrderLine {
 	}
 	
 	private double calculateSubTotal() {
-		subTotal = quantity * product.getCatalogPrice();
+		subTotal = quantity * product.getActualPrice();
 		return subTotal;
 	}
 
