@@ -140,7 +140,6 @@ public class MainUI {
 	private JLabel labelProductDiscountInDkk;
 	private JTextField txtFieldProductDiscountInDkk;
 	private JTextField txtFieldProductDiscountInPercent;
-	private JButton buttonProductGiveDiscount;
 	private JButton buttonProductAddToOrder;
 	private JSeparator separator_4;
 	private JPanel privateCustomerInfo_1;
@@ -200,6 +199,30 @@ public class MainUI {
 	private JTextField txtFieldProductQuantity;
 	private JLabel labelProductQuantity;
 	private Object currentOtherInfo;
+	private JPanel orderLineInfo;
+	private JLabel labelOrderLineProductDescription;
+	private JLabel labelOrderLineProductDescriptionValue;
+	private JLabel labelOrderLineProductID;
+	private JLabel labelOrderLineProductIDValue;
+	private JLabel labelOrderLineProductCatalogPrice;
+	private JLabel labelOrderLineProductCatalogPriceValue;
+	private JLabel labelOrderLineProductCostPrice;
+	private JLabel labelOrderLineProductCostPriceValue;
+	private JLabel labelOrderLineProductStorageStatus;
+	private JLabel labelOrderLineProductStorageStatusValue;
+	private JLabel labelOrderLineProductLocation;
+	private JLabel labelOrderLineProductLocationValue;
+	private JSeparator separator_10;
+	private JLabel labelOrderLineProductDiscountInDkk;
+	private JTextField txtFieldOrderLineProductDiscountInDkk;
+	private JLabel labelOrderLineProductDiscountInPercent;
+	private JTextField txtFieldOrderLineProductDiscountInPercent;
+	private JLabel labelOrderLineQuantity;
+	private JTextField txtFieldOrderLineQuantity;
+	private JButton buttonOrderLineUpdate;
+	private JSeparator separator_11;
+	private JSeparator separator_12;
+	private JButton buttonOrderLineDelete;
 
 	/**
 	 * Launch the application.
@@ -416,7 +439,7 @@ public class MainUI {
 		
 		productInfo = new JPanel();
 		OtherInfo.add(productInfo, "model.Product");
-		productInfo.setLayout(new MigLayout("", "[grow,right][10px:n][right][][grow]", "[][][][][][][][][][][][][]"));
+		productInfo.setLayout(new MigLayout("", "[grow,right][10px:n][right][][grow]", "[][][][][][][][][][][][]"));
 		
 		labelProductDescription = new JLabel("Beskrivelse:");
 		productInfo.add(labelProductDescription, "cell 0 0");
@@ -463,50 +486,40 @@ public class MainUI {
 		productInfo.add(separator_4, "cell 0 6 5 1,growx");
 		
 		labelProductDiscountInDkk = new JLabel("Rabat i kr.:");
-		productInfo.add(labelProductDiscountInDkk, "cell 0 8,alignx trailing");
+		productInfo.add(labelProductDiscountInDkk, "cell 0 7,alignx trailing");
 		
 		txtFieldProductDiscountInDkk = new JTextField();
-		productInfo.add(txtFieldProductDiscountInDkk, "cell 2 8 2 1,growx");
+		productInfo.add(txtFieldProductDiscountInDkk, "cell 2 7 2 1,growx");
 		txtFieldProductDiscountInDkk.setColumns(10);
 		
 		labelProductDiscountInPercent = new JLabel("Rabat i %:");
-		productInfo.add(labelProductDiscountInPercent, "cell 0 9,alignx trailing");
+		productInfo.add(labelProductDiscountInPercent, "cell 0 8,alignx trailing");
 		
 		txtFieldProductDiscountInPercent = new JTextField();
-		productInfo.add(txtFieldProductDiscountInPercent, "cell 2 9 2 1,growx");
+		productInfo.add(txtFieldProductDiscountInPercent, "cell 2 8 2 1,growx");
 		txtFieldProductDiscountInPercent.setColumns(10);
-		
-		buttonProductGiveDiscount = new JButton("Giv Rabat");
-		productInfo.add(buttonProductGiveDiscount, "cell 0 10 4 1,growx");
 		
 		buttonProductAddToOrder = new JButton("Tilføj til ordre");
 		buttonProductAddToOrder.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				Product p = (Product) currentOtherInfo;
-				String quantityString = txtFieldProductQuantity.getText();
-				int quantity = 0;
-				try {
-					quantity = Integer.parseInt(quantityString);
-				} catch(NumberFormatException ee) {
-					quantity = 1;
-				}
-					
-				if(quantity < 1) {
-					quantity = 1;
-				}
-				addProductToOrder(p, quantity);
+				addProductToOrder(p);
 			}
 		});
 		
+		separator_12 = new JSeparator();
+		separator_12.setForeground(Color.GRAY);
+		productInfo.add(separator_12, "cell 0 9 4 1,growx");
+		
 		labelProductQuantity = new JLabel("Antal:");
-		productInfo.add(labelProductQuantity, "cell 0 11");
+		productInfo.add(labelProductQuantity, "cell 0 10");
 		
 		txtFieldProductQuantity = new JTextField();
 		txtFieldProductQuantity.setText("1");
-		productInfo.add(txtFieldProductQuantity, "cell 2 11 2 1,growx");
+		productInfo.add(txtFieldProductQuantity, "cell 2 10 2 1,growx");
 		txtFieldProductQuantity.setColumns(10);
-		productInfo.add(buttonProductAddToOrder, "cell 0 12 4 1,growx");
+		productInfo.add(buttonProductAddToOrder, "cell 0 11 4 1,growx");
 		
 		privateCustomerInfo_1 = new JPanel();
 		OtherInfo.add(privateCustomerInfo_1, "model.PrivateCustomer");
@@ -659,6 +672,99 @@ public class MainUI {
 		
 		buttonBusinessCustomerAddToOrder = new JButton("Tilføj til ordre");
 		businessCustomerInfo_1.add(buttonBusinessCustomerAddToOrder, "cell 0 13 3 1,growx");
+		
+		orderLineInfo = new JPanel();
+		OtherInfo.add(orderLineInfo, "model.OrderLine");
+		orderLineInfo.setLayout(new MigLayout("", "[57px,right][10px:n][33px,right][grow]", "[][][][][][][][][][][][][]"));
+		
+		labelOrderLineProductDescription = new JLabel("Beskrivelse:");
+		orderLineInfo.add(labelOrderLineProductDescription, "cell 0 0");
+		
+		labelOrderLineProductDescriptionValue = new JLabel("ukendt");
+		orderLineInfo.add(labelOrderLineProductDescriptionValue, "cell 2 0");
+		
+		labelOrderLineProductID = new JLabel("Produkt ID:");
+		orderLineInfo.add(labelOrderLineProductID, "cell 0 1");
+		
+		labelOrderLineProductIDValue = new JLabel("ukendt");
+		orderLineInfo.add(labelOrderLineProductIDValue, "cell 2 1");
+		
+		labelOrderLineProductCatalogPrice = new JLabel("Listepris:");
+		orderLineInfo.add(labelOrderLineProductCatalogPrice, "cell 0 2");
+		
+		labelOrderLineProductCatalogPriceValue = new JLabel("ukendt");
+		orderLineInfo.add(labelOrderLineProductCatalogPriceValue, "cell 2 2");
+		
+		labelOrderLineProductCostPrice = new JLabel("Indkøbspris:");
+		orderLineInfo.add(labelOrderLineProductCostPrice, "cell 0 3");
+		
+		labelOrderLineProductCostPriceValue = new JLabel("ukendt");
+		orderLineInfo.add(labelOrderLineProductCostPriceValue, "cell 2 3");
+		
+		labelOrderLineProductStorageStatus = new JLabel("Lagerstatus:");
+		labelOrderLineProductStorageStatus.setEnabled(false);
+		orderLineInfo.add(labelOrderLineProductStorageStatus, "cell 0 4");
+		
+		labelOrderLineProductStorageStatusValue = new JLabel("ukendt");
+		labelOrderLineProductStorageStatusValue.setEnabled(false);
+		orderLineInfo.add(labelOrderLineProductStorageStatusValue, "cell 2 4");
+		
+		labelOrderLineProductLocation = new JLabel("Lokation:");
+		labelOrderLineProductLocation.setEnabled(false);
+		orderLineInfo.add(labelOrderLineProductLocation, "cell 0 5");
+		
+		labelOrderLineProductLocationValue = new JLabel("ukendt");
+		labelOrderLineProductLocationValue.setEnabled(false);
+		orderLineInfo.add(labelOrderLineProductLocationValue, "cell 2 5");
+		
+		separator_10 = new JSeparator();
+		separator_10.setForeground(Color.GRAY);
+		orderLineInfo.add(separator_10, "cell 0 6 4 1,growx");
+		
+		labelOrderLineProductDiscountInDkk = new JLabel("Rabat i kr.:");
+		orderLineInfo.add(labelOrderLineProductDiscountInDkk, "cell 0 7");
+		
+		txtFieldOrderLineProductDiscountInDkk = new JTextField();
+		txtFieldOrderLineProductDiscountInDkk.setColumns(10);
+		orderLineInfo.add(txtFieldOrderLineProductDiscountInDkk, "cell 2 7 2 1,growx");
+		
+		labelOrderLineProductDiscountInPercent = new JLabel("Rabat i %:");
+		orderLineInfo.add(labelOrderLineProductDiscountInPercent, "cell 0 8");
+		
+		txtFieldOrderLineProductDiscountInPercent = new JTextField();
+		txtFieldOrderLineProductDiscountInPercent.setColumns(10);
+		orderLineInfo.add(txtFieldOrderLineProductDiscountInPercent, "cell 2 8 2 1,growx");
+		
+		separator_11 = new JSeparator();
+		separator_11.setForeground(Color.GRAY);
+		orderLineInfo.add(separator_11, "cell 0 9 4 1,growx");
+		
+		labelOrderLineQuantity = new JLabel("Antal:");
+		orderLineInfo.add(labelOrderLineQuantity, "cell 0 10");
+		
+		txtFieldOrderLineQuantity = new JTextField();
+		txtFieldOrderLineQuantity.setText("1");
+		txtFieldOrderLineQuantity.setColumns(10);
+		orderLineInfo.add(txtFieldOrderLineQuantity, "cell 2 10 2 1,growx");
+		
+		buttonOrderLineUpdate = new JButton("Opdater linje");
+		buttonOrderLineUpdate.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				OrderLine ol = (OrderLine) currentOtherInfo;
+				updateOrderLine(ol);
+			}
+		});
+		orderLineInfo.add(buttonOrderLineUpdate, "cell 0 11 4 1,growx");
+		
+		buttonOrderLineDelete = new JButton("Slet linje");
+		buttonOrderLineDelete.setEnabled(false);
+		buttonOrderLineDelete.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+			}
+		});
+		orderLineInfo.add(buttonOrderLineDelete, "cell 0 12 4 1,growx");
 		
 		customerInfo = new JPanel();
 		customerInfo.setBorder(new LineBorder(Color.GRAY));
@@ -813,6 +919,14 @@ public class MainUI {
 		orderPanel.add(scrollPane, "cell 0 1 2 1,grow");
 		
 		table = new JTable();
+		table.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				Object o = getSelectedOrderLine();
+				currentOtherInfo = o;
+				showInfoFromObject(o);
+			}
+		});
 		table.setFillsViewportHeight(true);
 		scrollPane.setViewportView(table);
 		
@@ -867,6 +981,7 @@ public class MainUI {
 		Buttons.add(separator_3, "cell 0 4 3 1,growx,aligny center");
 		
 		ButtonPrintInvoice = new JButton("Print faktura");
+		ButtonPrintInvoice.setEnabled(false);
 		Buttons.add(ButtonPrintInvoice, "cell 0 5 3 1,growx,aligny bottom");
 		
 		ButtonEndSale = new JButton("Afslut køb");
@@ -954,6 +1069,15 @@ public class MainUI {
 				labelBusinessCustomerMaximumDiscountValue_1.setText(String.valueOf(bc.getDiscountMax()));
 				labelBusinessCustomerMaximumCreditValue_1.setText(String.valueOf(bc.getCredit()));
 				break;
+			
+			case "model.OrderLine":
+				OrderLine ol = (OrderLine) o;
+				labelOrderLineProductDescriptionValue.setText(ol.getProduct().getDescription());
+				labelOrderLineProductIDValue.setText(String.valueOf(ol.getProduct().getBarcode()));
+				labelOrderLineProductCatalogPriceValue.setText(String.valueOf(ol.getProduct().getCatalogPrice()));
+				labelOrderLineProductCostPriceValue.setText(String.valueOf(ol.getProduct().getCostPrice()));
+				txtFieldOrderLineQuantity.setText(String.valueOf(ol.getQuantity()));
+				
 			}
 		}
 	}
@@ -979,9 +1103,37 @@ public class MainUI {
 		oltm.setData(data);
 	}
 	
-	private void addProductToOrder(Product p, int quantity) {
+	private int findQuantity(JTextField txtF) {
+		String quantityString = txtF.getText();
+		int quantity = 0;
+		try {
+			quantity = Integer.parseInt(quantityString);
+		} catch(NumberFormatException ee) {
+			quantity = 1;
+		}
+		
+		if(quantity < 1) {
+			quantity = 1;
+		}
+		
+		return quantity;
+	}
+	
+	private void addProductToOrder(Product p) {
+		int quantity = findQuantity(txtFieldProductQuantity);
 		this.orderController.addProduct(p, quantity);
 		txtFieldProductQuantity.setText("1");
+		fillTable();
+	}
+	
+	private void updateOrderLine(OrderLine ol) {
+		int quantity = findQuantity(txtFieldOrderLineQuantity);
+		ol.setQuantity(quantity);
+		fillTable();
+	}
+	
+	private void deleteOrderLine(OrderLine ol) {
+		
 		fillTable();
 	}
 }
