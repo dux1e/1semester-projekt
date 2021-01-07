@@ -15,6 +15,7 @@ import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JScrollPane;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JLabel;
 import java.awt.FlowLayout;
@@ -1169,7 +1170,11 @@ public class MainUI {
 	}
 	
 	private void endOrder() {
-		orderController.endOrder();
+		try{
+			orderController.endOrder();
+		} catch(IllegalStateException e) {
+			JOptionPane.showMessageDialog(new JFrame(), "Der skal være tilføjet mindst et produkt for at afslutte en ordre.");
+		}
 		init();
 	}
 	

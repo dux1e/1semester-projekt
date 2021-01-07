@@ -91,7 +91,6 @@ public class OrderController {
 		boolean hasCustomer = this.currentOrder.getCustomer() != null;
 		boolean hasOrderLine = this.currentOrder.getOrderLines().size() != 0;
 		boolean orderOK = haveAnOrder && hasCustomer && hasOrderLine;
-		System.out.println(haveAnOrder + " " + hasCustomer + " " + hasOrderLine);
 		return orderOK;
 	}
 	
