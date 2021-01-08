@@ -28,7 +28,7 @@ public class Order {
 		calculateTotals();
 	}
 	
-	private double calculateTotals() {
+	public double calculateTotals() {
 		double total = calculateNetTotal() + calculateVatTotal();
 		return total;
 	}
@@ -44,6 +44,14 @@ public class Order {
 	private double calculateVatTotal() {
 		vatTotal = netTotal * 0.25;
 		return vatTotal;
+	}
+	
+	public double calculateDiscount() {
+		double totalDiscount = 0.0;
+		for(OrderLine ol : orderLines) {
+			totalDiscount = totalDiscount + ol.getTotalDiscount();
+		}
+		return totalDiscount;
 	}
 
 	

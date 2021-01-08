@@ -45,7 +45,7 @@ public class Product implements Listable {
 			theDiscount = -discountFlat;
 		} else if(discountPercent > 0.0) {
 			double discountCalculatingPercent = (discountPercent / 100);
-			theDiscount = theDiscount * -discountCalculatingPercent;
+			theDiscount = this.catalogPrice * -discountCalculatingPercent;
 		}
 		return theDiscount;
 	}

@@ -36,7 +36,10 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.event.ListSelectionEvent;
-import javax.swing.table.DefaultTableModel;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
 
 public class MainUI {
 
@@ -191,12 +194,6 @@ public class MainUI {
 	private JSeparator separator_9;
 	private JButton buttonPrivateCustomerAddToOrder;
 	private JLabel labelOrderNo;
-	
-	private ProductController productController;
-	private CustomerController customerController;
-	private OrderController orderController;
-	private DefaultListModel<Listable> listRepresentation;
-	private OrderLineTableModel oltm;
 	private JTextField txtFieldProductQuantity;
 	private JLabel labelProductQuantity;
 	private Object currentOtherInfo;
@@ -226,6 +223,13 @@ public class MainUI {
 	private JButton buttonOrderLineDelete;
 	private JPanel emptyOtherInfo;
 	private JPanel emptyCustomerInfo;
+	
+	private ProductController productController;
+	private CustomerController customerController;
+	private OrderController orderController;
+	private DefaultListModel<Listable> listRepresentation;
+	private OrderLineTableModel oltm;
+
 
 	/**
 	 * Launch the application.
@@ -248,19 +252,19 @@ public class MainUI {
 	 */
 	public MainUI() {
 		// adds information
-		CustomerController cc = new CustomerController();
+		customerController = new CustomerController();
 		Employee e = new Employee("1204890000", "Bo Billy", "", 88888887, "Bo@Billigt.dk", "kodeord321");
-		ProductController pc = new ProductController();
+		productController = new ProductController();
 		EmployeeController ec = new EmployeeController();
-		OrderController oc = new OrderController();
+		orderController = new OrderController();
 		
 		ec.setCurrentEmployee(e);
-		oc.setEmployeeController(ec);
-		pc.addProduct(4444, "Hammer", "Bahco", 75, 25, 10, 100);
-		pc.addProduct(8500, "Lysstofrør", "Philips", 10, 8.5, 100, 1000);
-		cc.addBusinessCustomer(12345678, "Pepsi Cola", "Hele Verdens gade 42, Danmark, 9440 Aabybro",
+		orderController.setEmployeeController(ec);
+		productController.addProduct(4444, "Hammer", "Bahco", 75, 25, 10, 100);
+		productController.addProduct(8500, "Lysstofrør", "Philips", 10, 8.5, 100, 1000);
+		customerController.addBusinessCustomer(12345678, "Pepsi Cola", "Hele Verdens gade 42, Danmark, 9440 Aabybro",
 				"DK12345678", "Pepsi Man", 87654321, "Pepsi@Cool.com");
-		cc.addPrivateCustomer("5555554444", "Ip Skrå", "Skæve Kløftens Vej 1, Danmark, 9600 Aars",
+		customerController.addPrivateCustomer("5555554444", "Ip Skrå", "Skæve Kløftens Vej 1, Danmark, 9600 Aars",
 				77777771, "OpAd@Bakke.uk");
 		
 		initialize();
@@ -270,9 +274,6 @@ public class MainUI {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		this.productController = new ProductController();
-		this.customerController = new CustomerController();
-		this.orderController = new OrderController();
 		this.currentOtherInfo = null;
 		
 		frame = new JFrame();
@@ -298,6 +299,12 @@ public class MainUI {
 		panelSeach.add(labelProductField, gbc_labelProductField);
 		
 		txtFieldFindProducts = new JTextField();
+		txtFieldFindProducts.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusGained(FocusEvent e) {
+				txtFieldFindProducts.selectAll();
+			}
+		});
 		txtFieldFindProducts.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyReleased(KeyEvent e) {
@@ -337,6 +344,12 @@ public class MainUI {
 		panelSeach.add(labelCustomerField, gbc_labelCustomerField);
 		
 		txtFieldFindCustomers = new JTextField();
+		txtFieldFindCustomers.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusGained(FocusEvent e) {
+				txtFieldFindCustomers.selectAll();
+			}
+		});
 		txtFieldFindCustomers.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyReleased(KeyEvent e) {
@@ -441,11 +454,11 @@ public class MainUI {
 		OtherInfo.setLayout(new CardLayout(0, 0));
 		
 		emptyOtherInfo = new JPanel();
-		OtherInfo.add(emptyOtherInfo, "name_75823945783900");
+		OtherInfo.add(emptyOtherInfo, "empty");
 		
 		productInfo = new JPanel();
 		OtherInfo.add(productInfo, "model.Product");
-		productInfo.setLayout(new MigLayout("", "[grow,right][10px:n][right][][grow]", "[][][][][][][][][][][][]"));
+		productInfo.setLayout(new MigLayout("", "[right][10px:n][right][grow]", "[][][][][][][][][][][][]"));
 		
 		labelProductDescription = new JLabel("Beskrivelse:");
 		productInfo.add(labelProductDescription, "cell 0 0");
@@ -495,6 +508,19 @@ public class MainUI {
 		productInfo.add(labelProductDiscountInDkk, "cell 0 7,alignx trailing");
 		
 		txtFieldProductDiscountInDkk = new JTextField();
+		txtFieldProductDiscountInDkk.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusGained(FocusEvent e) {
+				txtFieldProductDiscountInDkk.selectAll();
+			}
+		});
+		txtFieldProductDiscountInDkk.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				txtFieldProductDiscountInPercent.setText("0.0");
+			}
+		});
+		txtFieldProductDiscountInDkk.setText("0.0");
 		productInfo.add(txtFieldProductDiscountInDkk, "cell 2 7 2 1,growx");
 		txtFieldProductDiscountInDkk.setColumns(10);
 		
@@ -502,6 +528,19 @@ public class MainUI {
 		productInfo.add(labelProductDiscountInPercent, "cell 0 8,alignx trailing");
 		
 		txtFieldProductDiscountInPercent = new JTextField();
+		txtFieldProductDiscountInPercent.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusGained(FocusEvent e) {
+				txtFieldProductDiscountInPercent.selectAll();
+			}
+		});
+		txtFieldProductDiscountInPercent.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				txtFieldProductDiscountInDkk.setText("0.0");
+			}
+		});
+		txtFieldProductDiscountInPercent.setText("0.0");
 		productInfo.add(txtFieldProductDiscountInPercent, "cell 2 8 2 1,growx");
 		txtFieldProductDiscountInPercent.setColumns(10);
 		
@@ -522,6 +561,12 @@ public class MainUI {
 		productInfo.add(labelProductQuantity, "cell 0 10");
 		
 		txtFieldProductQuantity = new JTextField();
+		txtFieldProductQuantity.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusGained(FocusEvent e) {
+				txtFieldProductQuantity.selectAll();
+			}
+		});
 		txtFieldProductQuantity.setText("1");
 		productInfo.add(txtFieldProductQuantity, "cell 2 10 2 1,growx");
 		txtFieldProductQuantity.setColumns(10);
@@ -529,7 +574,7 @@ public class MainUI {
 		
 		privateCustomerInfo_1 = new JPanel();
 		OtherInfo.add(privateCustomerInfo_1, "model.PrivateCustomer");
-		privateCustomerInfo_1.setLayout(new MigLayout("", "[48px,right][10px:n][33px,right][grow][1px]", "[14px][][][][][][][][][][][]"));
+		privateCustomerInfo_1.setLayout(new MigLayout("", "[right][10px:n][right][grow]", "[14px][][][][][][][][][][][]"));
 		
 		labelPrivateCustomerID_1 = new JLabel("Kunde ID:");
 		privateCustomerInfo_1.add(labelPrivateCustomerID_1, "cell 0 0,aligny top");
@@ -564,7 +609,7 @@ public class MainUI {
 		separator_5 = new JSeparator();
 		separator_5.setForeground(Color.GRAY);
 		separator_5.setBackground(Color.WHITE);
-		privateCustomerInfo_1.add(separator_5, "cell 0 5 4 1,growx,aligny center");
+		privateCustomerInfo_1.add(separator_5, "cell 0 5 5 1,growx,aligny center");
 		
 		labelPrivateCustomerMinimumDiscount_1 = new JLabel("Minimum rabat:");
 		privateCustomerInfo_1.add(labelPrivateCustomerMinimumDiscount_1, "cell 0 6,aligny top");
@@ -593,9 +638,14 @@ public class MainUI {
 		privateCustomerInfo_1.add(labelPrivateCustomerUnusedCreditValue_1, "cell 2 9,aligny top");
 		
 		separator_9 = new JSeparator();
-		privateCustomerInfo_1.add(separator_9, "cell 0 10 4 1,growx");
+		separator_9.setForeground(Color.GRAY);
+		privateCustomerInfo_1.add(separator_9, "cell 0 10 5 1,growx");
 		
 		buttonPrivateCustomerAddToOrder = new JButton("Tilføj til ordre");
+		buttonPrivateCustomerAddToOrder.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
 		buttonPrivateCustomerAddToOrder.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -603,11 +653,11 @@ public class MainUI {
 				addCustomerToOrder(c);
 			}
 		});
-		privateCustomerInfo_1.add(buttonPrivateCustomerAddToOrder, "cell 0 11 3 1,growx");
+		privateCustomerInfo_1.add(buttonPrivateCustomerAddToOrder, "cell 0 11 4 1,growx");
 		
 		businessCustomerInfo_1 = new JPanel();
 		OtherInfo.add(businessCustomerInfo_1, "model.BusinessCustomer");
-		businessCustomerInfo_1.setLayout(new MigLayout("", "[48px,right][10px:n][33px,right][57px,grow]", "[14px][][][][][][][][][][][][][]"));
+		businessCustomerInfo_1.setLayout(new MigLayout("", "[right][10px:n][right][grow]", "[14px][][][][][][][][][][][][][]"));
 		
 		labelBusinessCustomerID_1 = new JLabel("Kunde ID:");
 		businessCustomerInfo_1.add(labelBusinessCustomerID_1, "cell 0 0,aligny top");
@@ -629,7 +679,7 @@ public class MainUI {
 		
 		separator_6 = new JSeparator();
 		separator_6.setForeground(Color.GRAY);
-		businessCustomerInfo_1.add(separator_6, "cell 0 3 4 1,growx,aligny center");
+		businessCustomerInfo_1.add(separator_6, "cell 0 3 5 1,growx,aligny center");
 		
 		labelBusinessCustomerName_1 = new JLabel("Navn:");
 		businessCustomerInfo_1.add(labelBusinessCustomerName_1, "cell 0 4,aligny top");
@@ -652,7 +702,7 @@ public class MainUI {
 		separator_7 = new JSeparator();
 		separator_7.setForeground(Color.GRAY);
 		separator_7.setBackground(Color.WHITE);
-		businessCustomerInfo_1.add(separator_7, "cell 0 7 4 1,growx,aligny center");
+		businessCustomerInfo_1.add(separator_7, "cell 0 7 5 1,growx,aligny center");
 		
 		labelBusinessCustomerMinimumDiscount_1 = new JLabel("Minimum rabat:");
 		businessCustomerInfo_1.add(labelBusinessCustomerMinimumDiscount_1, "cell 0 8,aligny top");
@@ -681,9 +731,14 @@ public class MainUI {
 		businessCustomerInfo_1.add(labelBusinessCustomerUnusedCreditValue_1, "cell 2 11,aligny top");
 		
 		separator_8 = new JSeparator();
-		businessCustomerInfo_1.add(separator_8, "cell 0 12 4 1,growx");
+		separator_8.setForeground(Color.GRAY);
+		businessCustomerInfo_1.add(separator_8, "cell 0 12 5 1,growx");
 		
 		buttonBusinessCustomerAddToOrder = new JButton("Tilføj til ordre");
+		buttonBusinessCustomerAddToOrder.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
 		buttonBusinessCustomerAddToOrder.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -691,7 +746,7 @@ public class MainUI {
 				addCustomerToOrder(c);
 			}
 		});
-		businessCustomerInfo_1.add(buttonBusinessCustomerAddToOrder, "cell 0 13 3 1,growx");
+		businessCustomerInfo_1.add(buttonBusinessCustomerAddToOrder, "cell 0 13 4 1,growx");
 		
 		orderLineInfo = new JPanel();
 		OtherInfo.add(orderLineInfo, "model.OrderLine");
@@ -745,6 +800,18 @@ public class MainUI {
 		orderLineInfo.add(labelOrderLineProductDiscountInDkk, "cell 0 7");
 		
 		txtFieldOrderLineProductDiscountInDkk = new JTextField();
+		txtFieldOrderLineProductDiscountInDkk.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				txtFieldOrderLineProductDiscountInPercent.setText("0.0");
+			}
+		});
+		txtFieldOrderLineProductDiscountInDkk.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusGained(FocusEvent e) {
+				txtFieldOrderLineProductDiscountInDkk.selectAll();
+			}
+		});
 		txtFieldOrderLineProductDiscountInDkk.setColumns(10);
 		orderLineInfo.add(txtFieldOrderLineProductDiscountInDkk, "cell 2 7 2 1,growx");
 		
@@ -752,6 +819,18 @@ public class MainUI {
 		orderLineInfo.add(labelOrderLineProductDiscountInPercent, "cell 0 8");
 		
 		txtFieldOrderLineProductDiscountInPercent = new JTextField();
+		txtFieldOrderLineProductDiscountInPercent.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				txtFieldOrderLineProductDiscountInDkk.setText("0.0");
+			}
+		});
+		txtFieldOrderLineProductDiscountInPercent.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusGained(FocusEvent e) {
+				txtFieldOrderLineProductDiscountInPercent.selectAll();
+			}
+		});
 		txtFieldOrderLineProductDiscountInPercent.setColumns(10);
 		orderLineInfo.add(txtFieldOrderLineProductDiscountInPercent, "cell 2 8 2 1,growx");
 		
@@ -763,6 +842,12 @@ public class MainUI {
 		orderLineInfo.add(labelOrderLineQuantity, "cell 0 10");
 		
 		txtFieldOrderLineQuantity = new JTextField();
+		txtFieldOrderLineQuantity.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusGained(FocusEvent e) {
+				txtFieldOrderLineQuantity.selectAll();
+			}
+		});
 		txtFieldOrderLineQuantity.setText("1");
 		txtFieldOrderLineQuantity.setColumns(10);
 		orderLineInfo.add(txtFieldOrderLineQuantity, "cell 2 10 2 1,growx");
@@ -796,7 +881,7 @@ public class MainUI {
 		
 		privateCustomerInfo = new JPanel();
 		customerInfo.add(privateCustomerInfo, "model.PrivateCustomer");
-		privateCustomerInfo.setLayout(new MigLayout("", "[48px,right][10px:n][33px,right][grow,fill]", "[14px][][][][][][][][][][grow]"));
+		privateCustomerInfo.setLayout(new MigLayout("", "[right][10px:n][right][grow]", "[14px][][][][][][][][][][grow]"));
 		
 		labelPrivateCustomerID = new JLabel("Kunde ID:");
 		privateCustomerInfo.add(labelPrivateCustomerID, "cell 0 0,alignx right,aligny top");
@@ -831,7 +916,7 @@ public class MainUI {
 		separator = new JSeparator();
 		separator.setBackground(Color.WHITE);
 		separator.setForeground(Color.GRAY);
-		privateCustomerInfo.add(separator, "cell 0 5 4 1,growx");
+		privateCustomerInfo.add(separator, "cell 0 5 5 1,growx");
 		
 		labelPrivateCustomerMinimumDiscount = new JLabel("Minimum rabat:");
 		privateCustomerInfo.add(labelPrivateCustomerMinimumDiscount, "cell 0 6");
@@ -861,7 +946,7 @@ public class MainUI {
 		
 		businessCustomerInfo = new JPanel();
 		customerInfo.add(businessCustomerInfo, "model.BusinessCustomer");
-		businessCustomerInfo.setLayout(new MigLayout("", "[48px,right][10px:n][33px,right][29px,grow][1px]", "[14px][][][][][][][][][][][]"));
+		businessCustomerInfo.setLayout(new MigLayout("", "[right][10px:n][right][grow]", "[14px][][][][][][][][][][][]"));
 		
 		labelBusinessCustomerID = new JLabel("Kunde ID:");
 		businessCustomerInfo.add(labelBusinessCustomerID, "cell 0 0,aligny top");
@@ -883,7 +968,7 @@ public class MainUI {
 		
 		separator_2 = new JSeparator();
 		separator_2.setForeground(Color.GRAY);
-		businessCustomerInfo.add(separator_2, "cell 0 3 4 1,growx");
+		businessCustomerInfo.add(separator_2, "cell 0 3 5 1,growx");
 		
 		labelBusinessCustomerName = new JLabel("Navn:");
 		businessCustomerInfo.add(labelBusinessCustomerName, "cell 0 4");
@@ -906,7 +991,7 @@ public class MainUI {
 		separator_1 = new JSeparator();
 		separator_1.setForeground(Color.GRAY);
 		separator_1.setBackground(Color.WHITE);
-		businessCustomerInfo.add(separator_1, "cell 0 7 4 1,growx,aligny center");
+		businessCustomerInfo.add(separator_1, "cell 0 7 5 1,growx,aligny center");
 		
 		labelBusinessCustomerMinimumDiscount = new JLabel("Minimum rabat:");
 		businessCustomerInfo.add(labelBusinessCustomerMinimumDiscount, "cell 0 8,aligny top");
@@ -960,25 +1045,25 @@ public class MainUI {
 		labelTotalNoVat = new JLabel("Total (ekskl. moms):");
 		orderPanel.add(labelTotalNoVat, "cell 0 2,alignx right");
 		
-		labelTotalNoVatAmount = new JLabel("0,00 kr.");
+		labelTotalNoVatAmount = new JLabel("0.0");
 		orderPanel.add(labelTotalNoVatAmount, "cell 1 2,alignx right");
 		
 		labelDiscount = new JLabel("Rabat:");
 		orderPanel.add(labelDiscount, "cell 0 3,alignx right");
 		
-		labelDiscountAmount = new JLabel("-0,00 kr.");
+		labelDiscountAmount = new JLabel("-0.0");
 		orderPanel.add(labelDiscountAmount, "cell 1 3,alignx right");
 		
 		labelVat = new JLabel("Moms:");
 		orderPanel.add(labelVat, "cell 0 4,alignx right");
 		
-		labelVatAmount = new JLabel("0,00 kr.");
+		labelVatAmount = new JLabel("0.0");
 		orderPanel.add(labelVatAmount, "cell 1 4,alignx right");
 		
 		labelTotal = new JLabel("Total:");
 		orderPanel.add(labelTotal, "cell 0 5,alignx right");
 		
-		labelTotalAmount = new JLabel("0,00 kr.");
+		labelTotalAmount = new JLabel("0.0");
 		orderPanel.add(labelTotalAmount, "cell 1 5,alignx right");
 		
 		Buttons = new JPanel();
@@ -987,20 +1072,25 @@ public class MainUI {
 		Buttons.setLayout(new MigLayout("", "[50px][5px][86px]", "[grow][20px][20px][23px][2px][23px][23px]"));
 		
 		labelDiscountInDkk = new JLabel("Rabat i kr.");
+		labelDiscountInDkk.setEnabled(false);
 		Buttons.add(labelDiscountInDkk, "cell 0 1,alignx right,aligny center");
 		
 		txtFieldDiscountInDkk = new JTextField();
+		txtFieldDiscountInDkk.setEnabled(false);
 		Buttons.add(txtFieldDiscountInDkk, "cell 2 1,growx,aligny center");
 		txtFieldDiscountInDkk.setColumns(10);
 		
 		labelDiscountInPercent = new JLabel("Rabat i %");
+		labelDiscountInPercent.setEnabled(false);
 		Buttons.add(labelDiscountInPercent, "cell 0 2,alignx right,aligny center");
 		
 		txtFieldDiscountInPercent = new JTextField();
+		txtFieldDiscountInPercent.setEnabled(false);
 		Buttons.add(txtFieldDiscountInPercent, "cell 2 2,growx,aligny center");
 		txtFieldDiscountInPercent.setColumns(10);
 		
 		buttonGiveTotalDiscount = new JButton("Giv samlet rabat");
+		buttonGiveTotalDiscount.setEnabled(false);
 		Buttons.add(buttonGiveTotalDiscount, "cell 0 3 3 1,growx,aligny center");
 		
 		separator_3 = new JSeparator();
@@ -1038,6 +1128,7 @@ public class MainUI {
 	
 		init();
 		fillCurrentCustomer();
+		labelLogin.setText(orderController.getCurrentOrder().getEmployee().getName() + " er logget på");
 	}
 
 	private void initializeList() {
@@ -1110,6 +1201,8 @@ public class MainUI {
 				labelOrderLineProductIDValue.setText(String.valueOf(ol.getProduct().getBarcode()));
 				labelOrderLineProductCatalogPriceValue.setText(String.valueOf(ol.getProduct().getCatalogPrice()));
 				labelOrderLineProductCostPriceValue.setText(String.valueOf(ol.getProduct().getCostPrice()));
+				txtFieldOrderLineProductDiscountInDkk.setText(String.valueOf(ol.getDiscountFlat()));
+				txtFieldOrderLineProductDiscountInPercent.setText(String.valueOf(ol.getDiscountPercent()));
 				txtFieldOrderLineQuantity.setText(String.valueOf(ol.getQuantity()));
 				
 			}
@@ -1127,10 +1220,14 @@ public class MainUI {
 	
 	private void init() {
 		orderController.createOrder();
-		Order o = orderController.getCurrentOrder();
 		String nextOrderNo = String.valueOf(OrderContainer.getInstance().getOrders().size());
 		labelOrderNo.setText("Ordrenummer:   " + nextOrderNo);
 		fillTable();
+		
+		// sets info panel to the empty card
+		CardLayout cl = (CardLayout)(OtherInfo.getLayout());
+		cl.show(OtherInfo, "empty");
+		
 	}
 	
 	private void fillTable() {
@@ -1156,22 +1253,48 @@ public class MainUI {
 		return quantity;
 	}
 	
+	private double findDiscount(JTextField txtF) {
+		String discountString = txtF.getText();
+		double discount = 0;
+		try {
+			discount = Double.parseDouble(discountString);
+		} catch(NumberFormatException ee) {
+			discount = 0.0;
+		}
+		
+		if(discount < 0.0) {
+			discount = 0.0;
+		}
+		
+		return discount;
+	}
+	
 	private void addProductToOrder(Product p) {
 		int quantity = findQuantity(txtFieldProductQuantity);
-		this.orderController.addProduct(p, quantity);
+		double discountFlat = findDiscount(txtFieldProductDiscountInDkk);
+		double discountPercent = findDiscount(txtFieldProductDiscountInPercent);
+		this.orderController.addProduct(p, quantity, discountFlat, discountPercent);
 		txtFieldProductQuantity.setText("1");
 		fillTable();
+		fillPrice();
 	}
 	
 	private void updateOrderLine(OrderLine ol) {
 		int quantity = findQuantity(txtFieldOrderLineQuantity);
+		double discountFlat = findDiscount(txtFieldOrderLineProductDiscountInDkk);
+		double discountPercent = findDiscount(txtFieldOrderLineProductDiscountInPercent);
 		ol.setQuantity(quantity);
+		ol.setDiscountFlat(discountFlat);
+		ol.setDiscountPercent(discountPercent);
+		Order currentOrder = orderController.getCurrentOrder();
+		currentOrder.calculateTotals();
 		fillTable();
+		fillPrice();
 	}
 	
-	private void deleteOrderLine(OrderLine ol) {
-		fillTable();
-	}
+//	private void deleteOrderLine(OrderLine ol) {
+//		fillTable();
+//	}
 	
 	private void endOrder() {
 		try{
@@ -1220,5 +1343,17 @@ public class MainUI {
 	private void addCustomerToOrder(Customer c) {
 		orderController.addCustomer(c);
 		fillCurrentCustomer();
+	}
+	
+	private void fillPrice() {
+		Order activeOrder = orderController.getCurrentOrder();
+		double totalNet = activeOrder.getNetTotal();
+		double totalDiscount = activeOrder.calculateDiscount();
+		double totalVat = activeOrder.getVatTotal();
+		labelTotalNoVatAmount.setText(String.valueOf(totalNet));
+		labelDiscountAmount.setText(String.valueOf(totalDiscount));
+		labelVatAmount.setText(String.valueOf(totalVat));
+		labelTotalAmount.setText(String.valueOf(totalNet + totalVat));
+		
 	}
 }

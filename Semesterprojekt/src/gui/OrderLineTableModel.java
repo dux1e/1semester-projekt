@@ -41,7 +41,7 @@ public class OrderLineTableModel extends DefaultTableModel{
 		case 0: return currOl.getProduct().getDescription();
 		case 1: return String.valueOf(currOl.getQuantity());
 		case 2: return String.valueOf(currOl.getProduct().getCatalogPrice());
-		case 3: return String.valueOf(currOl.getProduct().getActualDiscount());
+		case 3: return String.valueOf(currOl.getTotalDiscount());
 		case 4: return String.valueOf(currOl.getSubTotal());
 		default: return "FOO-BAR";
 		}
