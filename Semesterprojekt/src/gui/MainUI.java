@@ -422,6 +422,7 @@ public class MainUI {
 			public void valueChanged(ListSelectionEvent e) {
 				Object o = list.getSelectedValue();
 				currentOtherInfo = o;
+				resetTxtFieldsProduct();
 				showInfoFromObject(o);
 			}
 		});
@@ -1269,12 +1270,18 @@ public class MainUI {
 		return discount;
 	}
 	
+	private void resetTxtFieldsProduct() {
+		txtFieldProductDiscountInDkk.setText("0.0");
+		txtFieldProductDiscountInPercent.setText("0.0");
+		txtFieldProductQuantity.setText("1");
+	}
+	
 	private void addProductToOrder(Product p) {
 		int quantity = findQuantity(txtFieldProductQuantity);
 		double discountFlat = findDiscount(txtFieldProductDiscountInDkk);
 		double discountPercent = findDiscount(txtFieldProductDiscountInPercent);
 		this.orderController.addProduct(p, quantity, discountFlat, discountPercent);
-		txtFieldProductQuantity.setText("1");
+		resetTxtFieldsProduct();
 		fillTable();
 		fillPrice();
 	}
