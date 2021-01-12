@@ -107,4 +107,17 @@ public class OrderController {
 	public void setEmployeeController(EmployeeController ec) {
 		this.employeeController = ec;
 	}
+
+	public EmployeeController getEmployeeController() {
+		return employeeController;
+	}
+
+	public ProductController getProductController() {
+		return productController;
+	}
+
+	public CustomerController getCustomerController() {
+		return customerController;
+	}
+	
 }

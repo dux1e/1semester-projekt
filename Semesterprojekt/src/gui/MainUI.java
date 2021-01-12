@@ -224,11 +224,11 @@ public class MainUI {
 	private JPanel emptyOtherInfo;
 	private JPanel emptyCustomerInfo;
 	
-	private ProductController productController;
-	private CustomerController customerController;
 	private OrderController orderController;
 	private DefaultListModel<Listable> listRepresentation;
 	private OrderLineTableModel oltm;
+	private JButton btnNewButton;
+	private JSeparator separator_13;
 
 
 	/**
@@ -252,11 +252,11 @@ public class MainUI {
 	 */
 	public MainUI() {
 		// adds information
-		customerController = new CustomerController();
-		Employee e = new Employee("1204890000", "Bo Billy", "", 88888887, "Bo@Billigt.dk", "kodeord321");
-		productController = new ProductController();
-		EmployeeController ec = new EmployeeController();
 		orderController = new OrderController();
+		CustomerController customerController = orderController.getCustomerController();
+		Employee e = new Employee("1204890000", "Bo Billy", "", 88888887, "Bo@Billigt.dk", "kodeord321");
+		ProductController productController = orderController.getProductController();
+		EmployeeController ec = new EmployeeController();
 		
 		ec.setCurrentEmployee(e);
 		orderController.setEmployeeController(ec);
@@ -1070,7 +1070,7 @@ public class MainUI {
 		Buttons = new JPanel();
 		Buttons.setBorder(new LineBorder(Color.GRAY));
 		tabSale.add(Buttons, "cell 2 0,alignx left,growy");
-		Buttons.setLayout(new MigLayout("", "[50px][5px][86px]", "[grow][20px][20px][23px][2px][23px][23px]"));
+		Buttons.setLayout(new MigLayout("", "[50px][5px][86px]", "[grow][20px][20px][23px][2px][23px][][][23px]"));
 		
 		labelDiscountInDkk = new JLabel("Rabat i kr.");
 		labelDiscountInDkk.setEnabled(false);
@@ -1109,7 +1109,14 @@ public class MainUI {
 				endOrder();
 			}
 		});
-		Buttons.add(ButtonEndSale, "cell 0 6 3 1,grow");
+		
+		separator_13 = new JSeparator();
+		Buttons.add(separator_13, "cell 0 6 3 1,growx");
+		
+		btnNewButton = new JButton("Annuller ordre");
+		btnNewButton.setEnabled(false);
+		Buttons.add(btnNewButton, "cell 0 7 3 1,growx");
+		Buttons.add(ButtonEndSale, "cell 0 8 3 1,grow");
 		
 		tabStorage = new JPanel();
 		panelTabs.addTab("Lager", null, tabStorage, null);
@@ -1142,11 +1149,11 @@ public class MainUI {
 		ArrayList<Listable> modelList = null;
 		switch(controllerChoice) {
 		case "product":
-			modelList = productController.searchViaInput(input);
+			modelList = orderController.getProductController().searchViaInput(input);
 			break;
 			
 		case "customer":
-			modelList = customerController.searchViaInput(input);
+			modelList = orderController.getCustomerController().searchViaInput(input);
 			break;
 		}
 		
