@@ -40,6 +40,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
+import javax.swing.border.TitledBorder;
+import javax.swing.border.EtchedBorder;
 
 public class MainUI {
 
@@ -277,7 +279,7 @@ public class MainUI {
 		this.currentOtherInfo = null;
 		
 		frame = new JFrame();
-		frame.setBounds(100, 100, 1000, 600);
+		frame.setBounds(100, 100, 1000, 700);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(new BorderLayout(0, 0));
 		
@@ -450,16 +452,18 @@ public class MainUI {
 		infoPanel.setLayout(new MigLayout("", "[grow,fill]", "[grow,fill][fill]"));
 		
 		OtherInfo = new JPanel();
-		OtherInfo.setBorder(new LineBorder(Color.GRAY));
+		OtherInfo.setBorder(null);
 		infoPanel.add(OtherInfo, "cell 0 0,grow");
 		OtherInfo.setLayout(new CardLayout(0, 0));
 		
 		emptyOtherInfo = new JPanel();
+		emptyOtherInfo.setBorder(new TitledBorder(new LineBorder(new Color(128, 128, 128)), "Info", TitledBorder.LEADING, TitledBorder.TOP, null, Color.BLACK));
 		OtherInfo.add(emptyOtherInfo, "empty");
 		
 		productInfo = new JPanel();
+		productInfo.setBorder(new TitledBorder(new LineBorder(new Color(128, 128, 128)), "Produkt info", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
 		OtherInfo.add(productInfo, "model.Product");
-		productInfo.setLayout(new MigLayout("", "[right][10px:n][right][grow]", "[][][][][][][][][][][][]"));
+		productInfo.setLayout(new MigLayout("", "[right][10px:n][right][grow]", "[][][][][][][][grow][][][][][]"));
 		
 		labelProductDescription = new JLabel("Beskrivelse:");
 		productInfo.add(labelProductDescription, "cell 0 0");
@@ -506,7 +510,7 @@ public class MainUI {
 		productInfo.add(separator_4, "cell 0 6 5 1,growx");
 		
 		labelProductDiscountInDkk = new JLabel("Rabat i kr.:");
-		productInfo.add(labelProductDiscountInDkk, "cell 0 7,alignx trailing");
+		productInfo.add(labelProductDiscountInDkk, "cell 0 8,alignx trailing");
 		
 		txtFieldProductDiscountInDkk = new JTextField();
 		txtFieldProductDiscountInDkk.addFocusListener(new FocusAdapter() {
@@ -522,11 +526,11 @@ public class MainUI {
 			}
 		});
 		txtFieldProductDiscountInDkk.setText("0.0");
-		productInfo.add(txtFieldProductDiscountInDkk, "cell 2 7 2 1,growx");
+		productInfo.add(txtFieldProductDiscountInDkk, "cell 2 8 2 1,growx");
 		txtFieldProductDiscountInDkk.setColumns(10);
 		
 		labelProductDiscountInPercent = new JLabel("Rabat i %:");
-		productInfo.add(labelProductDiscountInPercent, "cell 0 8,alignx trailing");
+		productInfo.add(labelProductDiscountInPercent, "cell 0 9,alignx trailing");
 		
 		txtFieldProductDiscountInPercent = new JTextField();
 		txtFieldProductDiscountInPercent.addFocusListener(new FocusAdapter() {
@@ -542,7 +546,7 @@ public class MainUI {
 			}
 		});
 		txtFieldProductDiscountInPercent.setText("0.0");
-		productInfo.add(txtFieldProductDiscountInPercent, "cell 2 8 2 1,growx");
+		productInfo.add(txtFieldProductDiscountInPercent, "cell 2 9 2 1,growx");
 		txtFieldProductDiscountInPercent.setColumns(10);
 		
 		buttonProductAddToOrder = new JButton("Tilføj til ordre");
@@ -556,10 +560,10 @@ public class MainUI {
 		
 		separator_12 = new JSeparator();
 		separator_12.setForeground(Color.GRAY);
-		productInfo.add(separator_12, "cell 0 9 4 1,growx");
+		productInfo.add(separator_12, "cell 0 10 4 1,growx");
 		
 		labelProductQuantity = new JLabel("Antal:");
-		productInfo.add(labelProductQuantity, "cell 0 10");
+		productInfo.add(labelProductQuantity, "cell 0 11");
 		
 		txtFieldProductQuantity = new JTextField();
 		txtFieldProductQuantity.addFocusListener(new FocusAdapter() {
@@ -569,13 +573,14 @@ public class MainUI {
 			}
 		});
 		txtFieldProductQuantity.setText("1");
-		productInfo.add(txtFieldProductQuantity, "cell 2 10 2 1,growx");
+		productInfo.add(txtFieldProductQuantity, "cell 2 11 2 1,growx");
 		txtFieldProductQuantity.setColumns(10);
-		productInfo.add(buttonProductAddToOrder, "cell 0 11 4 1,growx");
+		productInfo.add(buttonProductAddToOrder, "cell 0 12 4 1,growx");
 		
 		privateCustomerInfo_1 = new JPanel();
+		privateCustomerInfo_1.setBorder(new TitledBorder(new LineBorder(new Color(128, 128, 128)), "Private kunde info", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
 		OtherInfo.add(privateCustomerInfo_1, "model.PrivateCustomer");
-		privateCustomerInfo_1.setLayout(new MigLayout("", "[right][10px:n][right][grow]", "[14px][][][][][][][][][][][]"));
+		privateCustomerInfo_1.setLayout(new MigLayout("", "[right][10px:n][right][grow]", "[14px][][][][][][][][][][][grow][]"));
 		
 		labelPrivateCustomerID_1 = new JLabel("Kunde ID:");
 		privateCustomerInfo_1.add(labelPrivateCustomerID_1, "cell 0 0,aligny top");
@@ -654,11 +659,12 @@ public class MainUI {
 				addCustomerToOrder(c);
 			}
 		});
-		privateCustomerInfo_1.add(buttonPrivateCustomerAddToOrder, "cell 0 11 4 1,growx");
+		privateCustomerInfo_1.add(buttonPrivateCustomerAddToOrder, "cell 0 12 4 1,growx");
 		
 		businessCustomerInfo_1 = new JPanel();
+		businessCustomerInfo_1.setBorder(new TitledBorder(new LineBorder(new Color(128, 128, 128)), "Erhvervs kunde info", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
 		OtherInfo.add(businessCustomerInfo_1, "model.BusinessCustomer");
-		businessCustomerInfo_1.setLayout(new MigLayout("", "[right][10px:n][right][grow]", "[14px][][][][][][][][][][][][][]"));
+		businessCustomerInfo_1.setLayout(new MigLayout("", "[right][10px:n][right][grow]", "[14px][][][][][][][][][][][][][grow][]"));
 		
 		labelBusinessCustomerID_1 = new JLabel("Kunde ID:");
 		businessCustomerInfo_1.add(labelBusinessCustomerID_1, "cell 0 0,aligny top");
@@ -747,11 +753,12 @@ public class MainUI {
 				addCustomerToOrder(c);
 			}
 		});
-		businessCustomerInfo_1.add(buttonBusinessCustomerAddToOrder, "cell 0 13 4 1,growx");
+		businessCustomerInfo_1.add(buttonBusinessCustomerAddToOrder, "cell 0 14 4 1,growx");
 		
 		orderLineInfo = new JPanel();
+		orderLineInfo.setBorder(new TitledBorder(new LineBorder(new Color(128, 128, 128)), "Ordrelinje info", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
 		OtherInfo.add(orderLineInfo, "model.OrderLine");
-		orderLineInfo.setLayout(new MigLayout("", "[57px,right][10px:n][33px,right][grow]", "[][][][][][][][][][][][][]"));
+		orderLineInfo.setLayout(new MigLayout("", "[57px,right][10px:n][33px,right][grow]", "[][][][][][][][grow][][][][][][]"));
 		
 		labelOrderLineProductDescription = new JLabel("Beskrivelse:");
 		orderLineInfo.add(labelOrderLineProductDescription, "cell 0 0");
@@ -798,7 +805,7 @@ public class MainUI {
 		orderLineInfo.add(separator_10, "cell 0 6 4 1,growx");
 		
 		labelOrderLineProductDiscountInDkk = new JLabel("Rabat i kr.:");
-		orderLineInfo.add(labelOrderLineProductDiscountInDkk, "cell 0 7");
+		orderLineInfo.add(labelOrderLineProductDiscountInDkk, "cell 0 8");
 		
 		txtFieldOrderLineProductDiscountInDkk = new JTextField();
 		txtFieldOrderLineProductDiscountInDkk.addKeyListener(new KeyAdapter() {
@@ -814,10 +821,10 @@ public class MainUI {
 			}
 		});
 		txtFieldOrderLineProductDiscountInDkk.setColumns(10);
-		orderLineInfo.add(txtFieldOrderLineProductDiscountInDkk, "cell 2 7 2 1,growx");
+		orderLineInfo.add(txtFieldOrderLineProductDiscountInDkk, "cell 2 8 2 1,growx");
 		
 		labelOrderLineProductDiscountInPercent = new JLabel("Rabat i %:");
-		orderLineInfo.add(labelOrderLineProductDiscountInPercent, "cell 0 8");
+		orderLineInfo.add(labelOrderLineProductDiscountInPercent, "cell 0 9");
 		
 		txtFieldOrderLineProductDiscountInPercent = new JTextField();
 		txtFieldOrderLineProductDiscountInPercent.addKeyListener(new KeyAdapter() {
@@ -833,14 +840,14 @@ public class MainUI {
 			}
 		});
 		txtFieldOrderLineProductDiscountInPercent.setColumns(10);
-		orderLineInfo.add(txtFieldOrderLineProductDiscountInPercent, "cell 2 8 2 1,growx");
+		orderLineInfo.add(txtFieldOrderLineProductDiscountInPercent, "cell 2 9 2 1,growx");
 		
 		separator_11 = new JSeparator();
 		separator_11.setForeground(Color.GRAY);
-		orderLineInfo.add(separator_11, "cell 0 9 4 1,growx");
+		orderLineInfo.add(separator_11, "cell 0 10 4 1,growx");
 		
 		labelOrderLineQuantity = new JLabel("Antal:");
-		orderLineInfo.add(labelOrderLineQuantity, "cell 0 10");
+		orderLineInfo.add(labelOrderLineQuantity, "cell 0 11");
 		
 		txtFieldOrderLineQuantity = new JTextField();
 		txtFieldOrderLineQuantity.addFocusListener(new FocusAdapter() {
@@ -851,7 +858,7 @@ public class MainUI {
 		});
 		txtFieldOrderLineQuantity.setText("1");
 		txtFieldOrderLineQuantity.setColumns(10);
-		orderLineInfo.add(txtFieldOrderLineQuantity, "cell 2 10 2 1,growx");
+		orderLineInfo.add(txtFieldOrderLineQuantity, "cell 2 11 2 1,growx");
 		
 		buttonOrderLineUpdate = new JButton("Opdater linje");
 		buttonOrderLineUpdate.addMouseListener(new MouseAdapter() {
@@ -861,7 +868,7 @@ public class MainUI {
 				updateOrderLine(ol);
 			}
 		});
-		orderLineInfo.add(buttonOrderLineUpdate, "cell 0 11 4 1,growx");
+		orderLineInfo.add(buttonOrderLineUpdate, "cell 0 12 4 1,growx");
 		
 		buttonOrderLineDelete = new JButton("Slet linje");
 		buttonOrderLineDelete.setEnabled(false);
@@ -870,10 +877,10 @@ public class MainUI {
 			public void mouseClicked(MouseEvent e) {
 			}
 		});
-		orderLineInfo.add(buttonOrderLineDelete, "cell 0 12 4 1,growx");
+		orderLineInfo.add(buttonOrderLineDelete, "cell 0 13 4 1,growx");
 		
 		customerInfo = new JPanel();
-		customerInfo.setBorder(new LineBorder(Color.GRAY));
+		customerInfo.setBorder(new TitledBorder(new LineBorder(new Color(128, 128, 128)), "Aktive kunde", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
 		infoPanel.add(customerInfo, "cell 0 1,alignx left,aligny top");
 		customerInfo.setLayout(new CardLayout(0, 0));
 		
@@ -881,6 +888,7 @@ public class MainUI {
 		customerInfo.add(emptyCustomerInfo, "name_76022774072700");
 		
 		privateCustomerInfo = new JPanel();
+		privateCustomerInfo.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(160, 160, 160)), "Privat", TitledBorder.LEADING, TitledBorder.TOP, null, Color.DARK_GRAY));
 		customerInfo.add(privateCustomerInfo, "model.PrivateCustomer");
 		privateCustomerInfo.setLayout(new MigLayout("", "[right][10px:n][right][grow]", "[14px][][][][][][][][][][grow]"));
 		
@@ -946,6 +954,7 @@ public class MainUI {
 		privateCustomerInfo.add(labelPrivateCustomerUnusedCreditValue, "cell 2 9,alignx right");
 		
 		businessCustomerInfo = new JPanel();
+		businessCustomerInfo.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(160, 160, 160)), "Erhverv", TitledBorder.LEADING, TitledBorder.TOP, null, Color.DARK_GRAY));
 		customerInfo.add(businessCustomerInfo, "model.BusinessCustomer");
 		businessCustomerInfo.setLayout(new MigLayout("", "[right][10px:n][right][grow]", "[14px][][][][][][][][][][][]"));
 		
