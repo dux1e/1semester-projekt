@@ -1326,6 +1326,7 @@ public class MainUI {
 			JOptionPane.showMessageDialog(new JFrame(), "Der skal være tilføjet mindst et produkt for at afslutte en ordre.");
 		}
 		init();
+		fillPrice();
 	}
 	
 	private void fillCurrentCustomer() {
